@@ -13,6 +13,7 @@ import { getSiteSettings } from "@/services/settings";
 import type { SiteSettings } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { useFormStatus } from "react-dom";
 
 const initialState = {
   message: "",
@@ -20,21 +21,11 @@ const initialState = {
 };
 
 function SubmitButton() {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
-
-    const handleClick = () => {
-        startTransition(() => {
-             toast({
-                title: "Settings Saved!",
-                description: "Your changes have been saved successfully.",
-            });
-        });
-    };
+    const { pending } = useFormStatus();
     
     return (
-         <Button type="submit" disabled={isPending} onClick={handleClick}>
-            {isPending ? "Saving..." : "Save SEO Settings"}
+         <Button type="submit" disabled={pending}>
+            {pending ? "Saving..." : "Save Settings"}
         </Button>
     )
 }
@@ -118,7 +109,7 @@ export default function SettingsPage() {
                 <Textarea id="office-address" name="officeAddress" defaultValue={settings.officeAddress} rows={3} />
                  {state.errors?.officeAddress && <p className="text-sm font-medium text-destructive">{state.errors.officeAddress[0]}</p>}
                 </div>
-                <Button type="submit">Save Settings</Button>
+                <SubmitButton />
             </CardContent>
         </Card>
     </form>
