@@ -4,7 +4,6 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogSection } from "@/components/blog-section";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +11,6 @@ import { getArticles } from "@/services/articles";
 
 export default async function Home() {
   const articles = await getArticles();
-  const featuredArticle = articles.find(article => article.featured);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -36,26 +34,16 @@ export default async function Home() {
                   </Button>
                 </div>
               </div>
-              {featuredArticle && (
-                <Link href={`/article/${featuredArticle.id}`} className="group">
-                  <Card className="overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 border-transparent hover:border-primary">
-                    <div className="relative h-80 w-full">
-                      <Image
-                        src={featuredArticle.imageUrl}
-                        alt={featuredArticle.title}
-                        fill
-                        className="object-cover"
-                        data-ai-hint={featuredArticle.imageHint}
-                      />
-                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    </div>
-                    <CardContent className="p-6 absolute bottom-0">
-                       <p className="text-sm text-white/80 font-semibold mb-2">Featured Article</p>
-                      <CardTitle className="text-2xl font-bold text-white">{featuredArticle.title}</CardTitle>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )}
+              <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
+                <Image 
+                    src="https://placehold.co/600x600.png" 
+                    alt="3D Anatomical Model" 
+                    fill 
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    data-ai-hint="3D anatomical model" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
             </div>
           </div>
         </section>
