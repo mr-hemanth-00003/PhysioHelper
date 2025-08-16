@@ -5,6 +5,9 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export default async function ArticlePage({ params }: { params: { id: string } }) {
   const article = await getArticle(params.id);
@@ -48,9 +51,9 @@ export default async function ArticlePage({ params }: { params: { id: string } }
           
           <div className="prose prose-lg mx-auto max-w-full dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
              <p className="lead">{article.excerpt}</p>
-            <p>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
               {article.content}
-            </p>
+            </ReactMarkdown>
           </div>
         </article>
       </main>
