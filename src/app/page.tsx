@@ -1,15 +1,18 @@
 
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogSection } from "@/components/blog-section";
-import { articles, categories } from "@/lib/mock-data";
+import { categories } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getArticles } from "@/services/articles";
 
-export default function Home() {
+export default async function Home() {
+  const articles = await getArticles();
   const featuredArticle = articles.find(article => article.featured);
 
   return (
@@ -69,7 +72,7 @@ export default function Home() {
                 Discover the latest in physiotherapy and wellness.
               </p>
             </div>
-            <BlogSection articles={articles} categories={categories} />
+            <BlogSection allArticles={articles} categories={categories} />
           </div>
         </section>
       </main>
@@ -77,3 +80,4 @@ export default function Home() {
     </div>
   );
 }
+

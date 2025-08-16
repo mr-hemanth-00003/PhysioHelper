@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import type { Article } from '@/lib/mock-data';
+import type { Article } from '@/lib/types';
 import { MoveRight } from 'lucide-react';
 
 interface BlogCardProps {
@@ -53,7 +53,7 @@ export function BlogCard({ article }: BlogCardProps) {
             </Avatar>
             <div>
               <p className="text-sm font-semibold">{article.author.name}</p>
-              <p className="text-xs text-muted-foreground">{article.date}</p>
+              <p className="text-xs text-muted-foreground">{new Date(article.date).toLocaleDateString()}</p>
             </div>
           </div>
         </CardFooter>

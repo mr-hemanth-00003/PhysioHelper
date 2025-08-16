@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { articles } from '@/lib/mock-data';
+import { getArticles } from '@/services/articles';
 import { PlusCircle, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import {
@@ -26,8 +26,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { DeleteArticleButton } from './delete-article-button';
 
-export default function ArticlesPage() {
+export default async function ArticlesPage() {
+    const articles = await getArticles();
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -71,7 +74,7 @@ export default function ArticlesPage() {
                     <Badge variant="outline">{article.category}</Badge>
                   </TableCell>
                   <TableCell>{article.author.name}</TableCell>
-                  <TableCell>{article.date}</TableCell>
+                  <TableCell>{new Date(article.date).toLocaleDateString()}</TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -85,7 +88,7 @@ export default function ArticlesPage() {
                         <DropdownMenuItem asChild>
                             <Link href={`/admin/articles/edit/${article.id}`}>Edit</Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DeleteArticleButton articleId={article.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -98,3 +101,4 @@ export default function ArticlesPage() {
     </div>
   );
 }
+

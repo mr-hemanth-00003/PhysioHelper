@@ -1,19 +1,20 @@
+
 "use client";
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { BlogCard } from '@/components/blog-card';
-import type { Article } from '@/lib/mock-data';
+import type { Article } from '@/lib/types';
 
 interface BlogSectionProps {
-  articles: Article[];
+  allArticles: Article[];
   categories: string[];
 }
 
-export function BlogSection({ articles, categories }: BlogSectionProps) {
+export function BlogSection({ allArticles, categories }: BlogSectionProps) {
   const [filter, setFilter] = useState('All');
 
-  const filteredArticles = articles.filter(
+  const filteredArticles = allArticles.filter(
     (article) => filter === 'All' || article.category === filter
   );
 

@@ -1,5 +1,5 @@
 
-import { articles } from '@/lib/mock-data';
+import { getArticle } from '@/services/articles';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -7,8 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
-  const article = articles.find((a) => a.id === params.id);
+export default async function ArticlePage({ params }: { params: { id: string } }) {
+  const article = await getArticle(params.id);
 
   if (!article) {
     notFound();
@@ -32,7 +32,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
                 </Avatar>
                 <div>
                   <p className="text-sm font-semibold">{article.author.name}</p>
-                  <p className="text-xs text-muted-foreground">{article.date}</p>
+                  <p className="text-xs text-muted-foreground">{new Date(article.date).toLocaleDateString()}</p>
                 </div>
               </div>
             </div>
@@ -49,19 +49,9 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
           </div>
           
           <div className="prose prose-lg mx-auto max-w-full dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
-            <p>{article.excerpt}</p>
+             <p className="lead">{article.excerpt}</p>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-            <h2>An Important Subheading</h2>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-            </p>
-             <blockquote>
-                "The greatest wealth is health." - Virgil
-            </blockquote>
-            <p>
-              Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+              {article.content}
             </p>
           </div>
         </article>

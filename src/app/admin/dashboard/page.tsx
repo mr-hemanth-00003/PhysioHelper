@@ -7,12 +7,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { articles } from '@/lib/mock-data';
+import { getArticles } from '@/services/articles';
 import { ArrowUpRight, PlusCircle, Users, FileText } from 'lucide-react';
 import Link from 'next/link';
 
-export default function DashboardPage() {
-  const totalArticles = articles.length;
+export default async function DashboardPage() {
+  const articles = await getArticles({ limit: 5 });
+  const totalArticles = (await getArticles()).length;
   // Dummy data for example
   const totalSubscribers = 1250; 
   const totalViews = '25.6k';
@@ -80,12 +81,12 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {articles.slice(0, 5).map((article) => (
+            {articles.map((article) => (
               <div key={article.id} className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold">{article.title}</h3>
                   <p className="text-sm text-muted-foreground">
-                    By {article.author.name} on {article.date}
+                    By {article.author.name} on {new Date(article.date).toLocaleDateString()}
                   </p>
                 </div>
                 <Button variant="outline" size="sm" asChild>
@@ -99,3 +100,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
