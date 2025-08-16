@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 
@@ -14,15 +15,15 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold font-headline">Explore</h4>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Articles</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link>
+            <Link href="/#articles" className="text-sm text-muted-foreground hover:text-primary transition-colors">Articles</Link>
+            <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link>
             <Link href="/enhance-article" className="text-sm text-muted-foreground hover:text-primary transition-colors">AI Enhancer</Link>
           </div>
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold font-headline">Legal</h4>
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Use</Link>
             <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</Link>
+            <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</Link>
           </div>
         </div>
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">

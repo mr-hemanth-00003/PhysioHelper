@@ -1,22 +1,25 @@
+
 'use client';
 import Link from 'next/link';
 import { Search, Menu } from 'lucide-react';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "#articles", label: "Articles" },
+  { href: "/#articles", label: "Articles" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
   { href: "/enhance-article", label: "AI Enhancer" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
 ];
 
 export function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -32,7 +35,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className={cn("text-sm font-medium transition-colors hover:text-primary", pathname === link.href ? "text-primary" : "text-muted-foreground")}
             >
               {link.label}
             </Link>

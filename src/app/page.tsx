@@ -1,10 +1,11 @@
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogSection } from "@/components/blog-section";
 import { articles, categories } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ArrowRight, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,7 +38,7 @@ export default function Home() {
                 </div>
               </div>
               {featuredArticle && (
-                <Link href="#" className="group">
+                <Link href={`/article/${featuredArticle.id}`} className="group">
                   <Card className="overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 border-transparent hover:border-primary">
                     <div className="relative h-80 w-full">
                       <Image

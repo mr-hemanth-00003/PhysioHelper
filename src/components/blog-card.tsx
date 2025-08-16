@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -18,7 +19,7 @@ interface BlogCardProps {
 
 export function BlogCard({ article }: BlogCardProps) {
   return (
-    <Link href="#" className="group">
+    <Link href={`/article/${article.id}`} className="group">
       <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-2 bg-card">
         <CardHeader className="p-0">
           <div className="relative h-56 w-full">
