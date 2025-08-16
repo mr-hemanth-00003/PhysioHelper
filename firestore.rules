@@ -1,24 +1,10 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read access to articles for everyone
-    match /articles/{articleId} {
-      allow read: if true;
-      allow write: if false; // Keep writes restricted
-    }
-
-    // You might want to restrict write access to authenticated users (admins)
-    // For example:
-    // match /articles/{articleId} {
-    //   allow read: if true;
-    //   allow write: if request.auth != null; // Only logged-in users can write
-    // }
-
-    // Fallback rule for any other collection
-    match /{document=**} {
-      allow read, write: if false;
+    // Allow read access to everyone for the articles collection
+    match /articles/{document=**} {
+      allow read, write: if true;
     }
   }
 }
