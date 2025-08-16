@@ -69,7 +69,7 @@ export default async function ArticlesPage() {
                 <TableRow key={article.id}>
                   <TableCell className="font-medium">{article.title}</TableCell>
                   <TableCell>{article.author.name}</TableCell>
-                  <TableCell>{new Date(article.date).toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(article.date).toLocaleDateString('en-US')}</TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

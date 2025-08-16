@@ -33,7 +33,7 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                 </Avatar>
                 <div>
                   <p className="text-sm font-semibold">{article.author.name}</p>
-                  <p className="text-xs text-muted-foreground">{new Date(article.date).toLocaleDateString()}</p>
+                  <p className="text-xs text-muted-foreground">{new Date(article.date).toLocaleDateString('en-US')}</p>
                 </div>
               </div>
             </div>

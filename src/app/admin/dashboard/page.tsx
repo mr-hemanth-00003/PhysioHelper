@@ -81,7 +81,7 @@ export default async function DashboardPage() {
                     <div>
                     <h3 className="font-semibold">{article.title}</h3>
                     <p className="text-sm text-muted-foreground">
-                        By {article.author.name} on {new Date(article.date).toLocaleDateString()}
+                        By {article.author.name} on {new Date(article.date).toLocaleDateString('en-US')}
                     </p>
                     </div>
                     <Button variant="outline" size="sm" asChild>
