@@ -13,10 +13,9 @@ import { Article } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter, notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import { getArticle } from '@/services/articles';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useFormState } from 'react-dom';
 import { updateExistingArticle } from './actions';
 import { SubmitButton } from './submit-button';
 
@@ -31,7 +30,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   const [loading, setLoading] = useState(true);
   
   const updateArticleWithId = updateExistingArticle.bind(null, params.id);
-  const [state, formAction] = useFormState(updateArticleWithId, initialState);
+  const [state, formAction] = useActionState(updateArticleWithId, initialState);
 
   useEffect(() => {
       const fetchArticle = async () => {
