@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { useActionState, useEffect, useState, useTransition } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { updateSiteSettingsAction } from "./actions";
 import { getSiteSettings } from "@/services/settings";
 import type { SiteSettings } from "@/lib/types";
@@ -120,7 +120,7 @@ export default function SettingsPage() {
           <CardTitle>Maintenance Mode</CardTitle>
           <CardDescription>
             Temporarily disable your public-facing website for maintenance.
-          </CardDescription>
+          </Description>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-4">
