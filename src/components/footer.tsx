@@ -4,7 +4,7 @@ import { Logo } from '@/components/logo';
 
 export function Footer() {
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t bg-background pt-24">
       <div className="container max-w-7xl py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col gap-4 md:col-span-2">
@@ -15,7 +15,7 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold font-headline">Explore</h4>
-            <Link href="/#articles" className="text-sm text-muted-foreground hover:text-primary transition-colors">Articles</Link>
+            <Link href="/articles" className="text-sm text-muted-foreground hover:text-primary transition-colors">Articles</Link>
             <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link>
           </div>
           <div className="flex flex-col gap-3">

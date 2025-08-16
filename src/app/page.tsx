@@ -10,7 +10,7 @@ import Link from "next/link";
 import { getArticles } from "@/services/articles";
 
 export default async function Home() {
-  const articles = await getArticles();
+  const latestArticles = await getArticles({ limit: 3 });
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -28,7 +28,7 @@ export default async function Home() {
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild size="lg" className="rounded-full">
-                    <Link href="#articles">
+                    <Link href="/articles">
                       Browse Articles <MoveRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
@@ -56,7 +56,14 @@ export default async function Home() {
                 Discover the latest in physiotherapy and wellness.
               </p>
             </div>
-            <BlogSection allArticles={articles} />
+            <BlogSection allArticles={latestArticles} />
+             <div className="text-center mt-16">
+                <Button asChild size="lg" variant="outline">
+                    <Link href="/articles">
+                        View All Articles <MoveRight className="ml-2 h-5 w-5" />
+                    </Link>
+                </Button>
+            </div>
           </div>
         </section>
       </main>

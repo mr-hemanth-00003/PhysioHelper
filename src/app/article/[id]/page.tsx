@@ -26,7 +26,7 @@ export default async function ArticlePage({ params }: { params: { id: string } }
         <article className="container max-w-4xl py-12 md:py-20">
             <div className="mb-8">
                 <Button variant="outline" asChild>
-                    <Link href="/#articles">
+                    <Link href="/articles">
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back to Articles
                     </Link>
