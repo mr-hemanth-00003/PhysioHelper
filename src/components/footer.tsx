@@ -17,7 +17,6 @@ export function Footer() {
             <h4 className="font-semibold font-headline">Explore</h4>
             <Link href="/#articles" className="text-sm text-muted-foreground hover:text-primary transition-colors">Articles</Link>
             <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">About Us</Link>
-            <Link href="/enhance-article" className="text-sm text-muted-foreground hover:text-primary transition-colors">AI Enhancer</Link>
           </div>
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold font-headline">Legal</h4>

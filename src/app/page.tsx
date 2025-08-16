@@ -35,9 +35,6 @@ export default async function Home() {
                       Browse Articles <MoveRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="rounded-full">
-                    <Link href="/enhance-article">AI Article Tool</Link>
-                  </Button>
                 </div>
               </div>
               {featuredArticle && (

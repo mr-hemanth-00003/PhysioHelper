@@ -20,7 +20,7 @@ export default async function DashboardPage() {
   const quickLinks = [
       { href: '/admin/articles/new', label: 'Create New Article', icon: PlusCircle },
       { href: '/admin/articles', label: 'Manage All Articles', icon: Newspaper },
-      { href: '/enhance-article', label: 'AI Article Enhancer', icon: Wand2 },
+      { href: '/admin/tools', label: 'AI Content Tools', icon: Wand2 },
       { href: '/', label: 'View Public Site', icon: Eye },
   ]
 

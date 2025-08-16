@@ -20,14 +20,15 @@ import {
   Settings,
   LogOut,
   ChevronLeft,
+  Wand2,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 
 const adminNavLinks = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/articles', label: 'Articles', icon: Newspaper },
+  { href: '/admin/tools', label: 'AI Tools', icon: Wand2 },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -51,7 +52,7 @@ export default function AdminLayout({
                 <SidebarMenuItem key={link.href}>
                   <SidebarMenuButton
                     asChild
-                    isActive={pathname === link.href}
+                    isActive={pathname.startsWith(link.href)}
                     tooltip={link.label}
                   >
                     <Link href={link.href}>

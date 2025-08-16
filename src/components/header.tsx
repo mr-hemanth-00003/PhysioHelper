@@ -19,7 +19,6 @@ const navLinks = [
   { href: '/#articles', label: 'Articles' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
-  { href: '/enhance-article', label: 'AI Enhancer' },
 ];
 
 export function Header() {
@@ -76,6 +75,9 @@ export function Header() {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/admin/articles">Manage Articles</Link>
+              </DropdownMenuItem>
+               <DropdownMenuItem asChild>
+                <Link href="/admin/tools">AI Tools</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/admin/settings">Settings</Link>
