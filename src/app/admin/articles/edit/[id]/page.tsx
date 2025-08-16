@@ -47,7 +47,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   }, [params.id])
 
   useEffect(() => {
-    if (state.message) {
+    if (state.message && (state.message.includes('Success') || state.errors)) {
       toast({
         title: state.message.includes('Success') ? 'Success!' : 'Uh oh!',
         description: state.message,
