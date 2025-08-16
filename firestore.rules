@@ -1,9 +1,10 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read access to everyone for the articles collection
-    match /articles/{document=**} {
+    // Allow public read access to articles for the main website
+    // Allow write access for the admin panel to function
+    // For a production app, you should restrict write access to authenticated admins
+    match /articles/{articleId} {
       allow read, write: if true;
     }
   }
