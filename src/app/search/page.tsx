@@ -5,11 +5,12 @@ import { useState, useEffect } from 'react';
 import { getArticles } from '@/services/articles';
 import type { Article } from '@/lib/types';
 import Link from 'next/link';
-import { FileText, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function SearchPage() {
   const [query, setQuery] = useState('');
@@ -72,13 +73,15 @@ export default function SearchPage() {
                   <Link
                     key={article.id}
                     href={`/article/${article.id}`}
-                    className="block p-6 rounded-2xl border bg-card text-card-foreground shadow-sm hover:bg-muted/50 transition-colors"
+                    className="block rounded-2xl border bg-card text-card-foreground shadow-sm hover:bg-muted/50 transition-colors overflow-hidden group"
                   >
                     <div className="flex items-start gap-4">
-                      <FileText className="h-6 w-6 mt-1 flex-shrink-0 text-primary" />
-                      <div>
-                        <h2 className="text-xl font-bold font-headline">{article.title}</h2>
-                        <p className="text-md text-muted-foreground mt-1 line-clamp-2">
+                       <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                          <Image src={article.imageUrl} alt={article.title} fill className="object-cover" data-ai-hint={article.imageHint} />
+                       </div>
+                      <div className="p-4 md:p-6">
+                        <h2 className="text-xl font-bold font-headline group-hover:text-primary transition-colors">{article.title}</h2>
+                        <p className="text-md text-muted-foreground mt-1 line-clamp-3">
                           {article.excerpt}
                         </p>
                       </div>
@@ -102,9 +105,9 @@ export default function SearchPage() {
 
 function ArticleSkeleton() {
     return (
-        <div className="p-6 rounded-2xl border bg-card flex items-start gap-4">
-            <Skeleton className="h-6 w-6 mt-1" />
-            <div className="flex-1 space-y-2">
+        <div className="rounded-2xl border bg-card flex items-start gap-4 overflow-hidden">
+            <Skeleton className="h-32 w-32 md:h-40 md:w-40" />
+            <div className="p-4 md:p-6 flex-1 space-y-3">
                 <Skeleton className="h-6 w-3/4" />
                 <Skeleton className="h-5 w-full" />
                 <Skeleton className="h-5 w-2/3" />
