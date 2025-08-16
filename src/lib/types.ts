@@ -12,4 +12,5 @@ export interface Article {
   imageHint: string;
   date: string;
   featured?: boolean;
+  views?: number;
 }

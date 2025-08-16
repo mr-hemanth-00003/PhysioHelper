@@ -1,5 +1,7 @@
 
-import { getArticle } from '@/services/articles';
+'use client';
+
+import { getArticle, incrementArticleViews } from '@/services/articles';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -10,13 +12,30 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Eye } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Article } from '@/lib/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export default async function ArticlePage({ params }: { params: { id: string } }) {
-  const article = await getArticle(params.id);
+export default function ArticlePage({ params }: { params: { id: string } }) {
+  const [article, setArticle] = useState<Article | null>(null);
+
+  useEffect(() => {
+    const fetchAndTrack = async () => {
+      const fetchedArticle = await getArticle(params.id);
+      if (fetchedArticle) {
+        setArticle(fetchedArticle);
+        await incrementArticleViews(params.id);
+      } else {
+        notFound();
+      }
+    };
+    fetchAndTrack();
+  }, [params.id]);
+
 
   if (!article) {
-    notFound();
+    return <ArticlePageSkeleton />
   }
 
   return (
@@ -47,6 +66,10 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                   <p className="text-xs text-muted-foreground">{new Date(article.date).toLocaleDateString('en-US')}</p>
                 </div>
               </div>
+               <div className="flex items-center gap-1.5 text-muted-foreground">
+                <Eye className="h-4 w-4" />
+                <span className="text-xs">{ (article.views || 0) + 1} views</span>
+              </div>
             </div>
           </div>
 
@@ -71,4 +94,42 @@ export default async function ArticlePage({ params }: { params: { id: string } }
       <Footer />
     </div>
   );
+}
+
+
+function ArticlePageSkeleton() {
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main className="flex-1">
+        <article className="container max-w-4xl py-12 md:py-20">
+          <div className="mb-8">
+            <Skeleton className="h-10 w-48" />
+          </div>
+          <div className="mx-auto space-y-6 text-center">
+            <Skeleton className="h-12 w-3/4 mx-auto" />
+            <div className="flex items-center justify-center space-x-4">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-3 w-20" />
+                </div>
+              </div>
+              <Skeleton className="h-4 w-16" />
+            </div>
+          </div>
+          <Skeleton className="relative my-8 h-96 w-full rounded-2xl" />
+          <div className="prose prose-lg mx-auto max-w-full space-y-4">
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
+        </article>
+      </main>
+      <Footer />
+    </div>
+  )
 }

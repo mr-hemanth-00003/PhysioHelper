@@ -14,6 +14,7 @@ import {
   query,
   orderBy,
   limit,
+  increment,
 } from 'firebase/firestore';
 
 const articlesCollection = collection(db, 'articles');
@@ -60,6 +61,7 @@ export async function createArticle(articleData: Omit<Article, 'id' | 'date'>) {
         const newArticle = {
             ...articleData,
             date: new Date().toISOString().split('T')[0], // Set current date
+            views: 0,
             author: { // Example author, you might want to make this dynamic
                 name: 'Dr. Emily Carter',
                 avatarUrl: 'https://placehold.co/40x40.png',
@@ -90,5 +92,18 @@ export async function deleteArticle(id: string) {
     } catch (error) {
         console.error("Error deleting article: ", error);
         throw new Error("Failed to delete article.");
+    }
+}
+
+
+export async function incrementArticleViews(id: string) {
+    try {
+        const docRef = doc(db, 'articles', id);
+        await updateDoc(docRef, {
+            views: increment(1)
+        });
+    } catch (error) {
+        console.error("Error incrementing article views: ", error);
+        // Don't throw error, as it's not critical for the user experience
     }
 }
