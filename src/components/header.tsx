@@ -11,8 +11,8 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "#articles", label: "Articles" },
   { href: "/enhance-article", label: "AI Enhancer" },
-  { href: "#", label: "About" },
-  { href: "#", label: "Contact" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Header() {
