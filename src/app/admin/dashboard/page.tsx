@@ -12,7 +12,7 @@ import { ArrowUpRight, PlusCircle, FileText, Newspaper, Wand2, Eye } from 'lucid
 import Link from 'next/link';
 
 export default async function DashboardPage() {
-  const articles = await getArticles({ limit: 5 });
+  const recentArticles = await getArticles({ limit: 5 });
   const allArticles = await getArticles();
   const totalArticles = allArticles.length;
   const totalViews = allArticles.reduce((acc, article) => acc + (article.views || 0), 0);
@@ -40,7 +40,7 @@ export default async function DashboardPage() {
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Articles</CardTitle>
@@ -49,7 +49,7 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{totalArticles}</div>
             <p className="text-xs text-muted-foreground">
-              Based on your Firestore database.
+              Published posts in Firestore.
             </p>
           </CardContent>
         </Card>
@@ -61,51 +61,53 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{totalViews.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
-              Across all articles in Firestore.
+              Across all published articles.
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <Card className="lg:col-span-2">
             <CardHeader>
-            <CardTitle>Recent Articles</CardTitle>
-            <CardDescription>
-                Here are the most recent articles from your blog.
-            </CardDescription>
+                <CardTitle>Recent Articles</CardTitle>
+                <CardDescription>
+                    Here are the most recently published articles.
+                </CardDescription>
             </CardHeader>
             <CardContent>
-            <div className="space-y-4">
-                {articles.map((article) => (
-                <div key={article.id} className="flex items-center justify-between">
-                    <div>
-                    <h3 className="font-semibold">{article.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                        By {article.author.name} on {new Date(article.date).toLocaleDateString('en-US')}
-                    </p>
-                    </div>
-                    <Button variant="outline" size="sm" asChild>
-                    <Link href={`/admin/articles/edit/${article.id}`}>Edit</Link>
-                    </Button>
+                <div className="space-y-4">
+                    {recentArticles.map((article) => (
+                        <div key={article.id} className="flex items-center justify-between p-3 -m-3 rounded-lg hover:bg-secondary/50 transition-colors">
+                            <div>
+                                <h3 className="font-semibold leading-snug">{article.title}</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    By {article.author.name} on {new Date(article.date).toLocaleDateString('en-US')}
+                                </p>
+                            </div>
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href={`/admin/articles/edit/${article.id}`}>Edit</Link>
+                            </Button>
+                        </div>
+                    ))}
                 </div>
-                ))}
-            </div>
             </CardContent>
         </Card>
         <Card>
             <CardHeader>
                 <CardTitle>Quick Links</CardTitle>
                 <CardDescription>
-                    Navigate to common admin tasks quickly.
+                    Common admin tasks.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-2">
+            <CardContent className="grid gap-2">
                 {quickLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="group flex items-center gap-3 rounded-md bg-secondary p-4 text-secondary-foreground transition-colors hover:bg-secondary/90">
-                        <link.icon className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
-                        <span className="font-medium">{link.label}</span>
-                    </Link>
+                    <Button key={link.href} variant="outline" className="justify-start" asChild>
+                         <Link href={link.href}>
+                            <link.icon className="mr-2 h-4 w-4" />
+                            {link.label}
+                        </Link>
+                    </Button>
                 ))}
             </CardContent>
         </Card>
