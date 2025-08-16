@@ -70,8 +70,8 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <form action={formAction}>
-        <Card className="mb-8">
+      <form action={formAction} className="space-y-8">
+        <Card>
             <CardHeader>
             <CardTitle>Site & SEO Configuration</CardTitle>
             <CardDescription>
@@ -112,7 +112,7 @@ export default function SettingsPage() {
                 <SubmitButton />
             </CardContent>
         </Card>
-    </form>
+      </form>
 
 
       <Card>
@@ -120,7 +120,7 @@ export default function SettingsPage() {
           <CardTitle>Maintenance Mode</CardTitle>
           <CardDescription>
             Temporarily disable your public-facing website for maintenance.
-          </Description>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-4">
