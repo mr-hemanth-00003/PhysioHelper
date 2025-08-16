@@ -53,10 +53,14 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
+               <Link href="/search" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
+                  <Search className="h-4 w-4" />
+                  Search
+                </Link>
             </nav>
 
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" asChild>
+               <Button variant="ghost" size="icon" asChild className="md:hidden">
                 <Link href="/search">
                   <Search className="h-5 w-5" />
                   <span className="sr-only">Search</span>
@@ -112,6 +116,13 @@ export function Header() {
                           {link.label}
                         </Link>
                       ))}
+                       <Link
+                          href="/search"
+                          onClick={() => setSheetOpen(false)}
+                          className="text-lg font-medium text-foreground transition-colors hover:text-primary"
+                        >
+                          Search
+                        </Link>
                     </nav>
                   </div>
                 </SheetContent>
