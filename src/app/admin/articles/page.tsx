@@ -56,7 +56,7 @@ export default async function ArticlesPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
+                <TableHead className="w-2/5">Title</TableHead>
                 <TableHead>Author</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>

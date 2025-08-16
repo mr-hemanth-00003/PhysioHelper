@@ -18,6 +18,7 @@ import { getArticle } from '@/services/articles';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingArticle } from './actions';
 import { SubmitButton } from './submit-button';
+import { AiSuggestions } from '../../../tools/ai-suggestions';
 
 const initialState = {
     message: "",
@@ -31,6 +32,9 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   
   const updateArticleWithId = updateExistingArticle.bind(null, params.id);
   const [state, formAction] = useActionState(updateArticleWithId, initialState);
+  
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   useEffect(() => {
       const fetchArticle = async () => {
@@ -38,6 +42,8 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
           const fetchedArticle = await getArticle(params.id);
           if (fetchedArticle) {
               setArticle(fetchedArticle);
+              setTitle(fetchedArticle.title);
+              setContent(fetchedArticle.content);
           } else {
               notFound();
           }
@@ -66,54 +72,72 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
 
 
   return (
-    <form action={formAction} className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Edit Article</h1>
-        <p className="text-muted-foreground">
-          Make changes to your existing blog post.
-        </p>
+    <form action={formAction}>
+      <div className="flex items-center justify-between space-y-2 mb-8">
+        <div>
+            <h1 className="text-3xl font-bold">Edit Article</h1>
+            <p className="text-muted-foreground">
+              Make changes to your existing blog post.
+            </p>
+        </div>
+        <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+            <Link href="/admin/articles">Cancel</Link>
+            </Button>
+            <SubmitButton />
+        </div>
       </div>
-      <Card>
-        <CardContent className="pt-6">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
-              <Input id="title" name="title" defaultValue={article.title} />
-               {state.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea
-                id="excerpt"
-                name="excerpt"
-                defaultValue={article.excerpt}
-                rows={3}
-              />
-              {state.errors?.excerpt && <p className="text-sm font-medium text-destructive">{state.errors.excerpt[0]}</p>}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="content">Content</Label>
-              <Textarea
-                id="content"
-                name="content"
-                defaultValue={article.content}
-                rows={15}
-              />
-              {state.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
-            </div>
-             <div className="space-y-2">
-                <Label htmlFor="image-url">Image URL</Label>
-                <Input id="image-url" name="imageUrl" defaultValue={article.imageUrl} />
-                {state.errors?.imageUrl && <p className="text-sm font-medium text-destructive">{state.errors.imageUrl[0]}</p>}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      <div className="flex justify-end gap-2">
-        <Button variant="outline" asChild>
-          <Link href="/admin/articles">Cancel</Link>
-        </Button>
-        <SubmitButton />
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="lg:col-span-2 space-y-8">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Title</Label>
+                  <Input id="title" name="title" value={title} onChange={e => setTitle(e.target.value)} />
+                  {state.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Textarea
+                    id="excerpt"
+                    name="excerpt"
+                    defaultValue={article.excerpt}
+                    rows={3}
+                  />
+                  {state.errors?.excerpt && <p className="text-sm font-medium text-destructive">{state.errors.excerpt[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="content">Content</Label>
+                  <Textarea
+                    id="content"
+                    name="content"
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
+                    rows={15}
+                  />
+                  {state.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="image-url">Image URL</Label>
+                    <Input id="image-url" name="imageUrl" defaultValue={article.imageUrl} />
+                    {state.errors?.imageUrl && <p className="text-sm font-medium text-destructive">{state.errors.imageUrl[0]}</p>}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="lg:sticky top-24">
+            <AiSuggestions 
+                title={title}
+                content={content}
+                onSuggestion={({suggestedTitle, suggestedContent}) => {
+                    if (suggestedTitle) setTitle(suggestedTitle);
+                    if (suggestedContent) setContent(suggestedContent);
+                }}
+            />
+        </div>
       </div>
     </form>
   );

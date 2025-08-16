@@ -79,35 +79,40 @@ export default function SettingsPage() {
             </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <div className="space-y-2">
-                <Label htmlFor="site-title">Site Title</Label>
-                <Input id="site-title" name="siteTitle" defaultValue={settings.siteTitle} />
-                {state.errors?.siteTitle && <p className="text-sm font-medium text-destructive">{state.errors.siteTitle[0]}</p>}
-                </div>
-                <div className="space-y-2">
-                <Label htmlFor="site-description">Site Description</Label>
-                <Input id="site-description" name="siteDescription" defaultValue={settings.siteDescription} />
-                 {state.errors?.siteDescription && <p className="text-sm font-medium text-destructive">{state.errors.siteDescription[0]}</p>}
-                </div>
-                <div className="space-y-2">
-                <Label htmlFor="site-keywords">Keywords</Label>
-                <Input id="site-keywords" name="keywords" defaultValue={settings.keywords} />
-                 {state.errors?.keywords && <p className="text-sm font-medium text-destructive">{state.errors.keywords[0]}</p>}
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="site-title">Site Title</Label>
+                        <Input id="site-title" name="siteTitle" defaultValue={settings.siteTitle} />
+                        {state.errors?.siteTitle && <p className="text-sm font-medium text-destructive">{state.errors.siteTitle[0]}</p>}
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="site-description">Site Description</Label>
+                        <Input id="site-description" name="siteDescription" defaultValue={settings.siteDescription} />
+                        {state.errors?.siteDescription && <p className="text-sm font-medium text-destructive">{state.errors.siteDescription[0]}</p>}
+                    </div>
                 </div>
                  <div className="space-y-2">
-                <Label htmlFor="contact-email">Contact Email</Label>
-                <Input id="contact-email" name="contactEmail" defaultValue={settings.contactEmail} />
-                 {state.errors?.contactEmail && <p className="text-sm font-medium text-destructive">{state.errors.contactEmail[0]}</p>}
+                    <Label htmlFor="site-keywords">Keywords</Label>
+                    <Input id="site-keywords" name="keywords" defaultValue={settings.keywords} />
+                    {state.errors?.keywords && <p className="text-sm font-medium text-destructive">{state.errors.keywords[0]}</p>}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="contact-email">Contact Email</Label>
+                        <Input id="contact-email" name="contactEmail" defaultValue={settings.contactEmail} />
+                        {state.errors?.contactEmail && <p className="text-sm font-medium text-destructive">{state.errors.contactEmail[0]}</p>}
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="contact-phone">Contact Phone</Label>
+                        <Input id="contact-phone" name="contactPhone" defaultValue={settings.contactPhone} />
+                        {state.errors?.contactPhone && <p className="text-sm font-medium text-destructive">{state.errors.contactPhone[0]}</p>}
+                    </div>
                 </div>
                  <div className="space-y-2">
-                <Label htmlFor="contact-phone">Contact Phone</Label>
-                <Input id="contact-phone" name="contactPhone" defaultValue={settings.contactPhone} />
-                 {state.errors?.contactPhone && <p className="text-sm font-medium text-destructive">{state.errors.contactPhone[0]}</p>}
-                </div>
-                 <div className="space-y-2">
-                <Label htmlFor="office-address">Office Address</Label>
-                <Textarea id="office-address" name="officeAddress" defaultValue={settings.officeAddress} rows={3} />
-                 {state.errors?.officeAddress && <p className="text-sm font-medium text-destructive">{state.errors.officeAddress[0]}</p>}
+                    <Label htmlFor="office-address">Office Address</Label>
+                    <Textarea id="office-address" name="officeAddress" defaultValue={settings.officeAddress} rows={3} />
+                    {state.errors?.officeAddress && <p className="text-sm font-medium text-destructive">{state.errors.officeAddress[0]}</p>}
                 </div>
                 <SubmitButton />
             </CardContent>
