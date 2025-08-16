@@ -16,7 +16,7 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
       <main className="flex-1">
-        <section className="py-20 md:py-32 lg:py-40">
+        <section className="min-h-screen flex items-center justify-center -mt-20">
           <div className="container max-w-7xl">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
