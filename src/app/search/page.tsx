@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 
@@ -98,7 +97,6 @@ export default function SearchPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
