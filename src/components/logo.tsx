@@ -2,32 +2,32 @@ import type { SVGProps } from 'react';
 
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
-    <div className="flex items-center gap-2" {...props}>
+    <div className="flex items-center gap-3" {...props}>
       <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
+        width="36"
+        height="36"
+        viewBox="0 0 36 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="text-primary"
       >
-        <rect width="32" height="32" rx="8" fill="currentColor" />
+        <rect width="36" height="36" rx="8" fill="currentColor" />
         <path
-          d="M16 10V22"
+          d="M18 11V25"
           stroke="hsl(var(--primary-foreground))"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M10 16H22"
+          d="M11 18H25"
           stroke="hsl(var(--primary-foreground))"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-      <span className="text-xl font-bold text-foreground">PhysioHelper</span>
+      <span className="text-2xl font-bold font-headline text-foreground">PhysioHelper</span>
     </div>
   );
 }

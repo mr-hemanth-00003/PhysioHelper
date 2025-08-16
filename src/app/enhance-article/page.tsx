@@ -20,7 +20,7 @@ const initialState: FormState = {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} size="lg" className="w-full">
+    <Button type="submit" disabled={pending} size="lg" className="w-full rounded-full">
       {pending ? 'Enhancing...' : 'Enhance with AI'}
       <Wand2 className="ml-2 h-4 w-4" />
     </Button>
@@ -62,26 +62,26 @@ export default function EnhanceArticlePage() {
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
       <main className="flex-1">
-        <div className="bg-secondary">
-          <div className="container max-w-7xl py-12 md:py-20 text-center">
+        <div className="bg-secondary/50">
+          <div className="container max-w-7xl py-16 md:py-24 text-center">
             <h1 className="text-4xl md:text-5xl font-bold font-headline">AI Article Enhancer</h1>
-            <p className="text-lg text-muted-foreground mt-3 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground mt-4 max-w-3xl mx-auto">
               Improve your articles with AI-powered suggestions for titles and content. Simply paste your text and let our tool work its magic.
             </p>
           </div>
         </div>
         
-        <div className="container max-w-7xl py-12">
+        <div className="container max-w-7xl py-12 md:py-16">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
-            <Card>
+            <Card className="border-2">
               <CardHeader>
-                <CardTitle>Your Article</CardTitle>
+                <CardTitle className="font-headline text-2xl">Your Article</CardTitle>
                 <CardDescription>Enter your current title and content below.</CardDescription>
               </CardHeader>
               <CardContent>
                 <form action={formAction} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="title" className="font-semibold">Title</Label>
                     <Input
                       id="title"
                       name="title"
@@ -92,7 +92,7 @@ export default function EnhanceArticlePage() {
                      {state.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="content">Content</Label>
+                    <Label htmlFor="content" className="font-semibold">Content</Label>
                     <Textarea
                       id="content"
                       name="content"
@@ -109,16 +109,16 @@ export default function EnhanceArticlePage() {
             </Card>
 
             <div className="lg:sticky top-24">
-              <Card>
+              <Card className="border-primary border-2">
                 <CardHeader>
-                  <CardTitle>AI Suggestions</CardTitle>
+                  <CardTitle className="font-headline text-2xl text-primary">AI Suggestions</CardTitle>
                   <CardDescription>Here are the AI-powered improvements.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {state.suggestedTitle || state.suggestedContent ? (
                     <>
                       <div className="space-y-2">
-                        <Label>Suggested Title</Label>
+                        <Label className="font-semibold">Suggested Title</Label>
                         <div className="relative">
                           <Input readOnly value={state.suggestedTitle} className="pr-12 bg-muted"/>
                           <Button title="Copy to form" variant="ghost" size="icon" className="absolute right-1 top-1 h-8 w-8" onClick={handleCopyToTitle}>
@@ -128,7 +128,7 @@ export default function EnhanceArticlePage() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label>Suggested Content</Label>
+                        <Label className="font-semibold">Suggested Content</Label>
                         <div className="relative">
                           <Textarea readOnly value={state.suggestedContent} rows={15} className="pr-12 bg-muted"/>
                           <Button title="Copy to form" variant="ghost" size="icon" className="absolute right-2 top-2 h-8 w-8" onClick={handleCopyToContent}>
@@ -140,8 +140,9 @@ export default function EnhanceArticlePage() {
                     </>
                   ) : (
                     <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-8 border-2 border-dashed rounded-lg min-h-[450px]">
-                      <Wand2 className="h-12 w-12 mb-4" />
-                      <p>Your suggestions will appear here once you run the AI enhancer.</p>
+                      <Wand2 className="h-12 w-12 mb-4 text-primary" />
+                      <p className="font-medium">Your suggestions will appear here.</p>
+                       <p className="text-sm">Enter your article and click "Enhance with AI".</p>
                     </div>
                   )}
                 </CardContent>
