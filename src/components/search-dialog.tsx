@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { getArticles } from '@/services/articles';
@@ -60,6 +62,9 @@ export function SearchDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-2xl">
+        <DialogHeader>
+            <DialogTitle className="sr-only">Search Articles</DialogTitle>
+        </DialogHeader>
         <div className="flex flex-col gap-4">
             <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
