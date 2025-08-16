@@ -84,13 +84,13 @@ export default function AdminLayout({
           </SidebarFooter>
         </Sidebar>
         <SidebarInset>
-            <header className="flex h-14 items-center justify-between border-b bg-background px-4">
+            <header className="flex h-14 items-center justify-between border-b bg-background px-4 lg:px-6">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger className="md:hidden"/>
                     <h1 className="text-lg font-semibold">Admin Panel</h1>
                 </div>
             </header>
-            <main className="flex-1 p-4 md:p-6">{children}</main>
+            <main className="flex-1 p-4 lg:p-6">{children}</main>
         </SidebarInset>
       </div>
     </SidebarProvider>
