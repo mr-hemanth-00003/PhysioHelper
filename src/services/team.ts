@@ -1,0 +1,41 @@
+
+'use server';
+
+import { db } from '@/lib/firebase';
+import { TeamMember } from '@/lib/types';
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+} from 'firebase/firestore';
+
+const teamCollection = collection(db, 'teamMembers');
+
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  try {
+    const q = query(teamCollection, orderBy('name'));
+    const snapshot = await getDocs(q);
+    const teamMembers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as TeamMember));
+    
+    // Fallback to mock data if Firestore is empty
+    if (teamMembers.length === 0) {
+        return getMockTeamMembers();
+    }
+
+    return teamMembers;
+  } catch (error) {
+    console.error('Error fetching team members:', error);
+    return getMockTeamMembers(); // Return mock data on error
+  }
+}
+
+// Mock data to ensure the page works even if Firestore isn't populated yet.
+function getMockTeamMembers(): TeamMember[] {
+    return [
+        { id: "1", name: "Dr. Emily Carter", role: "Lead Physiotherapist", avatar: "https://placehold.co/100x100.png" },
+        { id: "2", name: "John Davis", role: "Wellness Coach", avatar: "https://placehold.co/100x100.png" },
+        { id: "3", name: "Dr. Sarah Lee", role: "Injury Prevention Specialist", avatar: "https://placehold.co/100x100.png" },
+        { id: "4", name: "Maria Rodriguez, R.D.", role: "Nutritionist", avatar: "https://placehold.co/100x100.png" },
+    ];
+}

@@ -7,8 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { getSiteSettings } from "@/services/settings";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
@@ -60,7 +63,7 @@ export default function ContactPage() {
                             <div>
                                 <h3 className="text-xl font-bold font-headline">Email</h3>
                                 <p className="text-muted-foreground">General Inquiries</p>
-                                <a href="mailto:hello@physiohelper.com" className="text-lg font-semibold text-primary hover:underline">hello@physiohelper.com</a>
+                                <a href={`mailto:${settings.contactEmail}`} className="text-lg font-semibold text-primary hover:underline">{settings.contactEmail}</a>
                             </div>
                         </div>
                          <div className="flex items-start gap-6">
@@ -70,7 +73,7 @@ export default function ContactPage() {
                             <div>
                                 <h3 className="text-xl font-bold font-headline">Phone</h3>
                                 <p className="text-muted-foreground">Mon-Fri from 9am to 5pm</p>
-                                <a href="tel:+123456789" className="text-lg font-semibold text-primary hover:underline">+1 (234) 567-890</a>
+                                <a href={`tel:${settings.contactPhone}`} className="text-lg font-semibold text-primary hover:underline">{settings.contactPhone}</a>
                             </div>
                         </div>
                          <div className="flex items-start gap-6">
@@ -80,7 +83,7 @@ export default function ContactPage() {
                             <div>
                                 <h3 className="text-xl font-bold font-headline">Office</h3>
                                 <p className="text-muted-foreground">Come say hello</p>
-                                <p className="text-lg font-semibold">123 Wellness Ave, Suite 100<br/>Healthville, USA 12345</p>
+                                <p className="text-lg font-semibold" dangerouslySetInnerHTML={{ __html: settings.officeAddress.replace(/\n/g, '<br>') }} />
                             </div>
                         </div>
                     </div>

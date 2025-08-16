@@ -14,3 +14,19 @@ export interface Article {
   featured?: boolean;
   views?: number;
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+}
+
+export interface SiteSettings {
+  siteTitle: string;
+  siteDescription: string;
+  keywords: string;
+  contactEmail: string;
+  contactPhone: string;
+  officeAddress: string;
+}

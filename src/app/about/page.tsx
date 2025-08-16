@@ -4,15 +4,11 @@ import { Footer } from "@/components/footer";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HeartPulse, Target, Users } from "lucide-react";
+import { getTeamMembers } from "@/services/team";
 
-const teamMembers = [
-    { name: "Dr. Emily Carter", role: "Lead Physiotherapist", avatar: "https://placehold.co/100x100.png" },
-    { name: "John Davis", role: "Wellness Coach", avatar: "https://placehold.co/100x100.png" },
-    { name: "Dr. Sarah Lee", role: "Injury Prevention Specialist", avatar: "https://placehold.co/100x100.png" },
-    { name: "Maria Rodriguez, R.D.", role: "Nutritionist", avatar: "https://placehold.co/100x100.png" },
-];
+export default async function AboutPage() {
+  const teamMembers = await getTeamMembers();
 
-export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
