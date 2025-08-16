@@ -8,6 +8,9 @@ import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 export default async function ArticlePage({ params }: { params: { id: string } }) {
   const article = await getArticle(params.id);
@@ -21,6 +24,14 @@ export default async function ArticlePage({ params }: { params: { id: string } }
       <Header />
       <main className="flex-1">
         <article className="container max-w-4xl py-12 md:py-20">
+            <div className="mb-8">
+                <Button variant="outline" asChild>
+                    <Link href="/#articles">
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Back to Articles
+                    </Link>
+                </Button>
+            </div>
           <div className="mx-auto space-y-6 text-center">
             <h1 className="text-4xl font-bold font-headline md:text-5xl">
               {article.title}
