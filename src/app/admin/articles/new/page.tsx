@@ -18,9 +18,8 @@ import {
 } from '@/components/ui/select';
 import { categories } from '@/lib/types';
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { createNewArticle } from './actions';
-import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { SubmitButton } from './submit-button';
 
@@ -30,7 +29,7 @@ const initialState = {
 }
 
 export default function NewArticlePage() {
-  const [state, formAction] = useFormState(createNewArticle, initialState);
+  const [state, formAction] = useActionState(createNewArticle, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -115,4 +114,3 @@ export default function NewArticlePage() {
     </form>
   );
 }
-
