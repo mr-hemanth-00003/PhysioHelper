@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { handleEnhanceArticle, type FormState } from './actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { ArrowRight, Wand2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const initialState: FormState = {
@@ -27,7 +27,7 @@ function SubmitButton() {
 }
 
 export default function AiToolsPage() {
-  const [state, formAction] = useFormState(handleEnhanceArticle, initialState);
+  const [state, formAction] = useActionState(handleEnhanceArticle, initialState);
   const { toast } = useToast();
   
   const [title, setTitle] = useState('10 Tips for a Stronger Back');
