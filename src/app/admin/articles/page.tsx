@@ -15,7 +15,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { getArticles } from '@/services/articles';
 import { PlusCircle, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
@@ -58,7 +57,6 @@ export default async function ArticlesPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Category</TableHead>
                 <TableHead>Author</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>
@@ -70,9 +68,6 @@ export default async function ArticlesPage() {
               {articles.map((article) => (
                 <TableRow key={article.id}>
                   <TableCell className="font-medium">{article.title}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{article.category}</Badge>
-                  </TableCell>
                   <TableCell>{article.author.name}</TableCell>
                   <TableCell>{new Date(article.date).toLocaleDateString()}</TableCell>
                   <TableCell>
@@ -101,4 +96,3 @@ export default async function ArticlesPage() {
     </div>
   );
 }
-

@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 
 export default async function ArticlePage({ params }: { params: { id: string } }) {
@@ -20,7 +19,6 @@ export default async function ArticlePage({ params }: { params: { id: string } }
       <main className="flex-1">
         <article className="container max-w-4xl py-12 md:py-20">
           <div className="mx-auto space-y-6 text-center">
-            <Badge variant="secondary">{article.category}</Badge>
             <h1 className="text-4xl font-bold font-headline md:text-5xl">
               {article.title}
             </h1>

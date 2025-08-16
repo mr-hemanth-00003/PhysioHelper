@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import type { Article } from '@/lib/types';
 import { MoveRight } from 'lucide-react';
 
@@ -34,7 +33,6 @@ export function BlogCard({ article }: BlogCardProps) {
           </div>
         </CardHeader>
         <CardContent className="p-6 flex-grow flex flex-col">
-          <Badge variant="secondary" className="mb-3 self-start">{article.category}</Badge>
           <CardTitle className="text-xl font-bold leading-snug font-headline group-hover:text-primary transition-colors">
             {article.title}
           </CardTitle>

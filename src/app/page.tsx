@@ -3,7 +3,6 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogSection } from "@/components/blog-section";
-import { categories } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { MoveRight } from "lucide-react";
@@ -69,7 +68,7 @@ export default async function Home() {
                 Discover the latest in physiotherapy and wellness.
               </p>
             </div>
-            <BlogSection allArticles={articles} categories={categories} />
+            <BlogSection allArticles={articles} />
           </div>
         </section>
       </main>
@@ -77,4 +76,3 @@ export default async function Home() {
     </div>
   );
 }
-

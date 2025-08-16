@@ -10,7 +10,6 @@ const FormSchema = z.object({
     title: z.string().min(1, 'Title is required'),
     excerpt: z.string().min(1, 'Excerpt is required'),
     content: z.string().min(1, 'Content is required'),
-    category: z.string().min(1, 'Category is required'),
     imageUrl: z.string().url('Must be a valid URL'),
 });
 
@@ -19,7 +18,6 @@ export type State = {
         title?: string[];
         excerpt?: string[];
         content?: string[];
-        category?: string[];
         imageUrl?: string[];
     } | null;
     message: string;
@@ -30,7 +28,6 @@ export async function updateExistingArticle(id: string, prevState: State, formDa
         title: formData.get('title'),
         excerpt: formData.get('excerpt'),
         content: formData.get('content'),
-        category: formData.get('category'),
         imageUrl: formData.get('imageUrl'),
     });
     

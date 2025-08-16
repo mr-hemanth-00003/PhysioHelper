@@ -2,7 +2,6 @@
 export interface Article {
   id: string;
   title: string;
-  category: string;
   excerpt: string;
   content: string;
   author: {
@@ -14,5 +13,3 @@ export interface Article {
   date: string;
   featured?: boolean;
 }
-
-export const categories = ["All", "Rehabilitation", "Wellness", "Injury Prevention", "Nutrition"];

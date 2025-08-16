@@ -7,7 +7,6 @@ import type { Article } from '@/lib/types';
 
 interface BlogSectionProps {
   allArticles: Article[];
-  categories: string[];
 }
 
 export function BlogSection({ allArticles }: BlogSectionProps) {

@@ -9,14 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { categories } from '@/lib/types';
 import Link from 'next/link';
 import { useActionState, useEffect } from 'react';
 import { createNewArticle } from './actions';
@@ -79,28 +71,10 @@ export default function NewArticlePage() {
               />
                {state.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Select name="category">
-                    <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                    {categories.filter(c => c !== "All").map((category) => (
-                        <SelectItem key={category} value={category}>
-                        {category}
-                        </SelectItem>
-                    ))}
-                    </SelectContent>
-                </Select>
-                 {state.errors?.category && <p className="text-sm font-medium text-destructive">{state.errors.category[0]}</p>}
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="image-url">Image URL</Label>
-                    <Input name="imageUrl" id="image-url" placeholder="https://placehold.co/600x400.png" />
-                     {state.errors?.imageUrl && <p className="text-sm font-medium text-destructive">{state.errors.imageUrl[0]}</p>}
-                </div>
+            <div className="space-y-2">
+                <Label htmlFor="image-url">Image URL</Label>
+                <Input name="imageUrl" id="image-url" placeholder="https://placehold.co/600x400.png" />
+                 {state.errors?.imageUrl && <p className="text-sm font-medium text-destructive">{state.errors.imageUrl[0]}</p>}
             </div>
           </div>
         </CardContent>
