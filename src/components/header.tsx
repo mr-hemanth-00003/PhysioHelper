@@ -13,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SearchDialog } from './search-dialog';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -24,7 +23,6 @@ const navLinks = [
 
 export function Header() {
   const [isSheetOpen, setSheetOpen] = useState(false);
-  const [isSearchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
 
   const isAdminRoute = pathname.startsWith('/admin');
@@ -57,9 +55,11 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
+             <Button variant="ghost" size="icon" asChild>
+              <Link href="/search">
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Search</span>
+              </Link>
             </Button>
 
             <DropdownMenu>
@@ -118,7 +118,6 @@ export function Header() {
           </div>
         </div>
       </header>
-      <SearchDialog open={isSearchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }
