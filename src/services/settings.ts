@@ -7,7 +7,6 @@ import {
   doc,
   getDoc,
   setDoc,
-  updateDoc,
 } from 'firebase/firestore';
 
 const settingsDocRef = doc(db, 'settings', 'general');
@@ -41,19 +40,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 export async function updateSiteSettings(settingsData: Partial<SiteSettings>) {
     try {
-        await updateDoc(settingsDocRef, settingsData);
+        // Use setDoc with merge: true to create the document if it doesn't exist, 
+        // or update it if it does. This is more robust than using updateDoc.
+        await setDoc(settingsDocRef, settingsData, { merge: true });
     } catch (error) {
         console.error("Error updating site settings: ", error);
-        // If the document doesn't exist, it will throw an error. Let's try to set it instead.
-        if ((error as any).code === 'not-found') {
-            try {
-                await setDoc(settingsDocRef, settingsData, { merge: true });
-            } catch (set_error) {
-                console.error("Error creating site settings document: ", set_error);
-                throw new Error("Failed to update site settings.");
-            }
-        } else {
-           throw new Error("Failed to update site settings.");
-        }
+        throw new Error("Failed to update site settings.");
     }
 }
