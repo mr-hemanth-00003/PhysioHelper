@@ -39,6 +39,10 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <nav className="hidden md:flex items-center gap-6">
+               <Link href="/search" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
+                  <Search className="h-4 w-4" />
+                  Search
+                </Link>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -53,10 +57,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-               <Link href="/search" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
-                  <Search className="h-4 w-4" />
-                  Search
-                </Link>
             </nav>
 
             <div className="flex items-center gap-2">
@@ -106,6 +106,13 @@ export function Header() {
                       <Logo />
                     </Link>
                     <nav className="flex flex-col gap-4">
+                       <Link
+                          href="/search"
+                          onClick={() => setSheetOpen(false)}
+                          className="text-lg font-medium text-foreground transition-colors hover:text-primary"
+                        >
+                          Search
+                        </Link>
                       {navLinks.map((link) => (
                         <Link
                           key={link.href}
@@ -116,13 +123,6 @@ export function Header() {
                           {link.label}
                         </Link>
                       ))}
-                       <Link
-                          href="/search"
-                          onClick={() => setSheetOpen(false)}
-                          className="text-lg font-medium text-foreground transition-colors hover:text-primary"
-                        >
-                          Search
-                        </Link>
                     </nav>
                   </div>
                 </SheetContent>
