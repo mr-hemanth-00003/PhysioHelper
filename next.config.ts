@@ -18,13 +18,31 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Prevent webpack from trying to process fonts and icons as modules
     config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: {
-        loader: 'url-loader',
-      },
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource',
     });
+    
+    // find the rule that handles SVG files and exclude favicon.ico
+    const svgRule = config.module.rules.find((rule) => {
+        return typeof rule === 'object' && rule.test instanceof RegExp && rule.test.test('.svg');
+    });
+
+    if (svgRule && typeof svgRule === 'object') {
+        svgRule.exclude = [/\.ico$/i];
+    }
+    
+    // add a rule to handle .ico files
+    config.module.rules.push({
+        test: /\.ico$/i,
+        type: 'asset/resource',
+        generator: {
+            filename: '[name][ext]'
+        }
+    });
+
     return config;
   },
 };

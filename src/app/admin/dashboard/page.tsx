@@ -8,14 +8,13 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { getArticles } from '@/services/articles';
-import { ArrowUpRight, PlusCircle, Users, FileText } from 'lucide-react';
+import { ArrowUpRight, PlusCircle, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function DashboardPage() {
   const articles = await getArticles({ limit: 5 });
   const totalArticles = (await getArticles()).length;
   // Dummy data for example
-  const totalSubscribers = 1250; 
   const totalViews = '25.6k';
 
   return (
@@ -43,18 +42,6 @@ export default async function DashboardPage() {
             <div className="text-2xl font-bold">{totalArticles}</div>
             <p className="text-xs text-muted-foreground">
               +2 from last month
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscribers</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+{totalSubscribers}</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
             </p>
           </CardContent>
         </Card>
@@ -100,4 +87,3 @@ export default async function DashboardPage() {
     </div>
   );
 }
-
