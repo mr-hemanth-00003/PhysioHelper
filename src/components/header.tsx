@@ -1,3 +1,4 @@
+
 'use client';
 import Link from 'next/link';
 import { Search, Menu, Wrench } from 'lucide-react';
@@ -17,6 +18,7 @@ import {
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/articles', label: 'Articles' },
+  { href: '/resources', label: 'Resources' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
