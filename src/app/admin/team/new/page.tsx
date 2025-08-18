@@ -14,17 +14,17 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { createNewTeamMember, type State } from './actions';
 import { SubmitButton } from './submit-button';
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { useEffect } from 'react';
 
 const initialState: State = {
-    message: "",
+    message: null,
+    errors: null,
 };
 
 export default function NewTeamMemberPage() {
   const { toast } = useToast();
-  const [state, formAction] = useFormState(createNewTeamMember, initialState);
+  const [state, formAction] = useActionState(createNewTeamMember, initialState);
 
   useEffect(() => {
     if (state?.message) {
@@ -74,6 +74,7 @@ export default function NewTeamMemberPage() {
                     <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" type="url" />
                      {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
+                 {state.message && !state.errors && <p className="text-sm font-medium text-destructive">{state.message}</p>}
             </div>
         </CardContent>
       </Card>

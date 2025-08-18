@@ -14,18 +14,28 @@ import { Label } from '@/components/ui/label';
 import type { TeamMember } from '@/lib/types';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import { getTeamMember } from '@/services/team';
 import { Skeleton } from '@/components/ui/skeleton';
-import { updateExistingTeamMember } from './actions';
+import { updateExistingTeamMember, type State } from './actions';
 import { SubmitButton } from './submit-button';
+import { useToast } from '@/hooks/use-toast';
+
+
+const initialState: State = {
+    message: null,
+    errors: null,
+};
 
 export default function EditTeamMemberPage({ params }: { params: { id: string } }) {
   const id = params.id;
   const [member, setMember] = useState<TeamMember | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   const updateTeamMemberWithId = updateExistingTeamMember.bind(null, id);
+  const [state, formAction] = useActionState(updateTeamMemberWithId, initialState);
+
 
   useEffect(() => {
       if (!id) return;
@@ -47,6 +57,16 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
       fetchMember();
   }, [id])
 
+  useEffect(() => {
+    if (state?.message) {
+      toast({
+        title: state.errors ? "Error" : "Success",
+        description: state.message,
+        variant: state.errors ? "destructive" : "default",
+      });
+    }
+  }, [state, toast]);
+
 
   if (loading) {
       return <EditMemberSkeleton />
@@ -58,7 +78,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
 
 
   return (
-    <form action={updateTeamMemberWithId}>
+    <form action={formAction}>
       <div className="flex items-center justify-between space-y-2 mb-8">
         <div>
             <h1 className="text-3xl font-bold">Edit Team Member</h1>
@@ -84,15 +104,19 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input id="name" name="name" defaultValue={member.name} required />
+                    {state.errors?.name && <p className="text-sm font-medium text-destructive">{state.errors.name[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
                     <Input id="role" name="role" defaultValue={member.role} required />
+                     {state.errors?.role && <p className="text-sm font-medium text-destructive">{state.errors.role[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="avatar">Avatar URL</Label>
                     <Input id="avatar" name="avatar" defaultValue={member.avatar} type="url" required />
+                     {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
+                 {state.message && !state.errors && <p className="text-sm font-medium text-destructive">{state.message}</p>}
             </div>
         </CardContent>
       </Card>

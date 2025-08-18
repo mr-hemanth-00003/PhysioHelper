@@ -12,7 +12,16 @@ const FormSchema = z.object({
     avatar: z.string().url('Avatar must be a valid URL'),
 });
 
-export async function updateExistingTeamMember(id: string, formData: FormData) {
+export type State = {
+    errors?: {
+        name?: string[];
+        role?: string[];
+        avatar?: string[];
+    } | null;
+    message?: string | null;
+};
+
+export async function updateExistingTeamMember(id: string, prevState: State, formData: FormData): Promise<State> {
     const data = {
         name: formData.get('name'),
         role: formData.get('role'),
@@ -22,15 +31,17 @@ export async function updateExistingTeamMember(id: string, formData: FormData) {
     const validatedFields = FormSchema.safeParse(data);
     
     if (!validatedFields.success) {
-        console.error(validatedFields.error.flatten().fieldErrors);
-        throw new Error(`Validation failed`);
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Validation failed. Please check your inputs.',
+        };
     }
 
     try {
         await updateTeamMember(id, validatedFields.data);
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to update team member.';
-        throw new Error(errorMessage);
+        return { message: errorMessage };
     }
 
     revalidatePath('/admin/team');

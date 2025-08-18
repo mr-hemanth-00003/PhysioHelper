@@ -19,7 +19,7 @@ export type State = {
         role?: string[];
         avatar?: string[];
     } | null;
-    message: string;
+    message?: string | null;
 }
 
 export async function createNewTeamMember(prevState: State, formData: FormData): Promise<State> {
@@ -42,7 +42,6 @@ export async function createNewTeamMember(prevState: State, formData: FormData):
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to create team member.';
         return {
             message: errorMessage,
-            errors: null,
         }
     }
 
