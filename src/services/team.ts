@@ -17,6 +17,18 @@ import {
 
 const teamCollection = collection(db, 'teamMembers');
 
+// TODO: Replace this with your actual authentication check.
+// This function should verify that the current user is authenticated and has admin privileges.
+async function isAdmin() {
+  // For now, we'll return true to allow functionality.
+  // In a real application, you would check the user's session.
+  // For example:
+  // const user = await getAuthenticatedUser();
+  // return user?.role === 'admin';
+  return true;
+}
+
+
 export async function getTeamMembers(): Promise<TeamMember[]> {
   try {
     const q = query(teamCollection, orderBy('name'));
@@ -48,6 +60,10 @@ export async function getTeamMember(id: string): Promise<TeamMember | null> {
 }
 
 export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
+    const authorized = await isAdmin();
+    if (!authorized) {
+        throw new Error("You are not authorized to perform this action.");
+    }
     try {
         const docRef = await addDoc(teamCollection, data);
         return docRef.id;
@@ -58,6 +74,10 @@ export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
 }
 
 export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember, 'id'>>) {
+    const authorized = await isAdmin();
+    if (!authorized) {
+        throw new Error("You are not authorized to perform this action.");
+    }
     try {
         const docRef = doc(db, 'teamMembers', id);
         await updateDoc(docRef, data);
@@ -68,6 +88,10 @@ export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember
 }
 
 export async function deleteTeamMember(id: string) {
+    const authorized = await isAdmin();
+    if (!authorized) {
+        throw new Error("You are not authorized to perform this action.");
+    }
     try {
         const docRef = doc(db, 'teamMembers', id);
         await deleteDoc(docRef);
