@@ -15,24 +15,18 @@ import type { TeamMember } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useEffect, useState, useTransition } from 'react';
 import { getTeamMember } from '@/services/team';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingTeamMember } from './actions';
 import { SubmitButton } from './submit-button';
-
-const initialState = undefined;
 
 export default function EditTeamMemberPage({ params }: { params: { id: string } }) {
   const id = params.id;
   const { toast } = useToast();
   const [member, setMember] = useState<TeamMember | null>(null);
   const [loading, setLoading] = useState(true);
-  
-  const updateTeamMemberWithId = updateExistingTeamMember.bind(null, id);
-  const [state, formAction] = useFormState(updateTeamMemberWithId, initialState);
-  
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
       if (!id) return;
@@ -49,16 +43,19 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
       fetchMember();
   }, [id])
 
-  useEffect(() => {
-    if (state?.message) {
-      toast({
-        title: state.errors ? 'Error' : 'Success!',
-        description: state.message,
-        variant: state.errors ? 'destructive' : 'default',
-      });
-    }
-  }, [state, toast]);
-  
+  const handleSubmit = (formData: FormData) => {
+    startTransition(async () => {
+        const result = await updateExistingTeamMember(id, formData);
+        if (result?.message) {
+            toast({
+                title: "Error",
+                description: result.message,
+                variant: 'destructive'
+            });
+        }
+    });
+  }
+
   if (loading) {
       return <EditMemberSkeleton />
   }
@@ -69,7 +66,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
 
 
   return (
-    <form action={formAction}>
+    <form action={handleSubmit}>
       <div className="flex items-center justify-between space-y-2 mb-8">
         <div>
             <h1 className="text-3xl font-bold">Edit Team Member</h1>
@@ -81,7 +78,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
             <Button variant="outline" asChild>
             <Link href="/admin/team">Cancel</Link>
             </Button>
-            <SubmitButton />
+            <SubmitButton isPending={isPending} />
         </div>
       </div>
 
@@ -94,18 +91,15 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
             <div className="space-y-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" name="name" defaultValue={member.name} />
-                    {state?.errors?.name && <p className="text-sm font-medium text-destructive">{state.errors.name[0]}</p>}
+                    <Input id="name" name="name" defaultValue={member.name} required disabled={isPending} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
-                    <Input id="role" name="role" defaultValue={member.role} />
-                    {state?.errors?.role && <p className="text-sm font-medium text-destructive">{state.errors.role[0]}</p>}
+                    <Input id="role" name="role" defaultValue={member.role} required disabled={isPending} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="avatar">Avatar URL</Label>
-                    <Input id="avatar" name="avatar" defaultValue={member.avatar} />
-                     {state?.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
+                    <Input id="avatar" name="avatar" defaultValue={member.avatar} type="url" required disabled={isPending} />
                 </div>
             </div>
         </CardContent>

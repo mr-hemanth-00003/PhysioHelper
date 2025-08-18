@@ -1,3 +1,4 @@
+
 'use server';
 
 import { updateTeamMember } from '@/services/team';
@@ -11,16 +12,7 @@ const FormSchema = z.object({
     avatar: z.string().url('Avatar must be a valid URL'),
 });
 
-export type State = {
-    message: string;
-    errors?: {
-        name?: string[];
-        role?: string[];
-        avatar?: string[];
-    }
-} | undefined;
-
-export async function updateExistingTeamMember(id: string, prevState: State, formData: FormData): Promise<State> {
+export async function updateExistingTeamMember(id: string, formData: FormData) {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
@@ -28,9 +20,9 @@ export async function updateExistingTeamMember(id: string, prevState: State, for
     });
     
     if (!validatedFields.success) {
+        const errorMessages = validatedFields.error.errors.map(e => e.message).join(', ');
         return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Validation failed. Please check your inputs.',
+            message: `Validation failed: ${errorMessages}`,
         }
     }
 

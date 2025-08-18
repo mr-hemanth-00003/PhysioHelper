@@ -13,16 +13,7 @@ const FormSchema = z.object({
 });
 
 
-export type State = {
-    message: string;
-    errors?: {
-        name?: string[];
-        role?: string[];
-        avatar?: string[];
-    }
-} | undefined;
-
-export async function createNewTeamMember(prevState: State, formData: FormData): Promise<State> {
+export async function createNewTeamMember(formData: FormData) {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
@@ -30,15 +21,14 @@ export async function createNewTeamMember(prevState: State, formData: FormData):
     });
     
     if (!validatedFields.success) {
+        const errorMessages = validatedFields.error.errors.map(e => e.message).join(', ');
         return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: `Validation failed.`,
+            message: `Validation failed: ${errorMessages}`,
         }
     }
 
     try {
         await createTeamMember(validatedFields.data);
-
     } catch (e) {
         return { message: 'Database Error: Failed to create team member.' };
     }

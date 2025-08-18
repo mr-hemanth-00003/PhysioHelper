@@ -1,15 +1,12 @@
 
 'use client'
  
-import { useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button';
  
-export function SubmitButton() {
-  const { pending } = useFormStatus()
- 
+export function SubmitButton({ isPending }: { isPending: boolean }) {
   return (
-    <Button type="submit" aria-disabled={pending}>
-      {pending ? "Adding..." : "Add Member"}
+    <Button type="submit" aria-disabled={isPending} disabled={isPending}>
+      {isPending ? "Adding..." : "Add Member"}
     </Button>
   )
 }
