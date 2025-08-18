@@ -34,7 +34,7 @@ export function AiChat() {
     {
       role: 'model',
       content:
-        "Welcome! I am the PhysioHelper AI assistant. I can help you find information about physiotherapy, exercises, and wellness. How may I help you today? Please remember that I cannot provide medical advice.",
+        "Welcome, Dr. [Last Name]. We’re honored to have your expertise with us. With your knowledge and the support of our AI Assistant, we look forward to delivering even more effective, innovative care together.",
     },
   ]);
   const [input, setInput] = useState('');
