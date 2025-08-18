@@ -21,6 +21,7 @@ import {
   LogOut,
   ChevronLeft,
   Wand2,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -28,6 +29,7 @@ import { usePathname } from 'next/navigation';
 const adminNavLinks = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/articles', label: 'Articles', icon: Newspaper },
+  { href: '/admin/team', label: 'Team', icon: Users },
   { href: '/admin/tools', label: 'AI Tools', icon: Wand2 },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
