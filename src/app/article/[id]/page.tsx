@@ -18,20 +18,21 @@ import { Article } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ArticlePage({ params }: { params: { id: string } }) {
+  const id = params.id;
   const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     const fetchAndTrack = async () => {
-      const fetchedArticle = await getArticle(params.id);
+      const fetchedArticle = await getArticle(id);
       if (fetchedArticle) {
         setArticle(fetchedArticle);
-        await incrementArticleViews(params.id);
+        await incrementArticleViews(id);
       } else {
         notFound();
       }
     };
     fetchAndTrack();
-  }, [params.id]);
+  }, [id]);
 
 
   if (!article) {
@@ -85,7 +86,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
           
           <div className="prose prose-lg mx-auto max-w-full dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
              <p className="lead">{article.excerpt}</p>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehype-raw]}>
               {article.content}
             </ReactMarkdown>
           </div>
@@ -123,7 +124,7 @@ function ArticlePageSkeleton() {
           <div className="prose prose-lg mx-auto max-w-full space-y-4">
             <Skeleton className="h-6 w-full" />
             <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-5 w-2/3" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-3/4" />
           </div>
