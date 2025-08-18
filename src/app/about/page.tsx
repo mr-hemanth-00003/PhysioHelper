@@ -1,13 +1,43 @@
 
+'use client';
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HeartPulse, Target, Users } from "lucide-react";
 import { getTeamMembers } from "@/services/team";
+import { useEffect, useState } from "react";
+import { TeamMember } from "@/lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function AboutPage() {
-  const teamMembers = await getTeamMembers();
+function TeamSkeleton() {
+    return (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="text-center">
+                    <Skeleton className="h-24 w-24 rounded-full mx-auto mb-4" />
+                    <Skeleton className="h-5 w-3/4 mx-auto" />
+                    <Skeleton className="h-4 w-1/2 mx-auto mt-2" />
+                </div>
+            ))}
+        </div>
+    )
+}
+
+
+export default function AboutPage() {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTeam() {
+        const members = await getTeamMembers();
+        setTeamMembers(members);
+        setLoading(false);
+    }
+    fetchTeam();
+  }, [])
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -77,18 +107,20 @@ export default async function AboutPage() {
                 The experts behind our evidence-based content.
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {teamMembers.map((member) => (
-                <div key={member.name} className="text-center">
-                  <Avatar className="h-24 w-24 mx-auto mb-4 border-4 border-primary/20">
-                    <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <h4 className="font-bold text-lg">{member.name}</h4>
-                  <p className="text-sm text-primary font-medium">{member.role}</p>
+            {loading ? <TeamSkeleton /> : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {teamMembers.map((member) => (
+                    <div key={member.name} className="text-center">
+                    <Avatar className="h-24 w-24 mx-auto mb-4 border-4 border-primary/20">
+                        <AvatarImage src={member.avatar} alt={member.name} />
+                        <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <h4 className="font-bold text-lg">{member.name}</h4>
+                    <p className="text-sm text-primary font-medium">{member.role}</p>
+                    </div>
+                ))}
                 </div>
-              ))}
-            </div>
+            )}
           </div>
         </section>
       </main>

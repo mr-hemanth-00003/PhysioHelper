@@ -1,4 +1,6 @@
 
+'use client';
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -8,9 +10,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { getSiteSettings } from "@/services/settings";
+import { useEffect, useState } from "react";
+import { SiteSettings } from "@/lib/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function ContactPage() {
-  const settings = await getSiteSettings();
+export default function ContactPage() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      const siteSettings = await getSiteSettings();
+      setSettings(siteSettings);
+      setLoading(false);
+    }
+    fetchSettings();
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -56,7 +71,15 @@ export default async function ContactPage() {
                         </CardContent>
                     </Card>
                     <div className="space-y-8">
-                        <div className="flex items-start gap-6">
+                       {loading ? (
+                         <>
+                            <div className="space-y-2"><Skeleton className="h-6 w-24" /><Skeleton className="h-4 w-32" /></div>
+                            <div className="space-y-2"><Skeleton className="h-6 w-24" /><Skeleton className="h-4 w-32" /></div>
+                            <div className="space-y-2"><Skeleton className="h-6 w-24" /><Skeleton className="h-4 w-32" /></div>
+                         </>
+                       ) : settings && (
+                        <>
+                         <div className="flex items-start gap-6">
                             <div className="flex-shrink-0 bg-primary text-primary-foreground p-4 rounded-full">
                                 <Mail className="h-6 w-6"/>
                             </div>
@@ -86,6 +109,8 @@ export default async function ContactPage() {
                                 <p className="text-lg font-semibold" dangerouslySetInnerHTML={{ __html: settings.officeAddress.replace(/\n/g, '<br>') }} />
                             </div>
                         </div>
+                        </>
+                       )}
                     </div>
                 </div>
             </div>
