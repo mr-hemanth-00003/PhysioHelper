@@ -4,7 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogSection } from "@/components/blog-section";
 import { Button } from "@/components/ui/button";
-import { MoveRight } from "lucide-react";
+import { MoveRight, Bot, Sparkles, BrainCircuit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getArticles } from "@/services/articles";
@@ -43,6 +43,57 @@ export default async function Home() {
                     data-ai-hint="3D anatomical model" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 md:py-32 bg-background">
+          <div className="container max-w-7xl">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+               <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
+                    <Image 
+                        src="https://placehold.co/600x400.png" 
+                        alt="AI assisting with physiotherapy" 
+                        fill 
+                        className="object-cover"
+                        data-ai-hint="AI physiotherapy" 
+                    />
+                </div>
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold font-headline mb-4">AI-Powered Physiotherapy Guidance</h2>
+                <p className="text-muted-foreground mb-8">
+                    Leverage the power of artificial intelligence to get personalized insights and enhance your recovery journey. Our AI assistant helps you understand your body better and provides suggestions to improve your well-being.
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-4">
+                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-full">
+                      <Sparkles className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Personalized Content</h4>
+                      <p className="text-sm text-muted-foreground">Get article suggestions and content tailored to your needs and interests.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-full">
+                      <BrainCircuit className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Intelligent Assistance</h4>
+                      <p className="text-sm text-muted-foreground">Our AI tools help content creators enhance articles, ensuring the highest quality information.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                     <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-full">
+                        <Bot className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Smarter Search</h4>
+                      <p className="text-sm text-muted-foreground">Find the exact information you need with our AI-enhanced search capabilities.</p>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
