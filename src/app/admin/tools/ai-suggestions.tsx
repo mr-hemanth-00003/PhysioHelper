@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useActionState, useEffect, useTransition } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useEffect, useTransition } from 'react';
+import { useFormState } from 'react-dom';
 import { handleEnhanceArticle, type FormState } from './actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,9 +12,7 @@ import { Label } from '@/components/ui/label';
 import { ArrowRight, Wand2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-const initialState: FormState = {
-  message: '',
-};
+const initialState: FormState = null;
 
 function EnhanceButton({ onClick, disabled }: { onClick: () => void, disabled: boolean}) {
   return (
@@ -35,12 +33,12 @@ interface AiSuggestionsProps {
 }
 
 export function AiSuggestions({ title, content, onSuggestion, showForm = false, onTitleChange, onContentChange }: AiSuggestionsProps) {
-  const [state, setState] = useActionState(handleEnhanceArticle, initialState);
+  const [state, formAction] = useFormState(handleEnhanceArticle, initialState);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   useEffect(() => {
-    if (state.message) {
+    if (state?.message) {
       toast({
         title: state.message.includes('success') ? 'Success!' : 'Uh oh!',
         description: state.message,
@@ -50,30 +48,30 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
   }, [state, toast]);
 
   const handleEnhanceClick = () => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
     startTransition(async () => {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        setState(formData);
-    })
-  }
+      formAction(formData);
+    });
+  };
 
   const handleCopyToTitle = () => {
-    if (state.suggestedTitle) {
+    if (state?.suggestedTitle) {
       onSuggestion({ suggestedTitle: state.suggestedTitle });
       toast({ title: 'Success!', description: 'Suggested title copied.' });
     }
   }
 
   const handleCopyToContent = () => {
-    if (state.suggestedContent) {
+    if (state?.suggestedContent) {
       onSuggestion({ suggestedContent: state.suggestedContent });
       toast({ title: 'Success!', description: 'Suggested content copied.' });
     }
   }
 
   const formContent = (
-      <div className="space-y-6">
+      <form action={formAction} className="space-y-6">
         <div className="space-y-2">
             <Label htmlFor="ai-title" className="font-semibold">Title</Label>
             <Input
@@ -83,7 +81,7 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
             onChange={(e) => onTitleChange?.(e.target.value)}
             placeholder="Enter your article title"
             />
-            {state.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
+            {state?.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
         </div>
         <div className="space-y-2">
             <Label htmlFor="ai-content" className="font-semibold">Content</Label>
@@ -95,15 +93,15 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
             placeholder="Paste your article content here"
             rows={15}
             />
-            {state.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
+            {state?.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
         </div>
         <EnhanceButton onClick={handleEnhanceClick} disabled={isPending} />
-    </div>
+    </form>
   )
 
   const suggestionsContent = (
      <div className="space-y-6">
-        {state.suggestedTitle || state.suggestedContent ? (
+        {state?.suggestedTitle || state?.suggestedContent ? (
         <>
             <div className="space-y-2">
             <Label className="font-semibold">Suggested Title</Label>

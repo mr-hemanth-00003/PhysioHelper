@@ -7,13 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import { updateSiteSettingsAction } from "./actions";
 import { getSiteSettings } from "@/services/settings";
 import type { SiteSettings } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
-import { useFormStatus } from "react-dom";
 
 const initialState = {
   message: "",
@@ -32,7 +32,7 @@ function SubmitButton() {
 
 
 export default function SettingsPage() {
-    const [state, formAction] = useActionState(updateSiteSettingsAction, initialState);
+    const [state, formAction] = useFormState(updateSiteSettingsAction, initialState);
     const { toast } = useToast();
     const [settings, setSettings] = useState<SiteSettings | null>(null);
     const [loading, setLoading] = useState(true);

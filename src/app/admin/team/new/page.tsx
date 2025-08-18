@@ -12,7 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useActionState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
 import { createNewTeamMember } from './actions';
 import { useToast } from '@/hooks/use-toast';
 import { SubmitButton } from '@/components/submit-button';
@@ -23,7 +24,7 @@ const initialState = {
 }
 
 export default function NewTeamMemberPage() {
-  const [state, formAction] = useActionState(createNewTeamMember, initialState);
+  const [state, formAction] = useFormState(createNewTeamMember, initialState);
   const { toast } = useToast();
 
   useEffect(() => {

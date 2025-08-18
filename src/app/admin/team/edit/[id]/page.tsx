@@ -15,7 +15,8 @@ import type { TeamMember } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { notFound } from 'next/navigation';
-import { useEffect, useState, useActionState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { getTeamMember } from '@/services/team';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingTeamMember } from './actions';
@@ -33,7 +34,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
   const [loading, setLoading] = useState(true);
   
   const updateMemberWithId = updateExistingTeamMember.bind(null, id);
-  const [state, formAction] = useActionState(updateMemberWithId, initialState);
+  const [state, formAction] = useFormState(updateMemberWithId, initialState);
 
   useEffect(() => {
       if (!id) return;

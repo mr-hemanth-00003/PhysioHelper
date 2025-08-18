@@ -17,7 +17,7 @@ export type FormState = {
     title?: string[];
     content?: string[];
   };
-};
+} | null;
 
 export async function handleEnhanceArticle(
   prevState: FormState,
@@ -51,6 +51,7 @@ export async function handleEnhanceArticle(
       message: 'Suggestions generated successfully.',
       suggestedTitle: result.suggestedTitle,
       suggestedContent: result.suggestedContent,
+      errors: null
     };
   } catch (error) {
     console.error(error);

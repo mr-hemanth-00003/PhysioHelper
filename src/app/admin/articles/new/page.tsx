@@ -10,7 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useActionState, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { createNewArticle } from './actions';
 import { useToast } from '@/hooks/use-toast';
 import { SubmitButton } from './submit-button';
@@ -22,7 +23,7 @@ const initialState = {
 }
 
 export default function NewArticlePage() {
-  const [state, formAction] = useActionState(createNewArticle, initialState);
+  const [state, formAction] = useFormState(createNewArticle, initialState);
   const { toast } = useToast();
 
   const [title, setTitle] = useState('');

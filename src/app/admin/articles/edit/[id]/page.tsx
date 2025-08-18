@@ -13,7 +13,8 @@ import { Article } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { notFound } from 'next/navigation';
-import { useEffect, useState, useActionState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { getArticle } from '@/services/articles';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingArticle } from './actions';
@@ -32,7 +33,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   const [loading, setLoading] = useState(true);
   
   const updateArticleWithId = updateExistingArticle.bind(null, id);
-  const [state, formAction] = useActionState(updateArticleWithId, initialState);
+  const [state, formAction] = useFormState(updateArticleWithId, initialState);
   
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
