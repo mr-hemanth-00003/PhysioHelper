@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Article } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import { useRouter, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { useEffect, useState, useActionState } from 'react';
 import { getArticle } from '@/services/articles';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -26,11 +26,12 @@ const initialState = {
 }
 
 export default function EditArticlePage({ params }: { params: { id: string } }) {
+  const id = params.id;
   const { toast } = useToast();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   
-  const updateArticleWithId = updateExistingArticle.bind(null, params.id);
+  const updateArticleWithId = updateExistingArticle.bind(null, id);
   const [state, formAction] = useActionState(updateArticleWithId, initialState);
   
   const [title, setTitle] = useState('');
@@ -39,7 +40,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   useEffect(() => {
       const fetchArticle = async () => {
           setLoading(true);
-          const fetchedArticle = await getArticle(params.id);
+          const fetchedArticle = await getArticle(id);
           if (fetchedArticle) {
               setArticle(fetchedArticle);
               setTitle(fetchedArticle.title);
@@ -50,7 +51,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
           setLoading(false);
       }
       fetchArticle();
-  }, [params.id])
+  }, [id])
 
   useEffect(() => {
     if (state.message && (state.message.includes('Success') || state.errors)) {
