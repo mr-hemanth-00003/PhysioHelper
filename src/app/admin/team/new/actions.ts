@@ -13,27 +13,37 @@ const FormSchema = z.object({
 });
 
 
-export async function createNewTeamMember(formData: FormData) {
-    const data = {
+export type State = {
+    errors?: {
+        name?: string[];
+        role?: string[];
+        avatar?: string[];
+    } | null;
+    message: string;
+}
+
+export async function createNewTeamMember(prevState: State, formData: FormData): Promise<State> {
+    const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
         avatar: formData.get('avatar'),
-    };
-    
-    const validatedFields = FormSchema.safeParse(data);
+    });
     
     if (!validatedFields.success) {
-        // In a real app, you'd want to return this to the user.
-        // For now, we'll log it and throw an error.
-        console.error(validatedFields.error.flatten().fieldErrors);
-        throw new Error('Validation failed. Please check your inputs.');
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Validation failed. Please check your inputs.',
+        }
     }
 
     try {
         await createTeamMember(validatedFields.data);
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to create team member.';
-        throw new Error(errorMessage);
+        return {
+            message: errorMessage,
+            errors: null,
+        }
     }
 
     revalidatePath('/admin/team');
