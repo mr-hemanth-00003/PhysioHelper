@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 import { handleEnhanceArticle, type FormState } from './actions';
 import { Button } from '@/components/ui/button';
@@ -16,11 +16,10 @@ const initialState: FormState = {
   message: '',
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+function EnhanceButton({ onClick, disabled }: { onClick: () => void, disabled: boolean}) {
   return (
-    <Button type="submit" disabled={pending} size="lg" className="w-full">
-      {pending ? 'Enhancing...' : 'Enhance with AI'}
+    <Button type="button" onClick={onClick} disabled={disabled} size="lg" className="w-full">
+      {disabled ? 'Enhancing...' : 'Enhance with AI'}
       <Wand2 className="ml-2 h-4 w-4" />
     </Button>
   );
@@ -36,7 +35,8 @@ interface AiSuggestionsProps {
 }
 
 export function AiSuggestions({ title, content, onSuggestion, showForm = false, onTitleChange, onContentChange }: AiSuggestionsProps) {
-  const [state, formAction] = useActionState(handleEnhanceArticle, initialState);
+  const [state, setState] = useActionState(handleEnhanceArticle, initialState);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -48,6 +48,15 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
       });
     }
   }, [state, toast]);
+
+  const handleEnhanceClick = () => {
+    startTransition(async () => {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        setState(formData);
+    })
+  }
 
   const handleCopyToTitle = () => {
     if (state.suggestedTitle) {
@@ -64,11 +73,11 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
   }
 
   const formContent = (
-      <form action={formAction} className="space-y-6">
+      <div className="space-y-6">
         <div className="space-y-2">
-            <Label htmlFor="title" className="font-semibold">Title</Label>
+            <Label htmlFor="ai-title" className="font-semibold">Title</Label>
             <Input
-            id="title"
+            id="ai-title"
             name="title"
             value={title}
             onChange={(e) => onTitleChange?.(e.target.value)}
@@ -77,9 +86,9 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
             {state.errors?.title && <p className="text-sm font-medium text-destructive">{state.errors.title[0]}</p>}
         </div>
         <div className="space-y-2">
-            <Label htmlFor="content" className="font-semibold">Content</Label>
+            <Label htmlFor="ai-content" className="font-semibold">Content</Label>
             <Textarea
-            id="content"
+            id="ai-content"
             name="content"
             value={content}
             onChange={(e) => onContentChange?.(e.target.value)}
@@ -88,8 +97,8 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
             />
             {state.errors?.content && <p className="text-sm font-medium text-destructive">{state.errors.content[0]}</p>}
         </div>
-        <SubmitButton />
-    </form>
+        <EnhanceButton onClick={handleEnhanceClick} disabled={isPending} />
+    </div>
   )
 
   const suggestionsContent = (
@@ -167,14 +176,12 @@ export function AiSuggestions({ title, content, onSuggestion, showForm = false, 
             <CardDescription>Enhance your article with AI suggestions.</CardDescription>
         </CardHeader>
         <CardContent>
-            <form action={formAction} className="space-y-6">
-                <input type="hidden" name="title" value={title} />
-                <input type="hidden" name="content" value={content} />
-                <SubmitButton />
+            <div className="space-y-6">
+                <EnhanceButton onClick={handleEnhanceClick} disabled={isPending} />
                 <div className="pt-6">
                     {suggestionsContent}
                 </div>
-            </form>
+            </div>
         </CardContent>
     </Card>
   )
