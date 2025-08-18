@@ -44,7 +44,7 @@ const chatAssistantFlow = ai.defineFlow(
   },
   async input => {
     const llmResponse = await chatPrompt(input);
-    const output = llmResponse.output();
+    const output = llmResponse.output;
     if (!output) {
       return {
         response:
