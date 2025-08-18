@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -10,10 +9,8 @@ import { ScrollArea } from './ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Skeleton } from './ui/skeleton';
 import { cn } from '@/lib/utils';
-import {
-  chatWithAssistant,
-  type ChatWithAssistantInput,
-} from '@/ai/flows/chat-flow';
+import { chatWithAssistant } from '@/ai/flows/chat-flow';
+import { type ChatWithAssistantInput } from '@/ai/flows/chat-flow.types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 

@@ -3,31 +3,15 @@
  * @fileOverview A flow for a conversational AI physiotherapy assistant.
  *
  * - chatWithAssistant - A function that handles the conversation.
- * - ChatWithAssistantInput - The input type for the chatWithAssistant function.
- * - ChatWithAssistantOutput - The return type for the chatWithAssistant function.
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-
-const MessageSchema = z.object({
-  role: z.enum(['user', 'model']),
-  content: z.string(),
-});
-
-export const ChatWithAssistantInputSchema = z.object({
-  history: z.array(MessageSchema).describe('The conversation history.'),
-});
-export type ChatWithAssistantInput = z.infer<
-  typeof ChatWithAssistantInputSchema
->;
-
-export const ChatWithAssistantOutputSchema = z.object({
-  response: z.string().describe("The AI assistant's response."),
-});
-export type ChatWithAssistantOutput = z.infer<
-  typeof ChatWithAssistantOutputSchema
->;
+import {
+  ChatWithAssistantInputSchema,
+  ChatWithAssistantOutputSchema,
+  type ChatWithAssistantInput,
+  type ChatWithAssistantOutput,
+} from './chat-flow.types';
 
 export async function chatWithAssistant(
   input: ChatWithAssistantInput
