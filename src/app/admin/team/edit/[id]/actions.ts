@@ -3,7 +3,6 @@
 
 import { updateTeamMember } from '@/services/team';
 import { z } from 'zod';
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 const FormSchema = z.object({
@@ -19,9 +18,9 @@ export type State = {
         avatar?: string[];
     } | null;
     message: string;
-} | null;
+};
 
-export async function updateExistingTeamMember(id: string, prevState: State, formData: FormData) {
+export async function updateExistingTeamMember(id: string, formData: FormData): Promise<void | State> {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
@@ -44,5 +43,4 @@ export async function updateExistingTeamMember(id: string, prevState: State, for
     revalidatePath('/admin/team');
     revalidatePath(`/admin/team/edit/${id}`);
     revalidatePath(`/about`);
-    redirect('/admin/team');
 }
