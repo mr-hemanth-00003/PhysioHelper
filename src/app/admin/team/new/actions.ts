@@ -37,7 +37,8 @@ export async function createNewTeamMember(prevState: State, formData: FormData):
     }
 
     try {
-        await createTeamMember(validatedFields.data);
+        const { name, role, avatar } = validatedFields.data;
+        await createTeamMember({ name, role, avatar });
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to create team member.';
         return {
