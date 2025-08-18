@@ -22,13 +22,11 @@ export type State = {
 };
 
 export async function updateExistingTeamMember(id: string, prevState: State, formData: FormData): Promise<State> {
-    const data = {
+    const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
         avatar: formData.get('avatar'),
-    };
-
-    const validatedFields = FormSchema.safeParse(data);
+    });
     
     if (!validatedFields.success) {
         return {
