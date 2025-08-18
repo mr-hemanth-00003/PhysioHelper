@@ -38,6 +38,7 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   const [content, setContent] = useState('');
 
   useEffect(() => {
+      if (!id) return;
       const fetchArticle = async () => {
           setLoading(true);
           const fetchedArticle = await getArticle(id);
@@ -54,9 +55,9 @@ export default function EditArticlePage({ params }: { params: { id: string } }) 
   }, [id])
 
   useEffect(() => {
-    if (state.message && (state.message.includes('Success') || state.errors)) {
+    if (state.message) {
       toast({
-        title: state.message.includes('Success') ? 'Success!' : 'Uh oh!',
+        title: state.errors ? 'Uh oh!' : 'Success!',
         description: state.message,
         variant: state.errors ? 'destructive' : 'default',
       });

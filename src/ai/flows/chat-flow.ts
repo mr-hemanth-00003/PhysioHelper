@@ -31,11 +31,7 @@ Keep your responses concise and easy to understand.
   prompt: `Answer the user's query based on the following history.
 
 {{#each history}}
-{{#if (eq this.role "user")}}
-User: {{{this.content}}}
-{{else}}
-Assistant: {{{this.content}}}
-{{/if}}
+{{this.role}}: {{{this.content}}}
 {{/each}}
 `,
 });

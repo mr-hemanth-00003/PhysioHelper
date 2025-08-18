@@ -32,7 +32,7 @@ export default function NewArticlePage() {
   useEffect(() => {
       if (state.message) {
           toast({
-              title: state.message.includes("Success") ? "Success!" : "Uh oh!",
+              title: state.errors ? "Uh oh!" : "Success!",
               description: state.message,
               variant: state.errors ? "destructive" : "default"
           });
