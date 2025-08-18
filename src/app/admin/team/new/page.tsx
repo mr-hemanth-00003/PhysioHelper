@@ -23,11 +23,17 @@ export default function NewTeamMemberPage() {
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
-        const result = await createNewTeamMember(formData);
-        if (result?.message) {
+        try {
+            await createNewTeamMember(formData);
+            toast({
+                title: "Success!",
+                description: "Team member created successfully."
+            });
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
             toast({
                 title: "Error",
-                description: result.message,
+                description: errorMessage,
                 variant: 'destructive'
             });
         }

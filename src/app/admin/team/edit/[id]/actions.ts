@@ -23,16 +23,14 @@ export async function updateExistingTeamMember(id: string, formData: FormData) {
     
     if (!validatedFields.success) {
         const errorMessages = validatedFields.error.errors.map(e => e.message).join(', ');
-        return {
-            message: `Validation failed: ${errorMessages}`,
-        }
+        throw new Error(`Validation failed: ${errorMessages}`);
     }
 
     try {
         await updateTeamMember(id, validatedFields.data);
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to update team member.';
-        return { message: errorMessage };
+        throw new Error(errorMessage);
     }
 
     revalidatePath('/admin/team');

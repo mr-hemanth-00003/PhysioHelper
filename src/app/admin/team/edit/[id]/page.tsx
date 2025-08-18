@@ -32,24 +32,35 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
       if (!id) return;
       const fetchMember = async () => {
           setLoading(true);
-          const fetchedMember = await getTeamMember(id);
-          if (fetchedMember) {
-              setMember(fetchedMember);
-          } else {
+          try {
+            const fetchedMember = await getTeamMember(id);
+            if (fetchedMember) {
+                setMember(fetchedMember);
+            } else {
+                notFound();
+            }
+          } catch(error) {
               notFound();
+          } finally {
+            setLoading(false);
           }
-          setLoading(false);
       }
       fetchMember();
   }, [id])
 
   const handleSubmit = (formData: FormData) => {
     startTransition(async () => {
-        const result = await updateExistingTeamMember(id, formData);
-        if (result?.message) {
+        try {
+            await updateExistingTeamMember(id, formData);
+            toast({
+                title: "Success!",
+                description: "Team member updated successfully."
+            });
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
             toast({
                 title: "Error",
-                description: result.message,
+                description: errorMessage,
                 variant: 'destructive'
             });
         }
