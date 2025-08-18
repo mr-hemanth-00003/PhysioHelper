@@ -14,7 +14,8 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { createNewTeamMember, type State } from './actions';
 import { SubmitButton } from './submit-button';
-import { useActionState, useEffect } from 'react';
+import { useFormState } from 'react-dom';
+import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const initialState: State = {
@@ -24,7 +25,7 @@ const initialState: State = {
 
 export default function NewTeamMemberPage() {
   const { toast } = useToast();
-  const [state, formAction] = useActionState(createNewTeamMember, initialState);
+  const [state, formAction] = useFormState(createNewTeamMember, initialState);
 
   useEffect(() => {
     if (state?.message) {
