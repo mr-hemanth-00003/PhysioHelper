@@ -14,7 +14,7 @@ import { useActionState, useEffect, useState } from 'react';
 import { createNewArticle } from './actions';
 import { useToast } from '@/hooks/use-toast';
 import { SubmitButton } from './submit-button';
-import { AiSuggestions } from '../../tools/ai-suggestions';
+import { AiSuggestions } from '@/app/admin/tools/ai-suggestions';
 
 const initialState = {
     message: "",

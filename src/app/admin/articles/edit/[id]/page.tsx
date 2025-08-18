@@ -18,7 +18,7 @@ import { getArticle } from '@/services/articles';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingArticle } from './actions';
 import { SubmitButton } from './submit-button';
-import { AiSuggestions } from '../../tools/ai-suggestions';
+import { AiSuggestions } from '@/app/admin/tools/ai-suggestions';
 
 const initialState = {
     message: "",
