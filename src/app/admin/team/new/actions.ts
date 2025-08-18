@@ -23,8 +23,10 @@ export async function createNewTeamMember(formData: FormData) {
     const validatedFields = FormSchema.safeParse(data);
     
     if (!validatedFields.success) {
-        const errorMessages = validatedFields.error.errors.map(e => e.message).join(', ');
-        throw new Error(`Validation failed: ${errorMessages}`);
+        // In a real app, you'd want to return this to the user.
+        // For now, we'll log it and throw an error.
+        console.error(validatedFields.error.flatten().fieldErrors);
+        throw new Error('Validation failed. Please check your inputs.');
     }
 
     try {

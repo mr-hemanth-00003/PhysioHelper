@@ -22,8 +22,8 @@ export async function updateExistingTeamMember(id: string, formData: FormData) {
     const validatedFields = FormSchema.safeParse(data);
     
     if (!validatedFields.success) {
-        const errorMessages = validatedFields.error.errors.map(e => e.message).join(', ');
-        throw new Error(`Validation failed: ${errorMessages}`);
+        console.error(validatedFields.error.flatten().fieldErrors);
+        throw new Error(`Validation failed`);
     }
 
     try {

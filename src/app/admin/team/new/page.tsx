@@ -12,36 +12,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useTransition } from 'react';
 import { createNewTeamMember } from './actions';
-import { useToast } from '@/hooks/use-toast';
 import { SubmitButton } from './submit-button';
 
 export default function NewTeamMemberPage() {
-  const { toast } = useToast();
-  const [isPending, startTransition] = useTransition();
-
-  const handleSubmit = (formData: FormData) => {
-    startTransition(async () => {
-        try {
-            await createNewTeamMember(formData);
-            toast({
-                title: "Success!",
-                description: "Team member created successfully."
-            });
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
-            toast({
-                title: "Error",
-                description: errorMessage,
-                variant: 'destructive'
-            });
-        }
-    });
-  }
-
+  
   return (
-    <form action={handleSubmit}>
+    <form action={createNewTeamMember}>
       <div className="flex items-center justify-between space-y-2 mb-8">
         <div>
             <h1 className="text-3xl font-bold">New Team Member</h1>
@@ -53,7 +30,7 @@ export default function NewTeamMemberPage() {
             <Button variant="outline" asChild>
                 <Link href="/admin/team">Cancel</Link>
             </Button>
-            <SubmitButton isPending={isPending} />
+            <SubmitButton />
         </div>
       </div>
       <Card>
@@ -65,15 +42,15 @@ export default function NewTeamMemberPage() {
             <div className="space-y-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" name="name" placeholder="e.g. Dr. Jane Smith" required disabled={isPending} />
+                    <Input id="name" name="name" placeholder="e.g. Dr. Jane Smith" required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
-                    <Input id="role" name="role" placeholder="e.g. Lead Physiotherapist" required disabled={isPending} />
+                    <Input id="role" name="role" placeholder="e.g. Lead Physiotherapist" required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="avatar">Avatar URL</Label>
-                    <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" type="url" required disabled={isPending} />
+                    <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" type="url" required />
                 </div>
             </div>
         </CardContent>
