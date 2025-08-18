@@ -3,6 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { Inter, Poppins } from 'next/font/google';
 import { AiAssistant } from '@/components/ai-assistant';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
