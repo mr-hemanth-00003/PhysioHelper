@@ -41,7 +41,7 @@ export function AiAssistant() {
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle className="font-headline text-lg">
-                        AI Assistant
+                        Physio Assistant
                       </CardTitle>
                       <CardDescription>
                         Ask me anything about physiotherapy!
@@ -82,7 +82,7 @@ export function AiAssistant() {
                   {isOpen ? (
                     <X className="h-8 w-8" />
                   ) : (
-                    <Image src="/favicon.ico" alt="AI Assistant" width="32" height="32" />
+                    <Image src="/favicon.ico" alt="Physio Assistant" width="32" height="32" />
                   )}
                 </motion.div>
               </AnimatePresence>
@@ -90,7 +90,7 @@ export function AiAssistant() {
             </Button>
           </TooltipTrigger>
           <TooltipContent side="left">
-            <p>AI Assistant</p>
+            <p>Physio Assistant</p>
           </TooltipContent>
         </Tooltip>
       </div>
