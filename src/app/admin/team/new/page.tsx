@@ -14,8 +14,7 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { createNewTeamMember, type State } from './actions';
 import { SubmitButton } from './submit-button';
-import { useFormState } from 'react-dom';
-import { useEffect } from 'react';
+import { useActionState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const initialState: State = {
@@ -25,12 +24,12 @@ const initialState: State = {
 
 export default function NewTeamMemberPage() {
   const { toast } = useToast();
-  const [state, formAction] = useFormState(createNewTeamMember, initialState);
+  const [state, formAction] = useActionState(createNewTeamMember, initialState);
 
   useEffect(() => {
     if (state?.message) {
       toast({
-        title: state.errors ? "Error" : "Success",
+        title: state.errors ? "Error" : "Success!",
         description: state.message,
         variant: state.errors ? "destructive" : "default",
       });
@@ -75,7 +74,7 @@ export default function NewTeamMemberPage() {
                     <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" type="url" />
                      {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
-                 {state.message && !state.errors && <p className="text-sm font-medium text-destructive">{state.message}</p>}
+                 {state.message && !state.errors && <p className="text-sm font-medium text-green-600">{state.message}</p>}
             </div>
         </CardContent>
       </Card>

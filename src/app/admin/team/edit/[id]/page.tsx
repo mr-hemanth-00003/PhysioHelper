@@ -14,8 +14,7 @@ import { Label } from '@/components/ui/label';
 import type { TeamMember } from '@/lib/types';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
 import { getTeamMember } from '@/services/team';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingTeamMember, type State } from './actions';
@@ -35,7 +34,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
   const { toast } = useToast();
 
   const updateTeamMemberWithId = updateExistingTeamMember.bind(null, id);
-  const [state, formAction] = useFormState(updateTeamMemberWithId, initialState);
+  const [state, formAction] = useActionState(updateTeamMemberWithId, initialState);
 
 
   useEffect(() => {
@@ -61,7 +60,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
   useEffect(() => {
     if (state?.message) {
       toast({
-        title: state.errors ? "Error" : "Success",
+        title: state.errors ? "Error" : "Success!",
         description: state.message,
         variant: state.errors ? "destructive" : "default",
       });
@@ -117,7 +116,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
                     <Input id="avatar" name="avatar" defaultValue={member.avatar} type="url" required />
                      {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
-                 {state.message && !state.errors && <p className="text-sm font-medium text-destructive">{state.message}</p>}
+                 {state.message && !state.errors && <p className="text-sm font-medium text-green-600">{state.message}</p>}
             </div>
         </CardContent>
       </Card>
