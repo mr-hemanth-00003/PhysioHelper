@@ -19,9 +19,8 @@ const teamCollection = collection(db, 'teamMembers');
 
 // TODO: Replace this with your actual authentication check.
 // This function should verify that the current user is authenticated and has admin privileges.
-// For example, by verifying a session cookie or a token.
+// For now, it returns true to allow functionality during development.
 async function isAdmin() {
-  // For now, we'll return true to allow functionality.
   // In a real application, you would check the user's session.
   // For example:
   // const user = await getAuthenticatedUser();
@@ -66,7 +65,12 @@ export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
         throw new Error("Unauthorized: You do not have permission to perform this action.");
     }
     try {
-        const docRef = await addDoc(teamCollection, data);
+        const newMember = {
+            name: data.name,
+            role: data.role,
+            avatar: data.avatar,
+        };
+        const docRef = await addDoc(teamCollection, newMember);
         return docRef.id;
     } catch (error) {
         console.error("Error creating team member: ", error);
