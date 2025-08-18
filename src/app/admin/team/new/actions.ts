@@ -20,9 +20,9 @@ export type State = {
         avatar?: string[];
     } | null;
     message: string;
-} | null;
+} | undefined;
 
-export async function createNewTeamMember(prevState: State, formData: FormData) {
+export async function createNewTeamMember(formData: FormData): Promise<State> {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),

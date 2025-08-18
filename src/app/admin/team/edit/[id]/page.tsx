@@ -48,9 +48,10 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
     startTransition(async () => {
         const result = await updateExistingTeamMember(id, formData);
         if (result?.errors) {
+            const errorMessages = Object.values(result.errors).flat().join(' ');
             toast({
                 title: 'Validation Error',
-                description: result.message,
+                description: errorMessages || result.message,
                 variant: 'destructive'
             });
         } else if (result?.message) {

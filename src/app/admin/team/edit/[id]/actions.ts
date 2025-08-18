@@ -4,6 +4,7 @@
 import { updateTeamMember } from '@/services/team';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -18,9 +19,9 @@ export type State = {
         avatar?: string[];
     } | null;
     message: string;
-};
+} | undefined;
 
-export async function updateExistingTeamMember(id: string, formData: FormData): Promise<void | State> {
+export async function updateExistingTeamMember(id: string, formData: FormData): Promise<State> {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
@@ -43,4 +44,6 @@ export async function updateExistingTeamMember(id: string, formData: FormData): 
     revalidatePath('/admin/team');
     revalidatePath(`/admin/team/edit/${id}`);
     revalidatePath(`/about`);
+    
+    // Returning undefined on success, the client will redirect.
 }
