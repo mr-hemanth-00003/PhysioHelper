@@ -19,6 +19,7 @@ import {
 } from './ui/card';
 import { AiChat } from './ai-chat';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 
 export function AiAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +82,7 @@ export function AiAssistant() {
                   {isOpen ? (
                     <X className="h-8 w-8" />
                   ) : (
-                    <Bot className="h-8 w-8" />
+                    <Image src="/favicon.ico" alt="AI Assistant" width="32" height="32" />
                   )}
                 </motion.div>
               </AnimatePresence>
