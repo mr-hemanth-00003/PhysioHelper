@@ -116,7 +116,6 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
                     <Input id="avatar" name="avatar" defaultValue={member.avatar} type="url" required />
                      {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
-                 {state.message && !state.errors && <p className="text-sm font-medium text-green-600">{state.message}</p>}
             </div>
         </CardContent>
       </Card>

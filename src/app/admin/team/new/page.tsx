@@ -74,7 +74,6 @@ export default function NewTeamMemberPage() {
                     <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" type="url" />
                      {state.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
-                 {state.message && !state.errors && <p className="text-sm font-medium text-green-600">{state.message}</p>}
             </div>
         </CardContent>
       </Card>
