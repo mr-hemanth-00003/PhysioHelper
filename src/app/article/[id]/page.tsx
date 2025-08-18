@@ -22,6 +22,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
   const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
+    if (!id) return;
     const fetchAndTrack = async () => {
       const fetchedArticle = await getArticle(id);
       if (fetchedArticle) {
@@ -86,7 +87,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
           
           <div className="prose prose-lg mx-auto max-w-full dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
              <p className="lead">{article.excerpt}</p>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehype-raw]}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
               {article.content}
             </ReactMarkdown>
           </div>
