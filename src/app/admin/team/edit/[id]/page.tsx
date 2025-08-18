@@ -47,25 +47,18 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
   const handleSubmit = async (formData: FormData) => {
     startTransition(async () => {
         const result = await updateExistingTeamMember(id, formData);
-        if (result?.errors) {
-            const errorMessages = Object.values(result.errors).flat().join(' ');
+        if (result?.message) {
             toast({
-                title: 'Validation Error',
-                description: errorMessages || result.message,
-                variant: 'destructive'
-            });
-        } else if (result?.message) {
-             toast({
                 title: 'Error',
                 description: result.message,
                 variant: 'destructive'
             });
         } else {
-            toast({
+             toast({
                 title: 'Success!',
                 description: 'Team member updated successfully.',
             });
-            router.push('/admin/team');
+            // Redirect is handled by the server action now.
         }
     });
   }

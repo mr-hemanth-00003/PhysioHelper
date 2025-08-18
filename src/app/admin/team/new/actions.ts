@@ -14,11 +14,6 @@ const FormSchema = z.object({
 
 
 export type State = {
-    errors?: {
-        name?: string[];
-        role?: string[];
-        avatar?: string[];
-    } | null;
     message: string;
 } | undefined;
 
@@ -30,9 +25,10 @@ export async function createNewTeamMember(formData: FormData): Promise<State> {
     });
     
     if (!validatedFields.success) {
+        const errorMessages = validatedFields.error.flatten().fieldErrors;
+        const allErrors = Object.values(errorMessages).flat().join(', ');
         return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Validation failed. Please check your inputs.',
+            message: `Validation failed: ${allErrors}`,
         }
     }
 
@@ -40,7 +36,7 @@ export async function createNewTeamMember(formData: FormData): Promise<State> {
         await createTeamMember(validatedFields.data);
 
     } catch (e) {
-        return { message: 'Database Error: Failed to create team member.' , errors: null};
+        return { message: 'Database Error: Failed to create team member.' };
     }
 
     revalidatePath('/admin/team');

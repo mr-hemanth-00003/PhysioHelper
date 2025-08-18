@@ -27,14 +27,7 @@ export default function NewTeamMemberPage() {
     startTransition(async () => {
         const result = await createNewTeamMember(formData);
 
-        if (result?.errors) {
-             const errorMessages = Object.values(result.errors).flat().join(' ');
-             toast({
-                title: 'Validation Error',
-                description: errorMessages || result.message,
-                variant: 'destructive'
-            });
-        } else if (result?.message) {
+        if (result?.message) {
              toast({
                 title: 'Error',
                 description: result.message,
@@ -45,8 +38,7 @@ export default function NewTeamMemberPage() {
                 title: 'Success!',
                 description: 'New team member added successfully.',
             });
-            // The action will handle the redirect, but we could also do it here.
-            // router.push('/admin/team');
+            // The action will handle the redirect on success
         }
     });
   };
