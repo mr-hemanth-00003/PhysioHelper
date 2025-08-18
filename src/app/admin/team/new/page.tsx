@@ -12,39 +12,30 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useTransition } from 'react';
+import { useEffect } from 'react';
+import { useFormState } from 'react-dom';
 import { createNewTeamMember } from './actions';
 import { useToast } from '@/hooks/use-toast';
-import { SubmitButton } from '@/components/submit-button';
-import { useRouter } from 'next/navigation';
+import { SubmitButton } from './submit-button';
+
+const initialState = undefined;
 
 export default function NewTeamMemberPage() {
   const { toast } = useToast();
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [state, formAction] = useFormState(createNewTeamMember, initialState);
 
-  const handleSubmit = async (formData: FormData) => {
-    startTransition(async () => {
-        const result = await createNewTeamMember(formData);
-
-        if (result?.message) {
-             toast({
-                title: 'Error',
-                description: result.message,
-                variant: 'destructive'
-            });
-        } else {
-             toast({
-                title: 'Success!',
-                description: 'New team member added successfully.',
-            });
-            // The action will handle the redirect on success
-        }
-    });
-  };
+  useEffect(() => {
+    if (state?.message) {
+      toast({
+        title: 'Error',
+        description: state.message,
+        variant: 'destructive',
+      });
+    }
+  }, [state, toast]);
 
   return (
-    <form action={handleSubmit}>
+    <form action={formAction}>
       <div className="flex items-center justify-between space-y-2 mb-8">
         <div>
             <h1 className="text-3xl font-bold">New Team Member</h1>
@@ -56,7 +47,7 @@ export default function NewTeamMemberPage() {
             <Button variant="outline" asChild>
                 <Link href="/admin/team">Cancel</Link>
             </Button>
-            <SubmitButton pendingLabel='Adding...' label='Add Member' isPending={isPending} />
+            <SubmitButton />
         </div>
       </div>
       <Card>
@@ -69,14 +60,17 @@ export default function NewTeamMemberPage() {
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input id="name" name="name" placeholder="e.g. Dr. Jane Smith" />
+                    {state?.errors?.name && <p className="text-sm font-medium text-destructive">{state.errors.name[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
                     <Input id="role" name="role" placeholder="e.g. Lead Physiotherapist" />
+                    {state?.errors?.role && <p className="text-sm font-medium text-destructive">{state.errors.role[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="avatar">Avatar URL</Label>
                     <Input id="avatar" name="avatar" placeholder="https://placehold.co/100x100.png" />
+                    {state?.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
             </div>
         </CardContent>

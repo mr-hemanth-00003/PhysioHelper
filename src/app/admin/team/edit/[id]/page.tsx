@@ -14,20 +14,25 @@ import { Label } from '@/components/ui/label';
 import type { TeamMember } from '@/lib/types';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import { notFound, useRouter } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { notFound } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useFormState } from 'react-dom';
 import { getTeamMember } from '@/services/team';
 import { Skeleton } from '@/components/ui/skeleton';
 import { updateExistingTeamMember } from './actions';
-import { SubmitButton } from '@/components/submit-button';
+import { SubmitButton } from './submit-button';
+
+const initialState = undefined;
 
 export default function EditTeamMemberPage({ params }: { params: { id: string } }) {
   const id = params.id;
   const { toast } = useToast();
-  const router = useRouter();
   const [member, setMember] = useState<TeamMember | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isPending, startTransition] = useTransition();
+  
+  const updateTeamMemberWithId = updateExistingTeamMember.bind(null, id);
+  const [state, formAction] = useFormState(updateTeamMemberWithId, initialState);
+  
 
   useEffect(() => {
       if (!id) return;
@@ -44,24 +49,15 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
       fetchMember();
   }, [id])
 
-  const handleSubmit = async (formData: FormData) => {
-    startTransition(async () => {
-        const result = await updateExistingTeamMember(id, formData);
-        if (result?.message) {
-            toast({
-                title: 'Error',
-                description: result.message,
-                variant: 'destructive'
-            });
-        } else {
-             toast({
-                title: 'Success!',
-                description: 'Team member updated successfully.',
-            });
-            // Redirect is handled by the server action now.
-        }
-    });
-  }
+  useEffect(() => {
+    if (state?.message) {
+      toast({
+        title: state.errors ? 'Error' : 'Success!',
+        description: state.message,
+        variant: state.errors ? 'destructive' : 'default',
+      });
+    }
+  }, [state, toast]);
   
   if (loading) {
       return <EditMemberSkeleton />
@@ -73,7 +69,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
 
 
   return (
-    <form action={handleSubmit}>
+    <form action={formAction}>
       <div className="flex items-center justify-between space-y-2 mb-8">
         <div>
             <h1 className="text-3xl font-bold">Edit Team Member</h1>
@@ -85,7 +81,7 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
             <Button variant="outline" asChild>
             <Link href="/admin/team">Cancel</Link>
             </Button>
-            <SubmitButton pendingLabel="Saving..." label="Save Changes" isPending={isPending} />
+            <SubmitButton />
         </div>
       </div>
 
@@ -99,14 +95,17 @@ export default function EditTeamMemberPage({ params }: { params: { id: string } 
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input id="name" name="name" defaultValue={member.name} />
+                    {state?.errors?.name && <p className="text-sm font-medium text-destructive">{state.errors.name[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
                     <Input id="role" name="role" defaultValue={member.role} />
+                    {state?.errors?.role && <p className="text-sm font-medium text-destructive">{state.errors.role[0]}</p>}
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="avatar">Avatar URL</Label>
                     <Input id="avatar" name="avatar" defaultValue={member.avatar} />
+                     {state?.errors?.avatar && <p className="text-sm font-medium text-destructive">{state.errors.avatar[0]}</p>}
                 </div>
             </div>
         </CardContent>

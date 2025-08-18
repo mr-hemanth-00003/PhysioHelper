@@ -15,9 +15,14 @@ const FormSchema = z.object({
 
 export type State = {
     message: string;
+    errors?: {
+        name?: string[];
+        role?: string[];
+        avatar?: string[];
+    }
 } | undefined;
 
-export async function createNewTeamMember(formData: FormData): Promise<State> {
+export async function createNewTeamMember(prevState: State, formData: FormData): Promise<State> {
     const validatedFields = FormSchema.safeParse({
         name: formData.get('name'),
         role: formData.get('role'),
@@ -25,10 +30,9 @@ export async function createNewTeamMember(formData: FormData): Promise<State> {
     });
     
     if (!validatedFields.success) {
-        const errorMessages = validatedFields.error.flatten().fieldErrors;
-        const allErrors = Object.values(errorMessages).flat().join(', ');
         return {
-            message: `Validation failed: ${allErrors}`,
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: `Validation failed.`,
         }
     }
 
