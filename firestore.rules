@@ -7,5 +7,29 @@ service cloud.firestore {
     match /articles/{articleId} {
       allow read, write: if true;
     }
+    
+    // Allow public read access to settings
+    match /settings/{document} {
+      allow read: if true;
+      allow write: if true; // In production, restrict this to authenticated admins
+    }
+    
+    // Allow public read access to team members
+    match /team/{document} {
+      allow read: if true;
+      allow write: if true; // In production, restrict this to authenticated admins
+    }
+    
+    // Allow public read access to case studies
+    match /case-studies/{document} {
+      allow read: if true;
+      allow write: if true; // In production, restrict this to authenticated admins
+    }
+    
+    // Allow public read access to study guides
+    match /study-guides/{document} {
+      allow read: if true;
+      allow write: if true; // In production, restrict this to authenticated admins
+    }
   }
 }

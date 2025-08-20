@@ -28,7 +28,12 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       return docSnap.data() as SiteSettings;
     } else {
       // If the document doesn't exist, create it with default values
-      await setDoc(settingsDocRef, defaultSettings);
+      try {
+        await setDoc(settingsDocRef, defaultSettings);
+      } catch (writeError) {
+        console.warn('Could not create settings document:', writeError);
+        // Continue with default settings even if we can't write
+      }
       return defaultSettings;
     }
   } catch (error) {

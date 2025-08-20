@@ -2,15 +2,12 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  // Trigger rebuild to resolve HMR issue
-  /* config options here */
-  experimental: {
-    turbo: {
-      rules: {
-        '**/*.ico': {
-          loaders: ['raw-loader'],
-          as: '*.ico',
-        },
+  // Turbopack configuration (replaces deprecated experimental.turbo)
+  turbopack: {
+    rules: {
+      '**/*.ico': {
+        loaders: ['raw-loader'],
+        as: '*.ico',
       },
     },
   },
