@@ -2,15 +2,6 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  // Turbopack configuration (replaces deprecated experimental.turbo)
-  turbopack: {
-    rules: {
-      '**/*.ico': {
-        loaders: ['raw-loader'],
-        as: '*.ico',
-      },
-    },
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
