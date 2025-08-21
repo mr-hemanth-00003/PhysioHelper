@@ -59,7 +59,7 @@ export async function getTeamMember(id: string): Promise<TeamMember | null> {
   }
 }
 
-export async function createTeamMember(data: {name: string, role: string, avatar: string}) {
+export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
     const authorized = await isAdmin();
     if (!authorized) {
         throw new Error("Unauthorized: You do not have permission to perform this action.");

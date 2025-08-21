@@ -39,7 +39,7 @@ export async function updateExistingTeamMember(id: string, prevState: State, for
         await updateTeamMember(id, validatedFields.data);
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'Database Error: Failed to update team member.';
-        return { message: errorMessage };
+        return { message: errorMessage, errors: null };
     }
 
     revalidatePath('/admin/team');
