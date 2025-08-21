@@ -18,13 +18,13 @@ import {
 const teamCollection = collection(db, 'teamMembers');
 
 // TODO: Replace this with your actual authentication check.
-// This function should verify that the current user is authenticated and has admin privileges.
+// This function should verify that the current user is authenticated and has appropriate privileges.
 // For now, it returns true to allow functionality during development.
-async function isAdmin() {
+async function isAuthorized() {
   // In a real application, you would check the user's session.
   // For example:
   // const user = await getAuthenticatedUser();
-  // return user?.role === 'admin';
+  // return user?.role === 'instructor' || user?.role === 'admin';
   return true;
 }
 
@@ -60,7 +60,7 @@ export async function getTeamMember(id: string): Promise<TeamMember | null> {
 }
 
 export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
-    const authorized = await isAdmin();
+    const authorized = await isAuthorized();
     if (!authorized) {
         throw new Error("Unauthorized: You do not have permission to perform this action.");
     }
@@ -74,7 +74,7 @@ export async function createTeamMember(data: Omit<TeamMember, 'id'>) {
 }
 
 export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember, 'id'>>) {
-    const authorized = await isAdmin();
+    const authorized = await isAuthorized();
     if (!authorized) {
         throw new Error("Unauthorized: You do not have permission to perform this action.");
     }
@@ -88,7 +88,7 @@ export async function updateTeamMember(id: string, data: Partial<Omit<TeamMember
 }
 
 export async function deleteTeamMember(id: string) {
-    const authorized = await isAdmin();
+    const authorized = await isAuthorized();
     if (!authorized) {
         throw new Error("Unauthorized: You do not have permission to perform this action.");
     }

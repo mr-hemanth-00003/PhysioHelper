@@ -55,7 +55,7 @@ To become the world's leading platform for physiotherapy education, fostering a 
 
 ### 🔧 Technical Features
 - **Real-time Updates**: Live content synchronization via Firebase
-- **Admin Panel**: Comprehensive content management system
+- **Content Management**: Streamlined content organization and delivery
 - **SEO Optimized**: Search engine friendly with structured data
 - **PWA Ready**: Progressive web app capabilities
 - **Analytics**: Learning progress and engagement tracking
@@ -171,7 +171,7 @@ physiohelper/
 │   │   ├── resources/         # Learning resources
 │   │   ├── search/            # Search functionality
 │   │   ├── study-guides/      # Study materials
-│   │   └── admin/             # Admin panel
+
 │   ├── components/            # Reusable React components
 │   │   ├── ui/               # Radix UI primitives
 │   │   ├── header.tsx        # Navigation header
@@ -299,15 +299,15 @@ Ensure all required environment variables are set in your deployment platform:
 
 ### Firebase Security Rules
 - **Read Access**: Public access to learning content
-- **Write Access**: Restricted to authenticated admins
+- **Write Access**: Restricted to authenticated users
 - **Data Validation**: Input sanitization and validation
 - **Rate Limiting**: API request throttling
 
 ### Authentication
-- **User Roles**: Student, Instructor, and Admin roles
+- **User Roles**: Student and Instructor roles
 - **Session Management**: Secure token-based authentication
 - **Password Policies**: Strong password requirements
-- **Two-Factor Authentication**: Enhanced security for admin accounts
+- **Two-Factor Authentication**: Enhanced security for user accounts
 
 ### Data Protection
 - **GDPR Compliance**: User data privacy and consent
@@ -348,7 +348,7 @@ We welcome contributions from the community! Please read our contributing guidel
 ### User Guides
 - **Student Guide**: How to use the learning platform
 - **Instructor Guide**: Content creation and management
-- **Admin Guide**: Platform administration and configuration
+- **Platform Guide**: Platform usage and configuration
 - **API Guide**: Integration and customization options
 
 ## 🏥 Healthcare Compliance

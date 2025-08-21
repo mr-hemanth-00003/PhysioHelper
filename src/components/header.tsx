@@ -50,6 +50,7 @@ export function Header() {
 
   const navigation = [
     { name: 'Home', href: '/' },
+    { name: 'Courses', href: '/courses' },
     { name: 'Study Resources', href: '/resources', hasDropdown: true },
     { name: 'Practice Exams', href: '/exams' },
     { name: 'Drugs', href: '/drugs' },
