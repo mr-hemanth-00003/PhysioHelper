@@ -53,13 +53,13 @@ export function Header() {
     { name: 'Courses', href: '/courses' },
     { name: 'Study Resources', href: '/resources', hasDropdown: true },
     { name: 'Practice Exams', href: '/exams' },
-    { name: 'Drugs', href: '/drugs' },
+    { name: 'Drugs', href: '/drug-search' },
     { name: 'About', href: '/about' }
   ];
 
   const resourceDropdown = [
         { name: 'Clinical Skills', href: '/resources/clinical-skills', icon: ClipboardList, description: 'Practical techniques and assessment methods' },
-    { name: 'Anatomy & Physiology', href: '/resources/anatomy', icon: Heart, description: 'Comprehensive study materials' },
+    { name: 'Anatomy & Physiology', href: '/resources/0', icon: Heart, description: 'Comprehensive study materials' },
     { name: 'Rehabilitation Protocols', href: '/rehabilitation-protocol', icon: Dumbbell, description: 'Treatment plans and exercise protocols' },
     { name: 'Case Studies', href: '/case-studies', icon: BookOpen, description: 'Real patient cases and clinical scenarios' }
   ];

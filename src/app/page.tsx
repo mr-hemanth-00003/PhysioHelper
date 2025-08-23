@@ -101,7 +101,7 @@ export default function HomePage() {
                 </Button>
                 <Button size="lg" variant="outline" className="btn-healthcare-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 hover:animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.4s'}}>
                   <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  Watch Demo
+                  Try Our AI
                   </Button>
               </div>
               
