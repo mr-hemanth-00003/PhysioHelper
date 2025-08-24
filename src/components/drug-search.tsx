@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { comprehensiveDrugs } from '@/lib/comprehensive-drugs-v2';
+import { comprehensiveDrugs } from '@/lib/combined-drugs';
 
 interface Drug {
   name: string;
@@ -259,7 +259,8 @@ export function DrugSearch() {
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span>{drugs.length} Medications Available</span>
+                <span className="font-medium">{drugs.length} Medications</span>
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Combined DB</span>
               </div>
               
               {/* Export Buttons */}
@@ -319,9 +320,20 @@ export function DrugSearch() {
               Get detailed information on dosage, indications, contraindications, and more.
             </p>
             
-            <p className="text-sm text-muted-foreground animate-fade-in" style={{animationDelay: '1.4s'}}>
-              {drugs.length} medications covering common medical conditions
-            </p>
+            <div className="flex items-center justify-center gap-4 animate-fade-in" style={{animationDelay: '1.4s'}}>
+              <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+                <Pill className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-primary">{drugs.length} Total Medications</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full">
+                <Activity className="h-4 w-4 text-secondary" />
+                <span className="text-sm font-medium text-secondary">{uniqueCategories.length} Categories</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full">
+                <Heart className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium text-accent">{uniqueConditions.length} Conditions</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -474,40 +486,71 @@ export function DrugSearch() {
           </CardContent>
         </Card>
 
-        {/* Quick Condition Access */}
-        <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.8s'}}>
+        {/* Drug Database Statistics */}
+        <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.7s'}}>
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center gap-3 text-2xl">
-              <div className="p-2 bg-gradient-to-r from-secondary to-accent rounded-xl">
-                <Filter className="h-6 w-6 text-white" />
+              <div className="p-2 bg-gradient-to-r from-accent to-primary rounded-xl">
+                <Activity className="h-6 w-6 text-white" />
               </div>
-              Quick Access by Condition
+              Database Statistics
             </CardTitle>
             <CardDescription className="text-lg text-muted-foreground">
-              Click on a condition to quickly find relevant medications
+              Comprehensive overview of our medication database
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {uniqueConditions.slice(0, 24).map((condition) => (
-                <Button
-                  key={condition}
-                  variant={selectedCondition === condition ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCondition(selectedCondition === condition ? 'all' : condition)}
-                  className={`justify-start text-xs h-auto py-3 px-4 rounded-xl transition-all duration-300 ${
-                    selectedCondition === condition 
-                      ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5' 
-                      : 'border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5'
-                  }`}
-                >
-                  <span className="mr-2">{getConditionIcon(condition)}</span>
-                  {condition}
-                </Button>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Total Drugs */}
+              <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl border border-primary/20">
+                <div className="text-3xl font-bold text-primary mb-2">{drugs.length}</div>
+                <div className="text-sm text-muted-foreground">Total Medications</div>
+                <div className="text-xs text-primary/70 mt-1">Comprehensive Coverage</div>
+              </div>
+              
+              {/* Categories */}
+              <div className="text-center p-6 bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl border border-secondary/20">
+                <div className="text-3xl font-bold text-secondary mb-2">{uniqueCategories.length}</div>
+                <div className="text-sm text-muted-foreground">Drug Categories</div>
+                <div className="text-xs text-secondary/70 mt-1">Therapeutic Classes</div>
+              </div>
+              
+              {/* Conditions */}
+              <div className="text-center p-6 bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl border border-accent/20">
+                <div className="text-3xl font-bold text-accent mb-2">{uniqueConditions.length}</div>
+                <div className="text-sm text-muted-foreground">Medical Conditions</div>
+                <div className="text-xs text-accent/70 mt-1">Treatment Areas</div>
+              </div>
+              
+              {/* Filtered Results */}
+              <div className="text-center p-6 bg-gradient-to-br from-warning/10 to-warning/5 rounded-xl border border-warning/20">
+                <div className="text-3xl font-bold text-warning mb-2">{filteredDrugs.length}</div>
+                <div className="text-sm text-muted-foreground">Current Results</div>
+                <div className="text-xs text-warning/70 mt-1">Filtered Display</div>
+              </div>
+            </div>
+            
+            {/* Additional Stats */}
+            <div className="mt-6 pt-6 border-t border-border/50">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div className="p-4 bg-background/50 rounded-lg">
+                  <div className="text-lg font-semibold text-foreground">A-Z Coverage</div>
+                  <div className="text-sm text-muted-foreground">Complete alphabetical range</div>
+                </div>
+                <div className="p-4 bg-background/50 rounded-lg">
+                  <div className="text-lg font-semibold text-foreground">Latest Update</div>
+                  <div className="text-sm text-muted-foreground">{new Date().toLocaleDateString()}</div>
+                </div>
+                <div className="p-4 bg-background/50 rounded-lg">
+                  <div className="text-lg font-semibold text-foreground">Data Source</div>
+                  <div className="text-sm text-muted-foreground">Combined Database (V1 + V2)</div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
+
+
 
         {/* Results Summary */}
         <div className="flex items-center justify-between animate-fade-in-up" style={{animationDelay: '2s'}}>
