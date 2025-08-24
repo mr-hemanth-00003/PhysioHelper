@@ -45,14 +45,15 @@ export default function ResourcesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const categories = [
-    { id: "all", name: "All Resources", icon: BookOpen, count: 24 },
-    { id: "clinical", name: "Clinical Skills", icon: ClipboardList, count: 8 },
-    { id: "anatomy", name: "Anatomy & Physiology", icon: HeartPulse, count: 6 },
-    { id: "rehab", name: "Rehabilitation", icon: Dumbbell, count: 5 },
-    { id: "exams", name: "Exam Prep", icon: GraduationCap, count: 3 },
-    { id: "cases", name: "Case Studies", icon: Microscope, count: 2 }
-  ];
+     const categories = [
+     { id: "all", name: "All Resources", icon: BookOpen, count: 24 },
+     { id: "clinical", name: "Clinical Skills", icon: ClipboardList, count: 8 },
+     { id: "anatomy", name: "Anatomy & Physiology", icon: HeartPulse, count: 6 },
+     { id: "rehab", name: "Rehabilitation", icon: Dumbbell, count: 5 },
+     { id: "exams", name: "Exam Prep", icon: GraduationCap, count: 3 },
+     { id: "cases", name: "Case Studies", icon: Microscope, count: 2 },
+     { id: "library", name: "Digital Library", icon: Library, count: 200 }
+   ];
 
   const featuredResources = [
     {
@@ -438,6 +439,135 @@ export default function ResourcesPage() {
                   <Users className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                   Join Study Group
                 </Button>
+              </div>
+            </div>
+          </div>
+        {/* Library Section */}
+        <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
+                Digital
+                <span className="gradient-text block">Library</span>
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-0">
+                Access our comprehensive collection of physiotherapy textbooks and reference materials organized by year.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+              {/* Library Overview */}
+              <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg overflow-hidden">
+                <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                <CardHeader className="pb-4">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Library className="h-6 w-6 text-white" />
+                    </div>
+                                         <Badge className="bg-blue-500 text-white text-xs">200+ Books</Badge>
+                  </div>
+                  <CardTitle className="text-xl sm:text-2xl font-headline group-hover:text-primary transition-colors duration-300">
+                    Comprehensive Book Collection
+                  </CardTitle>
+                                     <CardDescription className="text-sm text-muted-foreground">
+                     Access textbooks from 2010-2024 covering all major physiotherapy topics including anatomy, clinical skills, rehabilitation, and more.
+                   </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="text-center p-3 bg-blue-50 rounded-lg">
+                      <div className="font-semibold text-blue-600">28</div>
+                      <div className="text-muted-foreground">Anatomy Books</div>
+                    </div>
+                    <div className="text-center p-3 bg-purple-50 rounded-lg">
+                      <div className="font-semibold text-purple-600">35</div>
+                      <div className="text-muted-foreground">Clinical Skills</div>
+                    </div>
+                    <div className="text-center p-3 bg-green-50 rounded-lg">
+                      <div className="font-semibold text-green-600">25</div>
+                      <div className="text-muted-foreground">Rehabilitation</div>
+                    </div>
+                    <div className="text-center p-3 bg-orange-50 rounded-lg">
+                      <div className="font-semibold text-orange-600">22</div>
+                      <div className="text-muted-foreground">Sports Medicine</div>
+                    </div>
+                  </div>
+                  
+                  <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
+                    <Link href="/resources/library">
+                      <Library className="h-4 w-4 mr-2" />
+                      Browse Library
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Featured Books Preview */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground">Featured Books</h3>
+                <div className="space-y-3">
+                  <Card className="group hover:shadow-md transition-all duration-300 border-0 shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
+                          <HeartPulse className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                            Gray's Anatomy for Students
+                          </h4>
+                          <p className="text-xs text-muted-foreground">5th Edition • 2024</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                            <span className="text-xs text-muted-foreground">4.9</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="group hover:shadow-md transition-all duration-300 border-0 shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                          <ClipboardList className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                            Clinical Assessment in Physiotherapy
+                          </h4>
+                          <p className="text-xs text-muted-foreground">3rd Edition • 2023</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                            <span className="text-xs text-muted-foreground">4.8</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="group hover:shadow-md transition-all duration-300 border-0 shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                          <Brain className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                            Neurological Rehabilitation
+                          </h4>
+                          <p className="text-xs text-muted-foreground">7th Edition • 2023</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                            <span className="text-xs text-muted-foreground">4.7</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>

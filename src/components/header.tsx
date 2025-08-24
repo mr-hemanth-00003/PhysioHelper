@@ -61,7 +61,8 @@ export function Header() {
         { name: 'Clinical Skills', href: '/resources/clinical-skills', icon: ClipboardList, description: 'Practical techniques and assessment methods' },
     { name: 'Anatomy & Physiology', href: '/resources/0', icon: Heart, description: 'Comprehensive study materials' },
     { name: 'Rehabilitation Protocols', href: '/rehabilitation-protocol', icon: Dumbbell, description: 'Treatment plans and exercise protocols' },
-    { name: 'Case Studies', href: '/case-studies', icon: BookOpen, description: 'Real patient cases and clinical scenarios' }
+    { name: 'Case Studies', href: '/case-studies', icon: BookOpen, description: 'Real patient cases and clinical scenarios' },
+    { name: 'Digital Library', href: '/resources/library', icon: Library, description: 'Textbooks and reference materials by year' }
   ];
 
   const quickLinks = [
