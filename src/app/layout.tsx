@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   creator: "PhysioHelper",
   publisher: "PhysioHelper",
   robots: "index, follow",
+  other: {
+    "google-adsense-account": "ca-pub-3347120637586448",
+  },
   openGraph: {
     title: "PhysioHelper - AI-Powered Healthcare Platform",
     description: "Professional healthcare guidance powered by artificial intelligence. Get personalized assessments, expert advice, and comprehensive wellness plans.",
