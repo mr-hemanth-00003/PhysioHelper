@@ -54,22 +54,23 @@ export function Header() {
     { name: 'Study Resources', href: '/resources', hasDropdown: true },
     { name: 'Practice Exams', href: '/exams' },
     { name: 'Drugs', href: '/drug-search' },
-    { name: 'About', href: '/about' }
+    { name: 'About', href: '/about' },
+    { name: 'Admin', href: '/admin' }
   ];
 
   const resourceDropdown = [
         { name: 'Clinical Skills', href: '/resources/clinical-skills', icon: ClipboardList, description: 'Practical techniques and assessment methods' },
-    { name: 'Anatomy & Physiology', href: '/resources/0', icon: Heart, description: 'Comprehensive study materials' },
+    { name: 'Anatomy & Physiology', href: '/resources/anatomy', icon: Heart, description: 'Comprehensive study materials' },
     { name: 'Rehabilitation Protocols', href: '/rehabilitation-protocol', icon: Dumbbell, description: 'Treatment plans and exercise protocols' },
     { name: 'Case Studies', href: '/case-studies', icon: BookOpen, description: 'Real patient cases and clinical scenarios' },
     { name: 'Digital Library', href: '/resources/library', icon: Library, description: 'Textbooks and reference materials by year' }
   ];
 
   const quickLinks = [
-    { name: 'Study Groups', href: '/study-groups', icon: Users },
-    { name: 'Resource Library', href: '/library', icon: Library },
-    { name: 'Success Stories', href: '/success-stories', icon: Award },
-    { name: 'Student Support', href: '/support', icon: Phone }
+    { name: 'Study Guides', href: '/study-guides', icon: BookOpen },
+    { name: 'Digital Library', href: '/resources/library', icon: Library },
+    { name: 'Case Studies', href: '/case-studies', icon: BookOpenCheck },
+    { name: 'Contact', href: '/contact', icon: Phone }
   ];
 
   return (
@@ -80,9 +81,9 @@ export function Header() {
     }`}>
       {/* Top Utility Bar */}
       <div className="bg-gradient-to-r from-primary to-secondary text-white py-2">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="responsive-container">
           <div className="text-center animate-fade-in">
-            <span className="text-xs bg-white/20 px-2 sm:px-3 py-1 rounded border border-white/30">
+            <span className="text-xs sm:text-sm bg-white/20 px-2 sm:px-3 py-1 rounded border border-white/30">
               This resource is designed for use by healthcare professionals only.
             </span>
           </div>
@@ -91,8 +92,8 @@ export function Header() {
 
       {/* Main Navigation */}
       <div className="bg-white/95 backdrop-blur-xl border-b border-border/50">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="responsive-container">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18">
             {/* Logo */}
             <Link href="/" className="group flex items-center gap-2 sm:gap-3 animate-fade-in-left">
               <Logo />
@@ -105,7 +106,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-4 sm:gap-6">
+            <nav className="hidden xl:flex items-center gap-4 sm:gap-6 lg:gap-8">
               {navigation.map((item, index) => (
                 <div key={item.name} className="relative group animate-fade-in" style={{animationDelay: `${0.3 + index * 0.15}s`}}>
                   <Link 
@@ -167,7 +168,7 @@ export function Header() {
             </nav>
 
             {/* Right Side Actions */}
-            <div className="hidden lg:flex items-center gap-2 sm:gap-3">
+            <div className="hidden xl:flex items-center gap-2 sm:gap-3 lg:gap-4">
               {/* Search Button */}
               <Button
                 variant="outline"
@@ -187,15 +188,28 @@ export function Header() {
               </Button>
             </div>
 
+            {/* Tablet Navigation (Hidden on mobile and desktop) */}
+            <nav className="hidden lg:flex xl:hidden items-center gap-3">
+              {navigation.slice(0, 3).map((item, index) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm text-foreground hover:text-primary transition-all duration-300 font-medium px-2 py-1"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden h-8 w-8 p-0 animate-fade-in-right"
+              className="xl:hidden touch-target p-0 animate-fade-in-right"
               style={{animationDelay: '0.9s'}}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
@@ -223,8 +237,8 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-border/50 animate-slide-in-from-top">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="xl:hidden bg-white/95 backdrop-blur-xl border-b border-border/50 animate-slide-in-from-top">
+          <div className="responsive-container py-4 sm:py-6">
             <nav className="space-y-3 sm:space-y-4">
               {navigation.map((item, index) => (
                 <Link

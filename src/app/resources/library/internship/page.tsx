@@ -197,6 +197,23 @@ export default function InternshipPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
       <main className="flex-1">
+        {/* Breadcrumb Navigation */}
+        <section className="py-4 sm:py-6 bg-white/50 border-b border-border/50">
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <Link href="/resources" className="hover:text-foreground transition-colors">
+                Resources
+              </Link>
+              <span>/</span>
+              <Link href="/resources/library" className="hover:text-foreground transition-colors">
+                Library
+              </Link>
+              <span>/</span>
+              <span className="text-foreground font-medium">Internship</span>
+            </nav>
+          </div>
+        </section>
+
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-indigo-500/10 via-blue-500/10 to-cyan-500/10 py-12 sm:py-16 md:py-20 lg:py-32 relative overflow-hidden">
           {/* Background Elements */}

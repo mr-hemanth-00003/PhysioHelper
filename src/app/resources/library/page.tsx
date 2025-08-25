@@ -215,7 +215,7 @@ export default function LibraryPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 py-12 sm:py-16 md:py-20 lg:py-32 relative overflow-hidden">
+        <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 responsive-padding relative overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 left-1/6 w-1 h-1 bg-primary/60 rounded-full animate-pulse-slow"></div>
@@ -223,7 +223,7 @@ export default function LibraryPage() {
             <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-accent/50 rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
           </div>
           
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="responsive-container relative z-10">
             <div className="text-center max-w-4xl mx-auto">
               <Badge className="bg-primary/10 text-primary border-primary/20 px-3 sm:px-4 py-2 mb-4 sm:mb-6 animate-fade-in text-xs sm:text-sm">
                 <Library className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
@@ -272,8 +272,8 @@ export default function LibraryPage() {
         </section>
 
         {/* Filter Section */}
-        <section className="py-8 sm:py-12 bg-white/50 border-b border-border/50">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="responsive-padding bg-white/50 border-b border-border/50">
+          <div className="responsive-container">
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-center mb-4">Filter by Year</h3>
               <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
@@ -319,8 +319,8 @@ export default function LibraryPage() {
         </section>
 
         {/* Featured Books */}
-        <section className="py-12 sm:py-16 md:py-20">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="responsive-padding">
+          <div className="responsive-container">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
                 Featured
@@ -485,10 +485,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     View Books
-                   </Button>
+                   <Link href="/resources/library/first-year">
+                     <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       View Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
 
@@ -542,10 +544,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     View Books
-                   </Button>
+                   <Link href="/resources/library/second-year">
+                     <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       View Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
 
@@ -603,10 +607,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     View Books
-                   </Button>
+                   <Link href="/resources/library/third-year">
+                     <Button className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       View Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
 
@@ -660,10 +666,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     View Books
-                   </Button>
+                   <Link href="/resources/library/fourth-year">
+                     <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       View Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
 
@@ -718,10 +726,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     View Books
-                   </Button>
+                   <Link href="/resources/library/internship">
+                     <Button className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       View Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
 
@@ -763,10 +773,12 @@ export default function LibraryPage() {
                      </div>
                    </div>
                    
-                   <Button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm">
-                     <BookOpen className="h-4 w-4 mr-2" />
-                     Browse All Books
-                   </Button>
+                   <Link href="/resources/library">
+                     <Button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-sm">
+                       <BookOpen className="h-4 w-4 mr-2" />
+                       Browse All Books
+                     </Button>
+                   </Link>
                  </CardContent>
                </Card>
              </div>
@@ -774,8 +786,8 @@ export default function LibraryPage() {
          </section>
 
          {/* All Books */}
-         <section className="py-12 sm:py-16">
-           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         <section className="responsive-padding">
+           <div className="responsive-container">
              <div className="text-center mb-12 sm:mb-16">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
                  All

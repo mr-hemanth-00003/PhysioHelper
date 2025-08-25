@@ -170,10 +170,10 @@ export default function ManualTherapyPage() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/courses/manual-therapy/modules">
+                <Link href="/courses/manual-therapy/assessments">
                   <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-3">
                     <Play className="mr-2 h-5 w-5" />
-                    Start Learning
+                    View Assessments
                   </Button>
                 </Link>
                 <Link href="/courses">

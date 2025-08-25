@@ -579,6 +579,73 @@ body {
   }
 }
 
+/* Enhanced Responsive Utilities */
+.responsive-container {
+  @apply container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.responsive-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+}
+
+.responsive-text {
+  @apply text-sm sm:text-base lg:text-lg;
+}
+
+.responsive-heading {
+  @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl;
+}
+
+.responsive-padding {
+  @apply py-8 sm:py-12 lg:py-16 xl:py-20;
+}
+
+.responsive-margin {
+  @apply my-6 sm:my-8 lg:my-12 xl:my-16;
+}
+
+/* Mobile-First Responsive Breakpoints */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    @apply hidden;
+  }
+  
+  .mobile-full {
+    @apply w-full;
+  }
+  
+  .mobile-text-center {
+    @apply text-center;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-hidden {
+    @apply hidden;
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-hidden {
+    @apply hidden;
+  }
+}
+
+/* Touch-Friendly Mobile Elements */
+@media (max-width: 768px) {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .mobile-stack {
+    @apply flex-col space-y-4;
+  }
+  
+  .mobile-center {
+    @apply items-center justify-center;
+  }
+}
+
 /* Focus States */
 .focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;

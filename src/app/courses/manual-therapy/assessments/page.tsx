@@ -16,95 +16,74 @@ import {
 export default function ManualTherapyAssessmentsPage() {
   const assessments = [
     {
-      id: "module-1-quiz",
-      title: "Manual Therapy Fundamentals Quiz",
-      description: "Test your understanding of basic principles and safety protocols",
-      type: "Quiz",
-      duration: "20 minutes",
-      questions: 25,
-      passingScore: 70,
-      attempts: 3,
-      status: "available",
-      topics: ["Basic principles", "Safety protocols", "Indications", "Contraindications"],
-      href: "/courses/manual-therapy/assessments/fundamentals-quiz"
-    },
-    {
-      id: "module-2-practical",
-      title: "Joint Mobilization Practical",
-      description: "Demonstrate joint mobilization techniques and assessment skills",
-      type: "Practical",
-      duration: "40 minutes",
-      questions: 20,
-      passingScore: 80,
-      attempts: 2,
-      status: "available",
-      topics: ["Joint assessment", "Mobilization techniques", "Treatment progression"],
-      href: "/courses/manual-therapy/assessments/joint-mobilization"
-    },
-    {
-      id: "module-3-assessment",
-      title: "Soft Tissue Techniques Assessment",
-      description: "Evaluate your knowledge of massage and soft tissue manipulation",
-      type: "Assessment",
+      id: "fundamentals-quiz",
+      title: "Fundamentals of Manual Therapy",
+      description: "Test your understanding of basic manual therapy principles and safety protocols",
       duration: "30 minutes",
-      questions: 22,
-      passingScore: 75,
-      attempts: 3,
-      status: "available",
-      topics: ["Massage techniques", "Myofascial release", "Trigger point therapy"],
-      href: "/courses/manual-therapy/assessments/soft-tissue"
+      questions: 25,
+      difficulty: "Beginner",
+      icon: BookOpen,
+      href: "#"
     },
     {
-      id: "module-4-exam",
-      title: "Manipulation Skills Exam",
-      description: "Comprehensive examination of high-velocity manipulation techniques",
-      type: "Exam",
-      duration: "60 minutes",
-      questions: 40,
-      passingScore: 80,
-      attempts: 2,
-      status: "available",
-      topics: ["Manipulation principles", "Spinal techniques", "Safety protocols"],
-      href: "/courses/manual-therapy/assessments/manipulation-skills"
-    },
-    {
-      id: "module-5-case-study",
-      title: "Assessment & Diagnosis Case Study",
-      description: "Analyze patient cases and develop treatment plans",
-      type: "Case Study",
+      id: "joint-mobilization",
+      title: "Joint Mobilization Techniques",
+      description: "Assessment of joint mobilization skills and clinical applications",
       duration: "45 minutes",
-      questions: 30,
-      passingScore: 75,
-      attempts: 2,
-      status: "available",
-      topics: ["Patient assessment", "Diagnostic reasoning", "Treatment planning"],
-      href: "/courses/manual-therapy/assessments/assessment-diagnosis"
+      questions: 20,
+      difficulty: "Intermediate",
+      icon: Activity,
+      href: "#"
     },
     {
-      id: "module-6-final",
-      title: "Clinical Integration Final Exam",
-      description: "Final examination covering all manual therapy principles",
-      type: "Final",
-      duration: "90 minutes",
-      questions: 60,
-      passingScore: 80,
-      attempts: 2,
-      status: "available",
-      topics: ["Clinical applications", "Case studies", "Professional practice"],
-      href: "/courses/manual-therapy/assessments/clinical-integration"
+      id: "soft-tissue",
+      title: "Soft Tissue Techniques",
+      description: "Evaluation of soft tissue manipulation and massage techniques",
+      duration: "40 minutes",
+      questions: 30,
+      difficulty: "Intermediate",
+      icon: Hand,
+      href: "#"
+    },
+    {
+      id: "manipulation-skills",
+      title: "Manipulation & Thrust Techniques",
+      description: "Advanced assessment of high-velocity low-amplitude techniques",
+      duration: "50 minutes",
+      questions: 22,
+      difficulty: "Advanced",
+      icon: Zap,
+      href: "#"
+    },
+    {
+      id: "assessment-diagnosis",
+      title: "Assessment & Diagnosis",
+      description: "Clinical reasoning and differential diagnosis in manual therapy",
+      duration: "35 minutes",
+      questions: 28,
+      difficulty: "Advanced",
+      icon: Brain,
+      href: "#"
+    },
+    {
+      id: "clinical-integration",
+      title: "Clinical Integration",
+      description: "Integration of manual therapy with other treatment approaches",
+      duration: "25 minutes",
+      questions: 18,
+      difficulty: "Intermediate",
+      icon: Target,
+      href: "#"
     },
     {
       id: "comprehensive-final",
       title: "Comprehensive Final Assessment",
-      description: "Final assessment covering all course modules and clinical applications",
-      type: "Final",
-      duration: "120 minutes",
-      questions: 80,
-      passingScore: 80,
-      attempts: 1,
-      status: "locked",
-      topics: ["All course topics", "Clinical integration", "Problem solving"],
-      href: "/courses/manual-therapy/assessments/comprehensive-final"
+      description: "Complete assessment covering all manual therapy competencies",
+      duration: "90 minutes",
+      questions: 50,
+      difficulty: "Advanced",
+      icon: Award,
+      href: "#"
     }
   ];
 
@@ -231,42 +210,21 @@ export default function ManualTherapyAssessmentsPage() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Target className="h-4 w-4" />
-                      <span>{assessment.passingScore}%</span>
+                      <span>{assessment.difficulty}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <span>{assessment.attempts} attempts</span>
+                      <Clock className="h-4 w-4" />
+                      <span>Available</span>
                     </div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-foreground">Topics Covered:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {assessment.topics.map((topic, index) => (
-                        <Badge key={index} variant="outline" className="text-xs px-2 py-1">
-                          {topic}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {assessment.status === 'locked' ? (
-                    <Button 
-                      className="w-full bg-gray-400 cursor-not-allowed border-0"
-                      disabled
-                    >
-                      <Lock className="mr-2 h-4 w-4" />
-                      Complete Prerequisites
+                  <Link href={assessment.href}>
+                    <Button className="w-full bg-red-600 hover:bg-red-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
+                      <Play className="mr-2 h-4 w-4" />
+                      Start Assessment
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                  ) : (
-                    <Link href={assessment.href}>
-                      <Button className="w-full bg-red-600 hover:bg-red-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
-                        <Play className="mr-2 h-4 w-4" />
-                        Start Assessment
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  )}
+                  </Link>
                 </CardContent>
               </Card>
             ))}

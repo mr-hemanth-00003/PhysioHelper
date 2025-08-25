@@ -244,27 +244,30 @@ export function DrugSearch() {
     <div className="min-h-screen bg-background">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="responsive-container">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-lg">
-                <Pill className="h-6 w-6 text-white" />
+                <Pill className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">Drug Database</h1>
-                <p className="text-sm text-muted-foreground">Comprehensive Medication Information</p>
+              <div className="hidden sm:block">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground">Drug Database</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground">Comprehensive Medication Information</p>
+              </div>
+              <div className="sm:hidden">
+                <h1 className="text-base font-bold text-foreground">Drug DB</h1>
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                 <span className="font-medium">{drugs.length} Medications</span>
                 <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Combined DB</span>
               </div>
               
               {/* Export Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2">
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -289,7 +292,7 @@ export function DrugSearch() {
               
               <Button variant="outline" size="sm" className="border-2 border-primary/20 hover:border-primary/40">
                 <Info className="h-4 w-4 mr-2" />
-                Help
+                <span className="hidden sm:inline">Help</span>
               </Button>
             </div>
           </div>
@@ -304,7 +307,7 @@ export function DrugSearch() {
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-primary/5 animate-fade-in"></div>
         <div className="absolute top-0 left-1/2 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-gradient-to-b from-primary/10 to-transparent blur-3xl transform -translate-x-1/2 animate-fade-in" style={{animationDelay: '0.3s'}}></div>
         
-        <div className="relative container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
+        <div className="relative responsive-container responsive-padding">
           <div className="text-center space-y-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
             <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium animate-fade-in animate-pulse-glow" style={{animationDelay: '0.6s'}}>
               💊 Comprehensive Drug Database
@@ -320,16 +323,16 @@ export function DrugSearch() {
               Get detailed information on dosage, indications, contraindications, and more.
             </p>
             
-            <div className="flex items-center justify-center gap-4 animate-fade-in" style={{animationDelay: '1.4s'}}>
-              <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 animate-fade-in" style={{animationDelay: '1.4s'}}>
+              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
                 <Pill className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-primary">{drugs.length} Total Medications</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full">
+              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full">
                 <Activity className="h-4 w-4 text-secondary" />
                 <span className="text-sm font-medium text-secondary">{uniqueCategories.length} Categories</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full">
+              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-accent/10 border border-accent/20 rounded-full">
                 <Heart className="h-4 w-4 text-accent" />
                 <span className="text-sm font-medium text-accent">{uniqueConditions.length} Conditions</span>
               </div>
@@ -339,7 +342,7 @@ export function DrugSearch() {
       </section>
 
       {/* Main Content */}
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div className="responsive-container py-8 space-y-8">
         {/* Search and Filters */}
         <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.6s'}}>
           <CardHeader className="pb-6">
@@ -366,7 +369,7 @@ export function DrugSearch() {
             </div>
 
             {/* Filter Controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Category Filter */}
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Category</label>

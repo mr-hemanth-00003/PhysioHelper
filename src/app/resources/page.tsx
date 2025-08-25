@@ -68,7 +68,7 @@ export default function ResourcesPage() {
       downloads: 892,
       icon: ClipboardList,
       color: "from-blue-500 to-blue-600",
-      href: "/resources/clinical-assessment-guide",
+      href: "/resources/clinical-skills",
       isNew: true,
       isPopular: true
     },
@@ -83,7 +83,7 @@ export default function ResourcesPage() {
       downloads: 1347,
       icon: Dumbbell,
       color: "from-green-500 to-green-600",
-      href: "/resources/upper-limb-rehab",
+      href: "/rehabilitation-protocol",
       isNew: false,
       isPopular: true
     },
@@ -98,7 +98,7 @@ export default function ResourcesPage() {
       downloads: 2891,
       icon: HeartPulse,
       color: "from-red-500 to-red-600",
-      href: "/resources/anatomy-atlas",
+      href: "/resources/anatomy",
       isNew: true,
       isPopular: false
     }
@@ -117,7 +117,7 @@ export default function ResourcesPage() {
       downloads: 654,
       icon: Brain,
       color: "from-purple-500 to-purple-600",
-      href: "/resources/neuro-assessment",
+      href: "/resources/clinical-skills",
       isNew: false,
       isPopular: false
     },
@@ -132,7 +132,7 @@ export default function ResourcesPage() {
       downloads: 1123,
       icon: Activity,
       color: "from-orange-500 to-orange-600",
-      href: "/resources/sports-injury",
+      href: "/rehabilitation-protocol",
       isNew: false,
       isPopular: false
     },
@@ -147,7 +147,7 @@ export default function ResourcesPage() {
       downloads: 2345,
       icon: BookOpenCheck,
       color: "from-indigo-500 to-indigo-600",
-      href: "/resources/exam-questions",
+      href: "/exams",
       isNew: false,
       isPopular: false
     }
@@ -173,7 +173,7 @@ export default function ResourcesPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 py-12 sm:py-16 md:py-20 lg:py-32 relative overflow-hidden">
+        <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 responsive-padding relative overflow-hidden">
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 left-1/6 w-1 h-1 bg-primary/60 rounded-full animate-pulse-slow"></div>
@@ -181,7 +181,7 @@ export default function ResourcesPage() {
             <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-accent/50 rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
           </div>
           
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="responsive-container relative z-10">
             <div className="text-center max-w-4xl mx-auto">
               <Badge className="bg-primary/10 text-primary border-primary/20 px-3 sm:px-4 py-2 mb-4 sm:mb-6 animate-fade-in text-xs sm:text-sm">
                 <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
@@ -230,8 +230,8 @@ export default function ResourcesPage() {
         </section>
 
         {/* Category Filter */}
-        <section className="py-8 sm:py-12 bg-white/50 border-b border-border/50">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="responsive-padding bg-white/50 border-b border-border/50">
+          <div className="responsive-container">
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {categories.map((category) => (
                 <Button
@@ -253,8 +253,8 @@ export default function ResourcesPage() {
         </section>
 
         {/* Featured Resources */}
-        <section className="py-12 sm:py-16 md:py-20">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="responsive-padding">
+          <div className="responsive-container">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
                 Featured
@@ -343,8 +343,8 @@ export default function ResourcesPage() {
         </section>
 
         {/* All Resources Grid */}
-        <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="responsive-padding bg-muted/30">
+          <div className="responsive-container">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
                 All
@@ -419,9 +419,9 @@ export default function ResourcesPage() {
           </div>
         </section>
 
-                 {/* CTA Section */}
-         <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
-           <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                         {/* CTA Section */}
+        <section className="responsive-padding bg-gradient-to-br from-primary/10 to-secondary/10">
+          <div className="responsive-container text-center">
              <div className="max-w-3xl mx-auto animate-fade-in-up">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-4 sm:mb-6">
                  Ready to Accelerate Your
@@ -445,9 +445,9 @@ export default function ResourcesPage() {
            </div>
          </section>
 
-         {/* Library Section */}
-        <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
-          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  {/* Library Section */}
+         <section className="responsive-padding bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+           <div className="responsive-container">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-headline mb-3 sm:mb-4">
                 Digital

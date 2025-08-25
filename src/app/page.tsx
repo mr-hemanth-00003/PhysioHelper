@@ -105,16 +105,7 @@ export default function HomePage() {
                   </Button>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 text-xs sm:text-sm text-muted-foreground animate-fade-in" style={{animationDelay: '1.6s'}}>
-                <div className="flex items-center gap-2 hover:animate-bounce-slow transition-all duration-300 animate-fade-in-left" style={{animationDelay: '1.8s'}}>
-                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-success animate-pulse-slow flex-shrink-0" />
-                  <span>Free Student Access</span>
-                </div>
-                <div className="flex items-center gap-2 hover:animate-bounce-slow transition-all duration-300 animate-fade-in-right" style={{animationDelay: '2s'}}>
-                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-success animate-pulse-slow flex-shrink-0" style={{animationDelay: '0.5s'}} />
-                  <span>Professional Skill Development</span>
-                </div>
-              </div>
+
             </div>
             
             <div className="relative animate-fade-in" style={{animationDelay: '0.5s'}}>

@@ -35,9 +35,9 @@ export function Footer() {
 
   return (
     <footer className="bg-slate-900 text-white border-t border-slate-800">
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="responsive-container py-8 sm:py-12 lg:py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-6 sm:mb-8 lg:mb-12">
           {/* Brand Section */}
           <div className="sm:col-span-2 space-y-4">
             <div className="flex items-center gap-2 sm:gap-3">
@@ -112,9 +112,9 @@ export function Footer() {
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-400 text-center sm:text-left">
               <span>&copy; {currentYear} PhysioHelper. All rights reserved.</span>
               <div className="hidden md:flex items-center gap-6">
-                <Link href="/privacy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
-                <Link href="/terms" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
-                <Link href="/cookies" className="hover:text-white transition-colors duration-200">Cookie Policy</Link>
+                <Link href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
+                <Link href="#" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
+                <Link href="#" className="hover:text-white transition-colors duration-200">Cookie Policy</Link>
               </div>
             </div>
             

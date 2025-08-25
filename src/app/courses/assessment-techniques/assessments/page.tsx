@@ -10,101 +10,80 @@ import {
   Dumbbell, Microscope, Target, Zap, Shield, Lightbulb, Globe,
   ChevronRight, Video, FileText, TestTube, Award, Clipboard,
   Timer, AlertCircle, CheckCircle2, XCircle, BarChart3, Lock,
-  ArrowLeft
+  ArrowLeft, ClipboardList, TrendingUp
 } from 'lucide-react';
 
 export default function AssessmentTechniquesAssessmentsPage() {
   const assessments = [
     {
-      id: "module-1-quiz",
+      id: "subjective-quiz",
       title: "Subjective Assessment Quiz",
-      description: "Test your knowledge of patient history taking and subjective examination",
-      type: "Quiz",
-      duration: "15 minutes",
-      questions: 20,
-      passingScore: 70,
-      attempts: 3,
-      status: "available",
-      topics: ["Patient interview", "Pain assessment", "Functional history", "Red flags"],
-      href: "/courses/assessment-techniques/assessments/subjective-quiz"
-    },
-    {
-      id: "module-2-practical",
-      title: "Objective Examination Practical",
-      description: "Demonstrate your clinical examination skills",
-      type: "Practical",
+      description: "Test your knowledge of history taking and subjective examination techniques",
       duration: "30 minutes",
-      questions: 15,
-      passingScore: 80,
-      attempts: 2,
-      status: "available",
-      topics: ["Observation", "Palpation", "ROM testing", "Strength testing"],
-      href: "/courses/assessment-techniques/assessments/objective-practical"
-    },
-    {
-      id: "module-3-case-study",
-      title: "Special Tests Case Study",
-      description: "Analyze a patient case and select appropriate special tests",
-      type: "Case Study",
-      duration: "45 minutes",
       questions: 25,
-      passingScore: 75,
-      attempts: 2,
-      status: "available",
-      topics: ["Orthopedic tests", "Neurological tests", "Test selection", "Clinical reasoning"],
-      href: "/courses/assessment-techniques/assessments/special-tests"
+      difficulty: "Intermediate",
+      icon: ClipboardList,
+      href: "#"
     },
     {
-      id: "module-4-assessment",
-      title: "Outcome Measures Assessment",
-      description: "Evaluate your understanding of standardized assessment tools",
-      type: "Assessment",
-      duration: "20 minutes",
-      questions: 18,
-      passingScore: 70,
-      attempts: 3,
-      status: "available",
-      topics: ["Pain scales", "Functional tools", "Quality of life", "Psychometrics"],
-      href: "/courses/assessment-techniques/assessments/outcome-measures"
+      id: "objective-practical",
+      title: "Objective Assessment Practical",
+      description: "Hands-on practice with physical examination and assessment procedures",
+      duration: "45 minutes",
+      questions: 20,
+      difficulty: "Advanced",
+      icon: Activity,
+      href: "#"
     },
     {
-      id: "module-5-exam",
-      title: "Clinical Reasoning Exam",
-      description: "Comprehensive examination of clinical decision-making skills",
-      type: "Exam",
-      duration: "60 minutes",
-      questions: 40,
-      passingScore: 75,
-      attempts: 2,
-      status: "available",
-      topics: ["Hypothesis generation", "Pattern recognition", "Differential diagnosis", "Evidence-based practice"],
-      href: "/courses/assessment-techniques/assessments/clinical-reasoning"
+      id: "special-tests",
+      title: "Special Tests & Procedures",
+      description: "Comprehensive assessment of special orthopedic and neurological tests",
+      duration: "40 minutes",
+      questions: 30,
+      difficulty: "Advanced",
+      icon: Target,
+      href: "#"
     },
     {
-      id: "module-6-practice",
-      title: "Documentation Practice",
-      description: "Practice writing SOAP notes and clinical documentation",
-      type: "Practice",
+      id: "outcome-measures",
+      title: "Outcome Measures & Scales",
+      description: "Understanding and application of standardized outcome measures",
+      duration: "35 minutes",
+      questions: 22,
+      difficulty: "Intermediate",
+      icon: TrendingUp,
+      href: "#"
+    },
+    {
+      id: "clinical-reasoning",
+      title: "Clinical Reasoning & Diagnosis",
+      description: "Case-based scenarios to develop clinical reasoning skills",
+      duration: "50 minutes",
+      questions: 28,
+      difficulty: "Advanced",
+      icon: Brain,
+      href: "#"
+    },
+    {
+      id: "documentation",
+      title: "Assessment Documentation",
+      description: "Best practices for documenting assessment findings and clinical notes",
       duration: "25 minutes",
-      questions: 12,
-      passingScore: 80,
-      attempts: 3,
-      status: "available",
-      topics: ["SOAP format", "Legal documentation", "Electronic records", "Professional writing"],
-      href: "/courses/assessment-techniques/assessments/documentation"
+      questions: 18,
+      difficulty: "Intermediate",
+      icon: FileText,
+      href: "#"
     },
     {
-      id: "final-assessment",
+      id: "comprehensive-final",
       title: "Comprehensive Final Assessment",
-      description: "Final assessment covering all course modules",
-      type: "Final",
+      description: "Complete assessment covering all aspects of clinical evaluation",
       duration: "90 minutes",
-      questions: 60,
-      passingScore: 80,
-      attempts: 1,
-      status: "locked",
-      topics: ["All course topics", "Clinical integration", "Problem solving", "Professional practice"],
-      href: "/courses/assessment-techniques/assessments/comprehensive-final"
+      questions: 50,
+      difficulty: "Advanced",
+      icon: Award,
+      href: "#"
     }
   ];
 
@@ -231,42 +210,21 @@ export default function AssessmentTechniquesAssessmentsPage() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Target className="h-4 w-4" />
-                      <span>{assessment.passingScore}%</span>
+                      <span>{assessment.difficulty}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <AlertCircle className="h-4 w-4" />
-                      <span>{assessment.attempts} attempts</span>
+                      <Clock className="h-4 w-4" />
+                      <span>Available</span>
                     </div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm text-foreground">Topics Covered:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {assessment.topics.map((topic, index) => (
-                        <Badge key={index} variant="outline" className="text-xs px-2 py-1">
-                          {topic}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {assessment.status === 'locked' ? (
-                    <Button 
-                      className="w-full bg-gray-400 cursor-not-allowed border-0"
-                      disabled
-                    >
-                      <Lock className="mr-2 h-4 w-4" />
-                      Complete Prerequisites
+                  <Link href={assessment.href}>
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
+                      <Play className="mr-2 h-4 w-4" />
+                      Start Assessment
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
-                  ) : (
-                    <Link href={assessment.href}>
-                      <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
-                        <Play className="mr-2 h-4 w-4" />
-                        Start Assessment
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  )}
+                  </Link>
                 </CardContent>
               </Card>
             ))}

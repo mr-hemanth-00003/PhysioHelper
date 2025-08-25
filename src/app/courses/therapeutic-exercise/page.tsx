@@ -199,10 +199,10 @@ export default function TherapeuticExercisePage() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/courses/therapeutic-exercise/modules">
+                <Link href="/courses/therapeutic-exercise/assessments">
                   <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3">
                     <Play className="mr-2 h-5 w-5" />
-                    Start Learning
+                    View Assessments
                   </Button>
                 </Link>
                 <Link href="/courses">
