@@ -14,7 +14,18 @@ import {
 } from 'lucide-react';
 
 export default function ManualTherapyAssessmentsPage() {
-  const assessments = [
+  const assessments: Array<{
+    id: string;
+    title: string;
+    description: string;
+    duration: string;
+    questions: number;
+    difficulty: string;
+    type: string;
+    status: string;
+    icon: any;
+    href: string;
+  }> = [
     {
       id: "fundamentals-quiz",
       title: "Fundamentals of Manual Therapy",
