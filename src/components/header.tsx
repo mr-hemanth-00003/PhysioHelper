@@ -9,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Logo } from '@/components/logo';
 import { useUser } from '@/contexts/user-context';
 import { useBrowser } from '@/hooks/use-browser';
+import { ResponsiveContainer, ResponsiveText, ResponsiveHeading } from '@/components/ui/responsive-container';
+import { ResponsiveNavigation } from '@/components/ui/responsive-navigation';
 import { 
   Menu, 
   X, 
@@ -105,19 +107,18 @@ export function Header() {
     }`}>
       {/* Top Utility Bar - Responsive */}
       <div className="bg-gradient-to-r from-primary to-secondary text-white py-1.5 sm:py-2">
-        <div className="responsive-container">
+        <ResponsiveContainer>
           <div className="text-center animate-fade-in">
-            <span className="text-xs sm:text-sm bg-white/20 px-2 sm:px-3 py-1 rounded border border-white/30 leading-tight">
-              <span className="hidden xs:inline">This resource is designed for use by healthcare professionals only.</span>
-              <span className="xs:hidden">This resource is designed for use by healthcare professionals only.</span>
-            </span>
+            <ResponsiveText size="xs" className="bg-white/20 px-2 sm:px-3 py-1 rounded border border-white/30 leading-tight">
+              This resource is designed for use by healthcare professionals only.
+            </ResponsiveText>
           </div>
-        </div>
+        </ResponsiveContainer>
       </div>
 
       {/* Main Navigation */}
       <div className="bg-white/95 backdrop-blur-xl border-b border-border/50">
-        <div className="responsive-container">
+        <ResponsiveContainer>
           <div className="flex items-center justify-between h-10 sm:h-12 md:h-14 lg:h-16">
             {/* Logo - Responsive */}
             <Link href="/" className="group flex items-center gap-1.5 sm:gap-2 md:gap-3 animate-fade-in-left touch-target">
@@ -300,13 +301,13 @@ export function Header() {
               {isMobileMenuOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
           </div>
-        </div>
+        </ResponsiveContainer>
       </div>
 
       {/* Search Bar - Enhanced Responsive */}
       {isSearchOpen && (
         <div className="bg-white/95 backdrop-blur-xl border-b border-border/50 py-2 sm:py-3 md:py-4 animate-slide-in-from-top">
-          <div className="responsive-container">
+          <ResponsiveContainer>
             <div className="relative max-w-2xl mx-auto animate-fade-in-up">
               <Search className="absolute left-2 sm:left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
               <input
@@ -319,14 +320,14 @@ export function Header() {
                 Search
               </Button>
             </div>
-          </div>
+          </ResponsiveContainer>
         </div>
       )}
 
       {/* Mobile Menu - Enhanced Responsive */}
       {isMobileMenuOpen && (
         <div className="xl:hidden bg-white/95 backdrop-blur-xl border-b border-border/50 animate-slide-in-from-top mobile-menu">
-          <div className="responsive-container py-3 sm:py-4 md:py-6">
+          <ResponsiveContainer className="py-3 sm:py-4 md:py-6">
             <nav className="space-y-2 sm:space-y-3 md:space-y-4">
               {navigation.map((item, index) => (
                 <div key={item.name}>
@@ -404,7 +405,7 @@ export function Header() {
                 )}
               </div>
             </nav>
-          </div>
+          </ResponsiveContainer>
         </div>
       )}
     </header>

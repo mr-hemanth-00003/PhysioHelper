@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useUser } from '@/contexts/user-context';
 import { ClientOnly } from '@/components/client-only';
+import { ResponsiveContainer, ResponsiveSection, ResponsiveGrid, ResponsiveCard, ResponsiveHeading, ResponsiveText, ResponsiveSpacer } from '@/components/ui/responsive-container';
 
 export default function ProfilePage() {
   const { user, updateProfile, updatePreferences, changePassword, deleteAccount } = useUser();
@@ -145,20 +146,20 @@ export default function ProfilePage() {
         <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
-          <div className="responsive-container py-8 sm:py-12">
+          <ResponsiveContainer className="py-8 sm:py-12">
             <div className="text-center">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <ResponsiveHeading level={1} size="hero" className="mb-4 text-white">
                 Profile Settings
-              </h1>
-              <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              </ResponsiveHeading>
+              <ResponsiveText size="xl" className="text-blue-100 max-w-2xl mx-auto">
                 Manage your account, preferences, and subscription settings
-              </p>
+              </ResponsiveText>
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
 
         {/* Settings Content */}
-        <section className="responsive-container py-8 sm:py-12">
+        <ResponsiveContainer className="py-8 sm:py-12">
           <div className="max-w-6xl mx-auto">
             {/* Message Alert */}
             {message && (
@@ -550,7 +551,7 @@ export default function ProfilePage() {
               </Card>
             )}
           </div>
-        </section>
+        </ResponsiveContainer>
       </main>
       
       <Footer />

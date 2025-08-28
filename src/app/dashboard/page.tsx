@@ -45,6 +45,7 @@ import {
 } from 'lucide-react';
 import { useUser } from '@/contexts/user-context';
 import { ClientOnly } from '@/components/client-only';
+import { ResponsiveContainer, ResponsiveSection, ResponsiveGrid, ResponsiveCard, ResponsiveHeading, ResponsiveText, ResponsiveSpacer } from '@/components/ui/responsive-container';
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -143,7 +144,7 @@ export default function DashboardPage() {
         <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-20">
         {/* Dashboard Header */}
         <section className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white">
-          <div className="responsive-container py-8 sm:py-12">
+          <ResponsiveContainer className="py-8 sm:py-12">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
                 <Avatar className="w-16 h-16 sm:w-20 sm:h-20 border-4 border-white/20">
@@ -183,11 +184,11 @@ export default function DashboardPage() {
                 </Button>
               </div>
             </div>
-          </div>
+          </ResponsiveContainer>
         </section>
 
         {/* Main Dashboard Content */}
-        <section className="responsive-container py-8">
+        <ResponsiveContainer className="py-8">
           {/* Stats Overview */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-lg transition-all duration-300">
@@ -544,7 +545,7 @@ export default function DashboardPage() {
               </Card>
             </TabsContent>
           </Tabs>
-        </section>
+        </ResponsiveContainer>
       </main>
       
       <Footer />
