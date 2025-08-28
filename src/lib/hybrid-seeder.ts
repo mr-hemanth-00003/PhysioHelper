@@ -1,7 +1,7 @@
 import HybridDatabaseService, { DatabaseUser, DatabaseDrug, DatabaseBook, DatabaseCourse, DatabaseAssessment } from './hybrid-database';
 
 // Sample data for seeding
-export const sampleUsers: Omit<DatabaseUser, 'id' | 'createdAt' | 'lastActive'>[] = [
+export const sampleUsers: Omit<DatabaseUser, 'createdAt' | 'lastActive'>[] = [
   {
     id: 'admin-user-1',
     email: 'admin@physiohelper.com',
@@ -240,7 +240,7 @@ export async function seedDatabase() {
 
 export async function clearDatabase() {
   try {
-    const client = await HybridDatabaseService['pool'].connect();
+    const client = await HybridDatabaseService.getConnection();
     
     // Clear all data (in reverse order due to foreign key constraints)
     await client.query('DELETE FROM analytics');

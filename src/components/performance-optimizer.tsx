@@ -25,11 +25,12 @@ export function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
     const optimizeScripts = () => {
       const scripts = document.querySelectorAll('script[src*="googlesyndication"]');
       scripts.forEach((script) => {
-        if (!script.async) {
-          script.async = true;
+        const scriptElement = script as HTMLScriptElement;
+        if (!scriptElement.async) {
+          scriptElement.async = true;
         }
-        if (!script.defer) {
-          script.defer = true;
+        if (!scriptElement.defer) {
+          scriptElement.defer = true;
         }
       });
     };

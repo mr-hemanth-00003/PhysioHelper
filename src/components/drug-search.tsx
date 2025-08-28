@@ -231,6 +231,37 @@ export function DrugSearch() {
     document.body.removeChild(link);
   };
 
+  // CSV Export for interactions data
+  const exportInteractionsToCSV = (data: { name: string; category: string; interaction: string; }[], filename: string = 'interactions') => {
+    // Define CSV headers for interactions
+    const headers = [
+      'Drug Name',
+      'Category',
+      'Interaction'
+    ];
+
+    // Convert data to CSV format
+    const csvContent = [
+      headers.join(','),
+      ...data.map(item => [
+        `"${item.name.replace(/"/g, '""')}"`,
+        `"${item.category.replace(/"/g, '""')}"`,
+        `"${item.interaction.replace(/"/g, '""')}"`
+      ].join(','))
+    ].join('\n');
+
+    // Create and download the file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${filename}-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const exportFilteredDrugs = () => {
     const filename = `filtered-drugs-${searchTerm || 'all'}-${selectedCategory !== 'all' ? selectedCategory : 'all-categories'}-${selectedCondition !== 'all' ? selectedCondition : 'all-conditions'}`;
     exportToCSV(filteredDrugs, filename);
@@ -1055,22 +1086,22 @@ export function DrugSearch() {
               >
                 Close
               </Button>
-                             <Button 
-                 onClick={() => {
-                   if (selectedDrug) {
-                     const interactionsData = selectedDrug.interactions.map(interaction => ({
-                       name: selectedDrug.name,
-                       category: selectedDrug.category,
-                       interaction: interaction
-                     }));
-                     exportToCSV(interactionsData, `interactions-${selectedDrug.name.replace(/[^a-zA-Z0-9]/g, '-')}`);
-                   }
-                 }}
-                 className="flex-1 h-12 bg-gradient-to-r from-warning to-orange-500 hover:from-warning-light hover:to-orange-400 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 rounded-xl"
-               >
-                 <Download className="h-4 w-4 mr-2" />
-                 Export Interactions
-               </Button>
+                                                           <Button 
+                  onClick={() => {
+                    if (selectedDrug) {
+                      const interactionsData = selectedDrug.interactions.map(interaction => ({
+                        name: selectedDrug.name,
+                        category: selectedDrug.category,
+                        interaction: interaction
+                      }));
+                      exportInteractionsToCSV(interactionsData, `interactions-${selectedDrug.name.replace(/[^a-zA-Z0-9]/g, '-')}`);
+                    }
+                  }}
+                  className="flex-1 h-12 bg-gradient-to-r from-warning to-orange-500 hover:from-warning-light hover:to-orange-400 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 rounded-xl"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Export Interactions
+                </Button>
             </div>
           </div>
         </DialogContent>

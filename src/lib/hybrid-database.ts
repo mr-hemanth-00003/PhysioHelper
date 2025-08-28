@@ -301,7 +301,7 @@ export class HybridDatabaseService {
   }
 
   // User Management
-  static async createUser(userData: Omit<DatabaseUser, 'id' | 'createdAt' | 'lastActive'>) {
+  static async createUser(userData: Omit<DatabaseUser, 'createdAt' | 'lastActive'>) {
     const client = await pool.connect();
     try {
       const query = `
@@ -473,10 +473,10 @@ export class HybridDatabaseService {
     const client = await pool.connect();
     try {
       const result = await client.query(
-        `INSERT INTO courses (title, description, difficulty, modules, duration, enrolled_students, completion_rate, status, tags)
+        `INSERT INTO courses (title, description, difficulty, modules, duration, enrolled_students, completion_rate, status, created_by)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          RETURNING *`,
-        [course.title, course.description, course.difficulty, course.modules, course.duration, course.enrolledStudents, course.completionRate, course.status, course.tags]
+        [course.title, course.description, course.difficulty, course.modules, course.duration, course.enrolledStudents, course.completionRate, course.status, course.createdBy]
       );
       return result.rows[0];
     } finally {
@@ -502,10 +502,10 @@ export class HybridDatabaseService {
     const client = await pool.connect();
     try {
       const result = await client.query(
-        `INSERT INTO assessments (title, type, difficulty, questions, time_limit, passing_score, status, tags)
+        `INSERT INTO assessments (title, type, difficulty, questions, time_limit, passing_score, status, created_by)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          RETURNING *`,
-        [assessment.title, assessment.type, assessment.difficulty, assessment.questions, assessment.timeLimit, assessment.passingScore, assessment.status, assessment.tags]
+        [assessment.title, assessment.type, assessment.difficulty, assessment.questions, assessment.timeLimit, assessment.passingScore, assessment.status, assessment.createdBy]
       );
       return result.rows[0];
     } finally {
@@ -545,6 +545,11 @@ export class HybridDatabaseService {
     } finally {
       client.release();
     }
+  }
+
+  // Get database connection
+  static async getConnection() {
+    return await pool.connect();
   }
 
   // Close database connection

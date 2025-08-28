@@ -22,6 +22,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "30 minutes",
       questions: 25,
       difficulty: "Beginner",
+      type: "Quiz",
+      status: "available",
       icon: BookOpen,
       href: "#"
     },
@@ -32,6 +34,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "45 minutes",
       questions: 20,
       difficulty: "Intermediate",
+      type: "Assessment",
+      status: "available",
       icon: Activity,
       href: "#"
     },
@@ -42,6 +46,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "40 minutes",
       questions: 30,
       difficulty: "Intermediate",
+      type: "Practical",
+      status: "available",
       icon: Hand,
       href: "#"
     },
@@ -52,6 +58,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "50 minutes",
       questions: 22,
       difficulty: "Advanced",
+      type: "Assessment",
+      status: "available",
       icon: Zap,
       href: "#"
     },
@@ -62,6 +70,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "35 minutes",
       questions: 28,
       difficulty: "Advanced",
+      type: "Case Study",
+      status: "available",
       icon: Brain,
       href: "#"
     },
@@ -72,6 +82,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "25 minutes",
       questions: 18,
       difficulty: "Intermediate",
+      type: "Assessment",
+      status: "available",
       icon: Target,
       href: "#"
     },
@@ -82,6 +94,8 @@ export default function ManualTherapyAssessmentsPage() {
       duration: "90 minutes",
       questions: 50,
       difficulty: "Advanced",
+      type: "Exam",
+      status: "locked",
       icon: Award,
       href: "#"
     }
