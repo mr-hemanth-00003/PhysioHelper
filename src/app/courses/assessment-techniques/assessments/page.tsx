@@ -22,6 +22,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "30 minutes",
       questions: 25,
       difficulty: "Intermediate",
+      type: "Quiz",
+      status: "available",
       icon: ClipboardList,
       href: "#"
     },
@@ -32,6 +34,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "45 minutes",
       questions: 20,
       difficulty: "Advanced",
+      type: "Practical",
+      status: "available",
       icon: Activity,
       href: "#"
     },
@@ -42,6 +46,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "40 minutes",
       questions: 30,
       difficulty: "Advanced",
+      type: "Assessment",
+      status: "available",
       icon: Target,
       href: "#"
     },
@@ -52,6 +58,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "35 minutes",
       questions: 22,
       difficulty: "Intermediate",
+      type: "Assessment",
+      status: "available",
       icon: TrendingUp,
       href: "#"
     },
@@ -62,6 +70,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "50 minutes",
       questions: 28,
       difficulty: "Advanced",
+      type: "Case Study",
+      status: "available",
       icon: Brain,
       href: "#"
     },
@@ -72,6 +82,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "25 minutes",
       questions: 18,
       difficulty: "Intermediate",
+      type: "Assessment",
+      status: "available",
       icon: FileText,
       href: "#"
     },
@@ -82,6 +94,8 @@ export default function AssessmentTechniquesAssessmentsPage() {
       duration: "90 minutes",
       questions: 50,
       difficulty: "Advanced",
+      type: "Exam",
+      status: "locked",
       icon: Award,
       href: "#"
     }

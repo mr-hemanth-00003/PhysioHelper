@@ -3,6 +3,8 @@ import { Footer } from '@/components/footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { AdSenseAd } from '@/components/adsense-ad';
 import { 
   Heart, 
   Stethoscope, 
@@ -61,7 +63,7 @@ export default function HomePage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 pt-20">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-50"></div>
         
         {/* Nano Animation Particles */}
@@ -95,14 +97,18 @@ export default function HomePage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{animationDelay: '1s'}}>
-                <Button size="lg" className="btn-healthcare text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.2s'}}>
-                  Start Learning
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce-slow" />
+                <Button size="lg" className="btn-healthcare text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.2s'}} asChild>
+                  <Link href="/courses">
+                    Start Learning
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce-slow" />
+                  </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="btn-healthcare-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 hover:animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.4s'}}>
-                  <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  Try Our AI
-                  </Button>
+                <Button size="lg" variant="outline" className="btn-healthcare-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 hover:animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.4s'}} asChild>
+                  <Link href="/ai-assistant">
+                    <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    Try Our AI
+                  </Link>
+                </Button>
               </div>
               
 
@@ -195,9 +201,11 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full btn-healthcare-outline group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 hover:animate-pulse-glow text-sm sm:text-base">
-                    Learn More
-                    <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
+                  <Button className="w-full btn-healthcare-outline group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 hover:animate-pulse-glow text-sm sm:text-base" asChild>
+                    <Link href="/resources">
+                      Learn More
+                      <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -266,10 +274,12 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
-                  <Play className="mr-2 h-4 w-4" />
-                  Start Course
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 group-hover:shadow-lg transition-all duration-300" asChild>
+                  <Link href="/courses">
+                    <Play className="mr-2 h-4 w-4" />
+                    Start Course
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -316,10 +326,12 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
-                  <Play className="mr-2 h-4 w-4" />
-                  Start Course
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white border-0 group-hover:shadow-lg transition-all duration-300" asChild>
+                  <Link href="/courses">
+                    <Play className="mr-2 h-4 w-4" />
+                    Start Course
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -366,20 +378,24 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0 group-hover:shadow-lg transition-all duration-300">
-                  <Play className="mr-2 h-4 w-4" />
-                  Start Course
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white border-0 group-hover:shadow-lg transition-all duration-300" asChild>
+                  <Link href="/courses">
+                    <Play className="mr-2 h-4 w-4" />
+                    Start Course
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
           </div>
           
           <div className="text-center mt-8">
-            <Button size="lg" variant="outline" className="btn-healthcare-outline text-lg px-8 py-4 hover:animate-pulse-glow">
-              <BookOpen className="mr-2 h-5 w-5" />
-              View All Courses
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" variant="outline" className="btn-healthcare-outline text-lg px-8 py-4 hover:animate-pulse-glow" asChild>
+              <Link href="/courses">
+                <BookOpen className="mr-2 h-5 w-5" />
+                View All Courses
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -411,13 +427,17 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-              <Button size="lg" className="btn-healthcare text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-pulse-glow w-full sm:w-auto">
-                Get Started Today
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce-slow" />
+              <Button size="lg" className="btn-healthcare text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-pulse-glow w-full sm:w-auto" asChild>
+                <Link href="/register">
+                  Get Started Today
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 animate-bounce-slow" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="btn-healthcare-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 hover:animate-pulse-glow w-full sm:w-auto">
-                Schedule Consultation
-                </Button>
+              <Button size="lg" variant="outline" className="btn-healthcare-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 hover:animate-pulse-glow w-full sm:w-auto" asChild>
+                <Link href="/contact">
+                  Schedule Consultation
+                </Link>
+              </Button>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-muted-foreground">
@@ -437,6 +457,25 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+      {/* Google AdSense Test Section */}
+      <section className="py-8 bg-muted/30">
+        <div className="container max-w-4xl mx-auto px-4 text-center">
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-muted-foreground mb-2">Advertisement</h3>
+            <p className="text-sm text-muted-foreground">Supporting our platform</p>
+          </div>
+          
+          {/* Google AdSense Ad Unit */}
+          <div className="bg-white rounded-lg p-4 border border-border/50">
+            <AdSenseAd 
+              adSlot="1234567890"
+              adFormat="auto"
+              fullWidthResponsive={true}
+            />
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

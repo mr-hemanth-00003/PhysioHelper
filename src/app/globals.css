@@ -72,7 +72,8 @@
   /* Enhanced Radius */
   --radius: 1.5rem;
   
-  /* Responsive Breakpoints */
+  /* Enhanced Responsive Breakpoints */
+  --xs: 475px;
   --mobile: 640px;
   --tablet: 768px;
   --desktop: 1024px;
@@ -106,11 +107,17 @@
   --glass-background: 0 0% 100%;
   --glass-border: 220 13% 91%;
   
-  /* Responsive Utilities */
+  /* Enhanced Responsive Utilities */
+  --container-padding-xs: 0.75rem;
   --container-padding-mobile: 1rem;
   --container-padding-tablet: 1.5rem;
   --container-padding-desktop: 2rem;
   --glass-shadow: 0 8px 32px 0 rgb(31 38 135 / 0.37);
+  
+  /* Touch Target Sizes */
+  --touch-target-min: 44px;
+  --touch-target-ideal: 48px;
+  --touch-target-large: 56px;
 }
 
 .dark {
@@ -202,6 +209,8 @@ body {
   background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted-light)) 100%);
   color: hsl(var(--foreground));
   font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Enhanced Scrollbar */
@@ -243,11 +252,11 @@ body {
   }
   
   .btn-healthcare {
-    @apply bg-gradient-to-r from-primary to-secondary hover:from-primary-light hover:to-secondary-light text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg transition-all duration-500 ease-out hover:shadow-xl hover:-translate-y-1;
+    @apply bg-gradient-to-r from-primary to-secondary hover:from-primary-light hover:to-secondary-light text-primary-foreground font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl shadow-lg transition-all duration-500 ease-out hover:shadow-xl hover:-translate-y-1;
   }
   
   .btn-healthcare-outline {
-    @apply border-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 font-semibold px-6 py-3 rounded-xl transition-all duration-500 ease-out;
+    @apply border-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl transition-all duration-500 ease-out;
   }
   
   .glass-effect {
@@ -325,6 +334,16 @@ body {
   
   .float-slow {
     animation: floatSlow 12s ease-in-out infinite;
+  }
+  
+  .animate-float-delay-2 {
+    animation: float-delay-2 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .animate-float-delay-4 {
+    animation: float-delay-4 6s ease-in-out infinite;
+    animation-delay: 4s;
   }
   
   .bounce-slow {
@@ -505,6 +524,30 @@ body {
   }
 }
 
+@keyframes float-delay-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+@keyframes float-delay-4 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
 @keyframes floatSlow {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
@@ -568,7 +611,7 @@ body {
   line-height: 1.6;
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
 @media (max-width: 768px) {
   .healthcare-card {
     @apply rounded-xl;
@@ -581,11 +624,11 @@ body {
 
 /* Enhanced Responsive Utilities */
 .responsive-container {
-  @apply container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  @apply container max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8;
 }
 
 .responsive-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8;
 }
 
 .responsive-text {
@@ -597,14 +640,32 @@ body {
 }
 
 .responsive-padding {
-  @apply py-8 sm:py-12 lg:py-16 xl:py-20;
+  @apply py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20;
 }
 
 .responsive-margin {
-  @apply my-6 sm:my-8 lg:my-12 xl:my-16;
+  @apply my-4 sm:my-6 md:my-8 lg:my-12 xl:my-16;
 }
 
-/* Mobile-First Responsive Breakpoints */
+/* Enhanced Mobile-First Responsive Breakpoints */
+@media (max-width: 475px) {
+  .xs-hidden {
+    @apply hidden;
+  }
+  
+  .xs-full {
+    @apply w-full;
+  }
+  
+  .xs-text-center {
+    @apply text-center;
+  }
+  
+  .xs-stack {
+    @apply flex-col space-y-3;
+  }
+}
+
 @media (max-width: 640px) {
   .mobile-hidden {
     @apply hidden;
@@ -617,25 +678,6 @@ body {
   .mobile-text-center {
     @apply text-center;
   }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .tablet-hidden {
-    @apply hidden;
-  }
-}
-
-@media (min-width: 1025px) {
-  .desktop-hidden {
-    @apply hidden;
-  }
-}
-
-/* Touch-Friendly Mobile Elements */
-@media (max-width: 768px) {
-  .touch-target {
-    @apply min-h-[44px] min-w-[44px];
-  }
   
   .mobile-stack {
     @apply flex-col space-y-4;
@@ -646,9 +688,60 @@ body {
   }
 }
 
-/* Focus States */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-hidden {
+    @apply hidden;
+  }
+  
+  .tablet-stack {
+    @apply flex-col space-y-4;
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-hidden {
+    @apply hidden;
+  }
+  
+  .desktop-row {
+    @apply flex-row space-x-6;
+  }
+}
+
+/* Enhanced Touch-Friendly Mobile Elements */
+@media (max-width: 768px) {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .touch-target-large {
+    @apply min-h-[56px] min-w-[56px];
+  }
+  
+  .mobile-stack {
+    @apply flex-col space-y-4;
+  }
+  
+  .mobile-center {
+    @apply items-center justify-center;
+  }
+  
+  .mobile-text-small {
+    @apply text-sm;
+  }
+  
+  .mobile-padding {
+    @apply px-4 py-3;
+  }
+}
+
+/* Enhanced Focus States */
 .focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+}
+
+.focus-ring-mobile {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background;
 }
 
 /* Loading States */
@@ -658,13 +751,20 @@ body {
   animation: shimmer 1.5s infinite;
 }
 
-/* Responsive Utility Classes */
+/* Enhanced Responsive Utility Classes */
 .container-responsive {
-  padding-left: var(--container-padding-mobile);
-  padding-right: var(--container-padding-mobile);
+  padding-left: var(--container-padding-xs);
+  padding-right: var(--container-padding-xs);
 }
 
 @media (min-width: 640px) {
+  .container-responsive {
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+}
+
+@media (min-width: 768px) {
   .container-responsive {
     padding-left: var(--container-padding-tablet);
     padding-right: var(--container-padding-tablet);
@@ -678,7 +778,7 @@ body {
   }
 }
 
-/* Mobile-first responsive utilities */
+/* Enhanced Mobile-first responsive utilities */
 .text-responsive-xs { font-size: 0.75rem; }
 .text-responsive-sm { font-size: 0.875rem; }
 .text-responsive-base { font-size: 1rem; }
@@ -729,7 +829,7 @@ body {
   .text-responsive-6xl { font-size: 3.75rem; }
 }
 
-/* Responsive spacing utilities */
+/* Enhanced Responsive spacing utilities */
 .space-responsive-xs { gap: 0.5rem; }
 .space-responsive-sm { gap: 0.75rem; }
 .space-responsive-md { gap: 1rem; }
@@ -758,4 +858,182 @@ body {
   .space-responsive-md { gap: 1rem; }
   .space-responsive-lg { gap: 1.5rem; }
   .space-responsive-xl { gap: 2rem; }
+}
+
+/* Enhanced Responsive Grid Systems */
+.grid-responsive-1 { @apply grid-cols-1; }
+.grid-responsive-2 { @apply grid-cols-1 sm:grid-cols-2; }
+.grid-responsive-3 { @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3; }
+.grid-responsive-4 { @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+.grid-responsive-5 { @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5; }
+.grid-responsive-6 { @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6; }
+
+/* Enhanced Responsive Flexbox Utilities */
+.flex-responsive-col { @apply flex-col; }
+.flex-responsive-row { @apply flex-col sm:flex-row; }
+.flex-responsive-wrap { @apply flex-wrap; }
+.flex-responsive-nowrap { @apply flex-nowrap; }
+
+@media (min-width: 640px) {
+  .flex-responsive-row { @apply flex-row; }
+}
+
+/* Enhanced Responsive Visibility */
+.hidden-xs { @apply hidden; }
+.hidden-sm { @apply hidden sm:block; }
+.hidden-md { @apply hidden md:block; }
+.hidden-lg { @apply hidden lg:block; }
+.hidden-xl { @apply hidden xl:block; }
+
+.block-xs { @apply block; }
+.block-sm { @apply hidden sm:block; }
+.block-md { @apply hidden md:block; }
+.block-lg { @apply hidden lg:block; }
+.block-xl { @apply hidden xl:block; }
+
+/* Enhanced Responsive Typography Scale */
+.text-scale-xs { @apply text-xs; }
+.text-scale-sm { @apply text-sm; }
+.text-scale-base { @apply text-base; }
+.text-scale-lg { @apply text-lg; }
+.text-scale-xl { @apply text-xl; }
+.text-scale-2xl { @apply text-2xl; }
+.text-scale-3xl { @apply text-3xl; }
+.text-scale-4xl { @apply text-4xl; }
+.text-scale-5xl { @apply text-5xl; }
+.text-scale-6xl { @apply text-6xl; }
+
+@media (min-width: 640px) {
+  .text-scale-xs { @apply text-sm; }
+  .text-scale-sm { @apply text-base; }
+  .text-scale-base { @apply text-lg; }
+  .text-scale-lg { @apply text-xl; }
+  .text-scale-xl { @apply text-2xl; }
+  .text-scale-2xl { @apply text-3xl; }
+  .text-scale-3xl { @apply text-4xl; }
+  .text-scale-4xl { @apply text-5xl; }
+  .text-scale-5xl { @apply text-6xl; }
+  .text-scale-6xl { @apply text-7xl; }
+}
+
+@media (min-width: 768px) {
+  .text-scale-xs { @apply text-sm; }
+  .text-scale-sm { @apply text-base; }
+  .text-scale-base { @apply text-lg; }
+  .text-scale-lg { @apply text-xl; }
+  .text-scale-xl { @apply text-2xl; }
+  .text-scale-2xl { @apply text-3xl; }
+  .text-scale-3xl { @apply text-4xl; }
+  .text-scale-4xl { @apply text-5xl; }
+  .text-scale-5xl { @apply text-6xl; }
+  .text-scale-6xl { @apply text-7xl; }
+}
+
+@media (min-width: 1024px) {
+  .text-scale-xs { @apply text-sm; }
+  .text-scale-sm { @apply text-base; }
+  .text-scale-base { @apply text-lg; }
+  .text-scale-lg { @apply text-xl; }
+  .text-scale-xl { @apply text-2xl; }
+  .text-scale-2xl { @apply text-3xl; }
+  .text-scale-3xl { @apply text-4xl; }
+  .text-scale-4xl { @apply text-5xl; }
+  .text-scale-5xl { @apply text-6xl; }
+  .text-scale-6xl { @apply text-7xl; }
+}
+
+/* Enhanced Responsive Padding and Margin */
+.p-responsive-xs { @apply p-2 sm:p-3 md:p-4; }
+.p-responsive-sm { @apply p-3 sm:p-4 md:p-6; }
+.p-responsive-md { @apply p-4 sm:p-6 md:p-8; }
+.p-responsive-lg { @apply p-6 sm:p-8 md:p-12; }
+.p-responsive-xl { @apply p-8 sm:p-12 md:p-16; }
+
+.px-responsive-xs { @apply px-2 sm:px-3 md:px-4; }
+.px-responsive-sm { @apply px-3 sm:px-4 md:px-6; }
+.px-responsive-md { @apply px-4 sm:px-6 md:px-8; }
+.px-responsive-lg { @apply px-6 sm:px-8 md:px-12; }
+.px-responsive-xl { @apply px-8 sm:px-12 md:px-16; }
+
+.py-responsive-xs { @apply py-2 sm:py-3 md:py-4; }
+.py-responsive-sm { @apply py-3 sm:py-4 md:py-6; }
+.py-responsive-md { @apply py-4 sm:py-6 md:py-8; }
+.py-responsive-lg { @apply py-6 sm:py-8 md:py-12; }
+.py-responsive-xl { @apply py-8 sm:py-12 md:py-16; }
+
+.m-responsive-xs { @apply m-2 sm:m-3 md:m-4; }
+.m-responsive-sm { @apply m-3 sm:m-4 md:m-6; }
+.m-responsive-md { @apply m-4 sm:m-6 md:m-8; }
+.m-responsive-lg { @apply m-6 sm:m-8 md:m-12; }
+.m-responsive-xl { @apply m-8 sm:m-12 md:m-16; }
+
+/* Enhanced Responsive Border Radius */
+.rounded-responsive-sm { @apply rounded-md sm:rounded-lg; }
+.rounded-responsive-md { @apply rounded-lg sm:rounded-xl; }
+.rounded-responsive-lg { @apply rounded-xl sm:rounded-2xl; }
+.rounded-responsive-xl { @apply rounded-2xl sm:rounded-3xl; }
+
+/* Enhanced Responsive Shadows */
+.shadow-responsive-sm { @apply shadow-sm sm:shadow; }
+.shadow-responsive-md { @apply shadow sm:shadow-md; }
+.shadow-responsive-lg { @apply shadow-md sm:shadow-lg; }
+.shadow-responsive-xl { @apply shadow-lg sm:shadow-xl; }
+
+/* Enhanced Responsive Transitions */
+.transition-responsive { @apply transition-all duration-300 ease-out; }
+.transition-responsive-fast { @apply transition-all duration-200 ease-out; }
+.transition-responsive-slow { @apply transition-all duration-500 ease-out; }
+
+/* Enhanced Responsive Hover Effects */
+.hover-responsive { @apply hover:scale-105 hover:shadow-lg transition-all duration-300; }
+.hover-responsive-subtle { @apply hover:scale-105 hover:shadow-md transition-all duration-300; }
+.hover-responsive-strong { @apply hover:scale-110 hover:shadow-xl transition-all duration-300; }
+
+/* Enhanced Responsive Focus States */
+.focus-responsive { @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background; }
+.focus-responsive-mobile { @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background; }
+
+/* Enhanced Responsive Accessibility */
+.sr-only-responsive { @apply sr-only sm:not-sr-only; }
+
+@media (max-width: 640px) {
+  .sr-only-responsive { @apply sr-only; }
+}
+
+/* Enhanced Responsive Print Styles */
+@media print {
+  .print-hidden { @apply hidden; }
+  .print-visible { @apply block; }
+  .print-text-black { @apply text-black; }
+  .print-bg-white { @apply bg-white; }
+}
+
+/* Enhanced Responsive High Contrast Mode */
+@media (prefers-contrast: high) {
+  .high-contrast-border { @apply border-2 border-current; }
+  .high-contrast-text { @apply font-bold; }
+  .high-contrast-bg { @apply bg-current text-current; }
+}
+
+/* Enhanced Responsive Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .motion-reduce { @apply transition-none; }
+  .motion-reduce * { @apply transition-none; }
+}
+
+/* Enhanced Responsive Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .dark-auto { @apply dark:bg-slate-900 dark:text-white; }
+}
+
+/* Enhanced Responsive Landscape Orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+  .landscape-compact { @apply py-2; }
+  .landscape-compact * { @apply text-sm; }
+}
+
+/* Enhanced Responsive Portrait Orientation */
+@media (orientation: portrait) and (max-width: 500px) {
+  .portrait-compact { @apply px-2; }
+  .portrait-compact * { @apply text-sm; }
 }

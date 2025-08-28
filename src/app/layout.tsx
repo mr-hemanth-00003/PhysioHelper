@@ -4,6 +4,11 @@ import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
+import ErrorBoundary from "@/components/error-boundary";
+import PerformanceOptimizer from "@/components/performance-optimizer";
+
+import { ClientProviders } from "@/components/client-providers";
+import { ClientScripts } from "@/components/client-scripts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +29,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
   other: {
     "google-adsense-account": "ca-pub-3347120637586448",
+    "google-adsense-account-id": "ca-pub-3347120637586448",
   },
   openGraph: {
     title: "PhysioHelper - AI-Powered Healthcare Platform",
@@ -57,12 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3347120637586448"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        {/* Scripts are loaded via ClientScripts component to prevent hydration mismatches */}
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Animated Background */}
@@ -71,13 +72,22 @@ export default function RootLayout({
         {/* Floating Elements */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-full blur-3xl animate-float-delay-2"></div>
+          <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-3xl animate-float-delay-4"></div>
         </div>
 
+        {/* Client-side scripts to prevent hydration mismatches */}
+        <ClientScripts />
+        
         {/* Main Content */}
         <div className="relative z-10 pt-20">
-          {children}
+          <ClientProviders>
+            <PerformanceOptimizer>
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
+            </PerformanceOptimizer>
+          </ClientProviders>
         </div>
         
         <Toaster />

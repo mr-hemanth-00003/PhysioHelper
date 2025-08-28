@@ -1,42 +1,50 @@
 
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+'use client';
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import { getAuth, GoogleAuthProvider, OAuthProvider, PhoneAuthProvider, connectAuthEmulator } from 'firebase/auth';
 
 const firebaseConfig = {
-  "projectId": "physiohelper-giggw",
-  "appId": "1:882233083966:web:46111067f7b93960ea296f",
-  "storageBucket": "physiohelper-giggw.firebasestorage.app",
-  "apiKey": "AIzaSyDTTFhL_rHbxwhr7Ou63FZh6movPsFEy6M",
-  "authDomain": "physiohelper-giggw.firebaseapp.com",
-  "measurementId": "",
-  "messagingSenderId": "882233083966"
+  apiKey: "AIzaSyDTTFhL_rHbxwhr7Ou63FZh6movPsFEy6M",
+  authDomain: "physiohelper-giggw.firebaseapp.com",
+  projectId: "physiohelper-giggw",
+  storageBucket: "physiohelper-giggw.firebasestorage.app",
+  messagingSenderId: "882233083966",
+  appId: "1:882233083966:web:46111067f7b93960ea296f"
 };
 
 // Initialize Firebase
-let app;
-try {
-  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-} catch (error) {
-  console.error('Error initializing Firebase:', error);
-  throw error;
-}
+const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
-let db;
-try {
-  db = getFirestore(app);
-  
-  // Connect to emulator in development if needed
-  if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
-    try {
-      connectFirestoreEmulator(db, 'localhost', 8080);
-    } catch (error) {
-      console.warn('Firebase emulator connection failed:', error);
-    }
+// Initialize Firebase services
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const auth = getAuth(app);
+
+// Initialize OAuth providers
+export const googleProvider = new GoogleAuthProvider();
+export const microsoftProvider = new OAuthProvider('microsoft.com');
+export const phoneProvider = new PhoneAuthProvider(auth);
+
+// Configure Google provider
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
+
+// Configure Microsoft provider
+microsoftProvider.setCustomParameters({
+  prompt: 'select_account'
+});
+
+// Development mode - connect to emulator if needed
+if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {
+  try {
+    connectAuthEmulator(auth, 'http://localhost:9099');
+  } catch (error) {
+    console.log('Firebase emulator already connected or not available');
   }
-} catch (error) {
-  console.error('Error initializing Firestore:', error);
-  throw error;
 }
 
-export { app, db };
+export default app;

@@ -242,99 +242,44 @@ export function DrugSearch() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="responsive-container">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4">
-              <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-lg">
-                <Pill className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg sm:text-xl font-bold text-foreground">Drug Database</h1>
-                <p className="text-xs sm:text-sm text-muted-foreground">Comprehensive Medication Information</p>
-              </div>
-              <div className="sm:hidden">
-                <h1 className="text-base font-bold text-foreground">Drug DB</h1>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-2 sm:gap-4">
-              <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span className="font-medium">{drugs.length} Medications</span>
-                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Combined DB</span>
-              </div>
-              
-              {/* Export Buttons */}
-              <div className="hidden md:flex items-center gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={exportAllDrugs}
-                  className="border-2 border-green-500/20 hover:border-green-500/40 hover:bg-green-500/5 transition-all duration-300"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  Export All
-                </Button>
-                {filteredDrugs.length !== drugs.length && (
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={exportFilteredDrugs}
-                    className="border-2 border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Export Filtered
-                  </Button>
-                )}
-              </div>
-              
-              <Button variant="outline" size="sm" className="border-2 border-primary/20 hover:border-primary/40">
-                <Info className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Help</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
 
-      {/* Hero Section with Healthcare Theme */}
+
+      {/* Hero Section with Healthcare Theme - Enhanced Responsive */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-50"></div>
         
-        {/* Subtle Lighting Effects */}
+        {/* Subtle Lighting Effects - Responsive */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-primary/5 animate-fade-in"></div>
-        <div className="absolute top-0 left-1/2 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-gradient-to-b from-primary/10 to-transparent blur-3xl transform -translate-x-1/2 animate-fade-in" style={{animationDelay: '0.3s'}}></div>
+        <div className="absolute top-0 left-1/2 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 bg-gradient-to-b from-primary/10 to-transparent blur-2xl sm:blur-3xl transform -translate-x-1/2 animate-fade-in" style={{animationDelay: '0.3s'}}></div>
         
-        <div className="relative responsive-container responsive-padding">
-          <div className="text-center space-y-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
-            <Badge className="bg-primary/10 text-primary border-primary/20 px-4 py-2 text-sm font-medium animate-fade-in animate-pulse-glow" style={{animationDelay: '0.6s'}}>
+        <div className="relative responsive-container py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20">
+          <div className="text-center space-y-4 sm:space-y-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
+            <Badge className="bg-primary/10 text-primary border-primary/20 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium animate-fade-in animate-pulse-glow" style={{animationDelay: '0.6s'}}>
               💊 Comprehensive Drug Database
             </Badge>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-headline font-bold leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-headline font-bold leading-tight px-2">
               <span className="animate-fade-in block" style={{animationDelay: '0.8s'}}>Find Medications</span>
               <span className="gradient-text block animate-fade-in animate-shimmer" style={{animationDelay: '1s'}}>By Condition</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '1.2s'}}>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl sm:max-w-3xl mx-auto animate-fade-in px-4" style={{animationDelay: '1.2s'}}>
               Search through our comprehensive database of medications by name, category, condition, or browse alphabetically. 
               Get detailed information on dosage, indications, contraindications, and more.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 animate-fade-in" style={{animationDelay: '1.4s'}}>
-              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
-                <Pill className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">{drugs.length} Total Medications</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 md:gap-4 animate-fade-in px-4" style={{animationDelay: '1.4s'}}>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-primary/10 border border-primary/20 rounded-full">
+                <Pill className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+                <span className="text-xs sm:text-sm font-medium text-primary">{drugs.length} Total Medications</span>
               </div>
-              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full">
-                <Activity className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-medium text-secondary">{uniqueCategories.length} Categories</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-secondary/10 border border-secondary/20 rounded-full">
+                <Activity className="h-3 w-3 sm:h-4 sm:w-4 text-secondary" />
+                <span className="text-xs sm:text-sm font-medium text-secondary">{uniqueCategories.length} Categories</span>
               </div>
-              <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-accent/10 border border-accent/20 rounded-full">
-                <Heart className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-accent">{uniqueConditions.length} Conditions</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-accent/10 border border-accent/20 rounded-full">
+                <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+                <span className="text-xs sm:text-sm font-medium text-accent">{uniqueConditions.length} Conditions</span>
               </div>
             </div>
           </div>
@@ -343,38 +288,38 @@ export function DrugSearch() {
 
       {/* Main Content */}
       <div className="responsive-container py-8 space-y-8">
-        {/* Search and Filters */}
+        {/* Search and Filters - Enhanced Responsive */}
         <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.6s'}}>
-          <CardHeader className="pb-6">
-            <CardTitle className="flex items-center gap-3 text-2xl">
-              <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-xl">
-                <Search className="h-6 w-6 text-white" />
+          <CardHeader className="pb-4 sm:pb-6">
+            <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl md:text-2xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-primary to-secondary rounded-lg sm:rounded-xl">
+                <Search className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
               </div>
               Search & Filters
             </CardTitle>
-            <CardDescription className="text-lg text-muted-foreground">
+            <CardDescription className="text-sm sm:text-base md:text-lg text-muted-foreground">
               Search by drug name, category, condition, or browse alphabetically
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Search Bar */}
+          <CardContent className="space-y-4 sm:space-y-6">
+            {/* Search Bar - Enhanced Responsive */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+              <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4 sm:h-5 sm:w-5" />
               <Input
                 placeholder="Search drugs by name, category, condition, dosage, indications..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-14 text-lg border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl"
+                className="pl-10 sm:pl-12 h-12 sm:h-14 text-base sm:text-lg border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-lg sm:rounded-xl touch-target"
               />
             </div>
 
-            {/* Filter Controls */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Category Filter */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Category</label>
+            {/* Filter Controls - Enhanced Responsive */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              {/* Category Filter - Enhanced Responsive */}
+              <div className="space-y-1.5 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-foreground">Category</label>
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl">
+                  <SelectTrigger className="h-10 sm:h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-lg sm:rounded-xl touch-target">
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
                   <SelectContent>
@@ -388,11 +333,11 @@ export function DrugSearch() {
                 </Select>
               </div>
 
-              {/* Condition Filter */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Condition</label>
+              {/* Condition Filter - Enhanced Responsive */}
+              <div className="space-y-1.5 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-foreground">Condition</label>
                 <Select value={selectedCondition} onValueChange={setSelectedCondition}>
-                  <SelectTrigger className="h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl">
+                  <SelectTrigger className="h-10 sm:h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-lg sm:rounded-xl touch-target">
                     <SelectValue placeholder="All Conditions" />
                   </SelectTrigger>
                   <SelectContent>
@@ -406,11 +351,11 @@ export function DrugSearch() {
                 </Select>
               </div>
 
-              {/* Letter Filter */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Letter</label>
+              {/* Letter Filter - Enhanced Responsive */}
+              <div className="space-y-1.5 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-foreground">Letter</label>
                 <Select value={selectedLetter} onValueChange={setSelectedLetter}>
-                  <SelectTrigger className="h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-xl">
+                  <SelectTrigger className="h-10 sm:h-12 border-2 border-border/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-lg sm:rounded-xl touch-target">
                     <SelectValue placeholder="All Letters" />
                   </SelectTrigger>
                   <SelectContent>
@@ -424,61 +369,65 @@ export function DrugSearch() {
                 </Select>
               </div>
 
-              {/* Clear Filters */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground opacity-0">Clear</label>
+              {/* Clear Filters - Enhanced Responsive */}
+              <div className="space-y-1.5 sm:space-y-2">
+                <label className="text-xs sm:text-sm font-medium text-foreground opacity-0">Clear</label>
                 <Button
                   variant="outline"
                   onClick={clearFilters}
-                  className="w-full h-12 border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 rounded-xl"
+                  className="w-full h-10 sm:h-12 border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 rounded-lg sm:rounded-xl touch-target"
                 >
                   Clear Filters
                 </Button>
               </div>
             </div>
 
-            {/* Active Filters Display */}
+            {/* Active Filters Display - Enhanced Responsive */}
             {(searchTerm || (selectedCategory && selectedCategory !== 'all') || (selectedLetter && selectedLetter !== 'all') || (selectedCondition && selectedCondition !== 'all')) && (
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-border/50">
+              <div className="flex flex-wrap gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border/50">
                 {searchTerm && (
-                  <Badge variant="secondary" className="gap-2 px-3 py-2 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors duration-200">
+                  <Badge variant="secondary" className="gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors duration-200 text-xs sm:text-sm">
                     Search: "{searchTerm}"
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="ml-1 hover:text-primary-dark transition-colors duration-200"
+                      className="ml-1 hover:text-primary-dark transition-colors duration-200 touch-target"
+                      aria-label="Clear search"
                     >
                       ×
                     </button>
                   </Badge>
                 )}
                 {selectedCategory && selectedCategory !== 'all' && (
-                  <Badge variant="secondary" className="gap-2 px-3 py-2 bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 transition-colors duration-200">
+                  <Badge variant="secondary" className="gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 transition-colors duration-200 text-xs sm:text-sm">
                     Category: {selectedCategory}
                     <button
                       onClick={() => setSelectedCategory('all')}
-                      className="ml-1 hover:text-secondary-dark transition-colors duration-200"
+                      className="ml-1 hover:text-secondary-dark transition-colors duration-200 touch-target"
+                      aria-label="Clear category filter"
                     >
                       ×
                     </button>
                   </Badge>
                 )}
                 {selectedCondition && selectedCondition !== 'all' && (
-                  <Badge variant="secondary" className="gap-2 px-3 py-2 bg-accent/10 text-accent border-accent/20 hover:bg-accent/20 transition-colors duration-200">
+                  <Badge variant="secondary" className="gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-accent/10 text-accent border-accent/20 hover:bg-accent/20 transition-colors duration-200 text-xs sm:text-sm">
                     Condition: {selectedCondition}
                     <button
                       onClick={() => setSelectedCondition('all')}
-                      className="ml-1 hover:text-accent-dark transition-colors duration-200"
+                      className="ml-1 hover:text-accent-dark transition-colors duration-200 touch-target"
+                      aria-label="Clear condition filter"
                     >
                       ×
                     </button>
                   </Badge>
                 )}
                 {selectedLetter && selectedLetter !== 'all' && (
-                  <Badge variant="secondary" className="gap-2 px-3 py-2 bg-warning/10 text-warning border-warning/20 hover:bg-warning/20 transition-colors duration-200">
+                  <Badge variant="secondary" className="gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-warning/10 text-warning border-warning/20 hover:bg-warning/20 transition-colors duration-200 text-xs sm:text-sm">
                     Letter: {selectedLetter}
                     <button
                       onClick={() => setSelectedLetter('all')}
-                      className="ml-1 hover:text-warning-dark transition-colors duration-200"
+                      className="ml-1 hover:text-warning-dark transition-colors duration-200 touch-target"
+                      aria-label="Clear letter filter"
                     >
                       ×
                     </button>
@@ -489,64 +438,64 @@ export function DrugSearch() {
           </CardContent>
         </Card>
 
-        {/* Drug Database Statistics */}
+        {/* Drug Database Statistics - Enhanced Responsive */}
         <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.7s'}}>
-          <CardHeader className="pb-6">
-            <CardTitle className="flex items-center gap-3 text-2xl">
-              <div className="p-2 bg-gradient-to-r from-accent to-primary rounded-xl">
-                <Activity className="h-6 w-6 text-white" />
+          <CardHeader className="pb-4 sm:pb-6">
+            <CardTitle className="flex items-center gap-2 sm:gap-3 text-lg sm:text-xl md:text-2xl">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-r from-accent to-primary rounded-lg sm:rounded-xl">
+                <Activity className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
               </div>
               Database Statistics
             </CardTitle>
-            <CardDescription className="text-lg text-muted-foreground">
+            <CardDescription className="text-sm sm:text-base md:text-lg text-muted-foreground">
               Comprehensive overview of our medication database
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Total Drugs */}
-              <div className="text-center p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl border border-primary/20">
-                <div className="text-3xl font-bold text-primary mb-2">{drugs.length}</div>
-                <div className="text-sm text-muted-foreground">Total Medications</div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+              {/* Total Drugs - Enhanced Responsive */}
+              <div className="text-center p-3 sm:p-4 md:p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg sm:rounded-xl border border-primary/20">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-1 sm:mb-2">{drugs.length}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Total Medications</div>
                 <div className="text-xs text-primary/70 mt-1">Comprehensive Coverage</div>
               </div>
               
-              {/* Categories */}
-              <div className="text-center p-6 bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl border border-secondary/20">
-                <div className="text-3xl font-bold text-secondary mb-2">{uniqueCategories.length}</div>
-                <div className="text-sm text-muted-foreground">Drug Categories</div>
+              {/* Categories - Enhanced Responsive */}
+              <div className="text-center p-3 sm:p-4 md:p-6 bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-lg sm:rounded-xl border border-secondary/20">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary mb-1 sm:mb-2">{uniqueCategories.length}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Drug Categories</div>
                 <div className="text-xs text-secondary/70 mt-1">Therapeutic Classes</div>
               </div>
               
-              {/* Conditions */}
-              <div className="text-center p-6 bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl border border-accent/20">
-                <div className="text-3xl font-bold text-accent mb-2">{uniqueConditions.length}</div>
-                <div className="text-sm text-muted-foreground">Medical Conditions</div>
+              {/* Conditions - Enhanced Responsive */}
+              <div className="text-center p-3 sm:p-4 md:p-6 bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg sm:rounded-xl border border-accent/20">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-accent mb-1 sm:mb-2">{uniqueConditions.length}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Medical Conditions</div>
                 <div className="text-xs text-accent/70 mt-1">Treatment Areas</div>
               </div>
               
-              {/* Filtered Results */}
-              <div className="text-center p-6 bg-gradient-to-br from-warning/10 to-warning/5 rounded-xl border border-warning/20">
-                <div className="text-3xl font-bold text-warning mb-2">{filteredDrugs.length}</div>
-                <div className="text-sm text-muted-foreground">Current Results</div>
+              {/* Filtered Results - Enhanced Responsive */}
+              <div className="text-center p-3 sm:p-4 md:p-6 bg-gradient-to-br from-warning/10 to-warning/5 rounded-lg sm:rounded-xl border border-warning/20">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-warning mb-1 sm:mb-2">{filteredDrugs.length}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Current Results</div>
                 <div className="text-xs text-warning/70 mt-1">Filtered Display</div>
               </div>
             </div>
             
-            {/* Additional Stats */}
-            <div className="mt-6 pt-6 border-t border-border/50">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div className="p-4 bg-background/50 rounded-lg">
-                  <div className="text-lg font-semibold text-foreground">A-Z Coverage</div>
-                  <div className="text-sm text-muted-foreground">Complete alphabetical range</div>
+            {/* Additional Stats - Enhanced Responsive */}
+            <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border/50">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 text-center">
+                <div className="p-3 sm:p-4 bg-background/50 rounded-lg">
+                  <div className="text-sm sm:text-base md:text-lg font-semibold text-foreground">A-Z Coverage</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Complete alphabetical range</div>
                 </div>
-                <div className="p-4 bg-background/50 rounded-lg">
-                  <div className="text-lg font-semibold text-foreground">Latest Update</div>
-                  <div className="text-sm text-muted-foreground">{new Date().toLocaleDateString()}</div>
+                <div className="p-3 sm:p-4 bg-background/50 rounded-lg">
+                  <div className="text-sm sm:text-base md:text-lg font-semibold text-foreground">Latest Update</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{new Date().toLocaleDateString()}</div>
                 </div>
-                <div className="p-4 bg-background/50 rounded-lg">
-                  <div className="text-lg font-semibold text-foreground">Data Source</div>
-                  <div className="text-sm text-muted-foreground">Combined Database (V1 + V2)</div>
+                <div className="p-3 sm:p-4 bg-background/50 rounded-lg sm:col-span-2 md:col-span-1">
+                  <div className="text-sm sm:text-base md:text-lg font-semibold text-foreground">Data Source</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Combined Database (V1 + V2)</div>
                 </div>
               </div>
             </div>
@@ -555,68 +504,71 @@ export function DrugSearch() {
 
 
 
-        {/* Results Summary */}
-        <div className="flex items-center justify-between animate-fade-in-up" style={{animationDelay: '2s'}}>
-          <div className="flex items-center gap-4">
-            <p className="text-lg text-muted-foreground">
+        {/* Results Summary - Enhanced Responsive */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 animate-fade-in-up" style={{animationDelay: '2s'}}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
               Showing <span className="font-semibold text-foreground">{filteredDrugs.length}</span> of <span className="font-semibold text-foreground">{drugs.length}</span> medications
             </p>
             
-            {/* Export Results Button */}
-            <div className="flex items-center gap-2">
+            {/* Export Results Button - Enhanced Responsive */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
               <Button 
                 variant="outline" 
                 size="sm" 
                 onClick={exportAllDrugs}
-                className="border-2 border-green-500/20 hover:border-green-500/40 hover:bg-green-500/5 transition-all duration-300"
+                className="border-2 border-green-500/20 hover:border-green-500/40 hover:bg-green-500/5 transition-all duration-300 text-xs sm:text-sm touch-target"
               >
-                <Download className="h-4 w-4 mr-2" />
-                Export All ({drugs.length})
+                <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Export All</span>
+                <span className="sm:hidden">Export All</span> ({drugs.length})
               </Button>
               {filteredDrugs.length !== drugs.length && (
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={exportFilteredDrugs}
-                  className="border-2 border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300"
+                  className="border-2 border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/5 transition-all duration-300 text-xs sm:text-sm touch-target"
                 >
-                  <Download className="h-4 w-4 mr-2" />
-                  Export Results ({filteredDrugs.length})
+                  <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Export Results</span>
+                  <span className="sm:hidden">Export</span> ({filteredDrugs.length})
                 </Button>
               )}
             </div>
           </div>
           
           {filteredDrugs.length === 0 && (
-            <p className="text-lg text-warning flex items-center gap-2">
-              <AlertCircle className="h-5 w-5" />
-              No medications found. Try adjusting your search criteria.
+            <p className="text-sm sm:text-base md:text-lg text-warning flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="hidden sm:inline">No medications found. Try adjusting your search criteria.</span>
+              <span className="sm:hidden">No medications found.</span>
             </p>
           )}
         </div>
 
-        {/* Drug Results */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 animate-fade-in-up" style={{animationDelay: '2.2s'}}>
+        {/* Drug Results - Enhanced Responsive */}
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 animate-fade-in-up" style={{animationDelay: '2.2s'}}>
           {filteredDrugs.map((drug, index) => (
             <Card 
               key={drug.name} 
               className="healthcare-card healthcare-card-hover group cursor-pointer"
               style={{animationDelay: `${2.4 + index * 0.1}s`}}
             >
-              <CardHeader className="pb-4">
+              <CardHeader className="pb-3 sm:pb-4">
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-xl flex items-center gap-3 group-hover:text-primary transition-colors duration-300">
-                      <div className="p-2 bg-gradient-to-r from-primary to-secondary rounded-lg group-hover:scale-110 transition-transform duration-300">
-                        <Pill className="h-5 w-5 text-white" />
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-base sm:text-lg md:text-xl flex items-center gap-2 sm:gap-3 group-hover:text-primary transition-colors duration-300">
+                      <div className="p-1.5 sm:p-2 bg-gradient-to-r from-primary to-secondary rounded-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                        <Pill className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                       </div>
-                      {drug.name}
+                      <span className="truncate">{drug.name}</span>
                     </CardTitle>
-                    <CardDescription className="mt-2 text-muted-foreground">
+                    <CardDescription className="mt-1.5 sm:mt-2 text-muted-foreground text-xs sm:text-sm">
                       {drug.class}
                     </CardDescription>
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 ml-2 flex-shrink-0">
                     <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
                       {drug.category}
                     </Badge>
@@ -637,19 +589,19 @@ export function DrugSearch() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Dosage */}
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-foreground">Dosage</p>
-                  <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg border border-border/50">
+              <CardContent className="space-y-3 sm:space-y-4">
+                {/* Dosage - Enhanced Responsive */}
+                <div className="space-y-1.5 sm:space-y-2">
+                  <p className="text-xs sm:text-sm font-semibold text-foreground">Dosage</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground bg-muted/50 p-2 sm:p-3 rounded-lg border border-border/50">
                     {drug.dosage}
                   </p>
                 </div>
 
-                {/* Indications */}
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-foreground">Indications</p>
-                  <div className="flex flex-wrap gap-2">
+                {/* Indications - Enhanced Responsive */}
+                <div className="space-y-1.5 sm:space-y-2">
+                  <p className="text-xs sm:text-sm font-semibold text-foreground">Indications</p>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {drug.indications.slice(0, 3).map((indication, index) => (
                       <Badge key={index} variant="secondary" className="text-xs bg-secondary/10 text-secondary border-secondary/20">
                         {indication}
@@ -676,24 +628,24 @@ export function DrugSearch() {
                   </div>
                 </div>
 
-                {/* Quick Actions */}
-                <div className="flex gap-3 pt-4 border-t border-border/50">
+                {/* Quick Actions - Enhanced Responsive */}
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border/50">
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="flex-1 h-10 border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 rounded-lg"
+                    className="flex-1 h-9 sm:h-10 border-2 border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 rounded-lg text-xs sm:text-sm touch-target"
                     onClick={() => openDrugDetails(drug)}
                   >
-                    <Info className="h-4 w-4 mr-2" />
+                    <Info className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                     Details
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="flex-1 h-10 border-2 border-border/50 hover:border-secondary/50 hover:bg-secondary/5 transition-all duration-300 rounded-lg"
+                    className="flex-1 h-9 sm:h-10 border-2 border-border/50 hover:border-secondary/50 hover:bg-secondary/5 transition-all duration-300 rounded-lg text-xs sm:text-sm touch-target"
                     onClick={() => openInteractions(drug)}
                   >
-                    <AlertCircle className="h-4 w-4 mr-2" />
+                    <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                     Interactions
                   </Button>
                 </div>
@@ -702,18 +654,18 @@ export function DrugSearch() {
           ))}
         </div>
 
-        {/* No Results Message */}
+        {/* No Results Message - Enhanced Responsive */}
         {filteredDrugs.length === 0 && (
-          <Card className="healthcare-card healthcare-card-hover text-center py-16 animate-fade-in-up" style={{animationDelay: '2.4s'}}>
+          <Card className="healthcare-card healthcare-card-hover text-center py-8 sm:py-12 md:py-16 animate-fade-in-up" style={{animationDelay: '2.4s'}}>
             <CardContent>
-              <div className="w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Search className="h-10 w-10 text-white" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Search className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">No medications found</h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 sm:mb-4">No medications found</h3>
+              <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 max-w-md mx-auto px-4">
                 Try adjusting your search criteria or browse by condition to discover relevant medications
               </p>
-              <Button onClick={clearFilters} variant="outline" className="btn-healthcare-outline">
+              <Button onClick={clearFilters} variant="outline" className="btn-healthcare-outline text-sm sm:text-base touch-target">
                 Clear All Filters
               </Button>
             </CardContent>

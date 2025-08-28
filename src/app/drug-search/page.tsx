@@ -1,3 +1,6 @@
+'use client'
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import { DrugSearch } from '@/components/drug-search';
 
 // Comprehensive drug database with condition-based categorization
@@ -455,8 +458,12 @@ const commonDrugs = [
 
 export default function DrugSearchPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <DrugSearch drugs={commonDrugs} />
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="pt-20">
+        <DrugSearch />
+      </main>
+      <Footer />
     </div>
   );
 }
