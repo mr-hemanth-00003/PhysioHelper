@@ -81,15 +81,24 @@ export function UserProvider({ children }: UserProviderProps) {
       const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
       
       if (userDoc.exists()) {
-        return userDoc.data() as User;
+        const existingUser = userDoc.data() as User;
+        // Update last login
+        await setDoc(doc(db, 'users', firebaseUser.uid), {
+          ...existingUser,
+          lastLogin: new Date().toISOString()
+        }, { merge: true });
+        return { ...existingUser, lastLogin: new Date().toISOString() };
       }
 
       // Create new user profile if doesn't exist
+      const displayName = firebaseUser.displayName || '';
+      const nameParts = displayName.split(' ').filter((part: string) => part.trim() !== '');
+      
       const newUser: User = {
         id: firebaseUser.uid,
         email: firebaseUser.email || '',
-        firstName: firebaseUser.displayName?.split(' ')[0] || '',
-        lastName: firebaseUser.displayName?.split(' ').slice(1).join(' ') || '',
+        firstName: nameParts[0] || 'User',
+        lastName: nameParts.slice(1).join(' ') || '',
         avatar: firebaseUser.photoURL || '',
         role: 'student',
         preferences: {
@@ -209,9 +218,17 @@ export function UserProvider({ children }: UserProviderProps) {
       const { signInWithPopup } = await import('firebase/auth');
       await signInWithPopup(auth, googleProvider);
       // Don't reset loading here - let onAuthStateChanged handle it
-    } catch (error) {
+    } catch (error: any) {
       setIsLoading(false);
-      throw error;
+      if (error.code === 'auth/popup-closed-by-user') {
+        throw new Error('Sign-in was cancelled');
+      } else if (error.code === 'auth/popup-blocked') {
+        throw new Error('Pop-up was blocked. Please allow pop-ups for this site.');
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        throw new Error('An account already exists with this email using a different sign-in method.');
+      } else {
+        throw new Error('Google sign-in failed. Please try again.');
+      }
     }
   };
 
@@ -222,9 +239,17 @@ export function UserProvider({ children }: UserProviderProps) {
       const { signInWithPopup } = await import('firebase/auth');
       await signInWithPopup(auth, microsoftProvider);
       // Don't reset loading here - let onAuthStateChanged handle it
-    } catch (error) {
+    } catch (error: any) {
       setIsLoading(false);
-      throw error;
+      if (error.code === 'auth/popup-closed-by-user') {
+        throw new Error('Sign-in was cancelled');
+      } else if (error.code === 'auth/popup-blocked') {
+        throw new Error('Pop-up was blocked. Please allow pop-ups for this site.');
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        throw new Error('An account already exists with this email using a different sign-in method.');
+      } else {
+        throw new Error('Microsoft sign-in failed. Please try again.');
+      }
     }
   };
 
@@ -270,19 +295,44 @@ export function UserProvider({ children }: UserProviderProps) {
   const updateProfile = async (updates: Partial<User>) => {
     if (!user) throw new Error('No user logged in');
     
+    // Validate required fields
+    if (updates.firstName && updates.firstName.trim().length === 0) {
+      throw new Error('First name cannot be empty');
+    }
+    if (updates.lastName && updates.lastName.trim().length === 0) {
+      throw new Error('Last name cannot be empty');
+    }
+    if (updates.email && !updates.email.includes('@')) {
+      throw new Error('Please enter a valid email address');
+    }
+    
     setIsLoading(true);
     try {
       const { db } = await import('@/lib/firebase');
       const { updateDoc, doc } = await import('firebase/firestore');
-      const updatedUser = { ...user, ...updates };
+      
+      // Clean up the updates object
+      const cleanUpdates: Partial<User> = {};
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          (cleanUpdates as any)[key] = value;
+        }
+      });
       
       // Update Firestore
-      await updateDoc(doc(db, 'users', user.id), updates);
+      await updateDoc(doc(db, 'users', user.id), cleanUpdates);
       
       // Update local state
+      const updatedUser = { ...user, ...cleanUpdates };
       setUser(updatedUser);
-    } catch (error) {
-      throw error;
+    } catch (error: any) {
+      if (error.code === 'permission-denied') {
+        throw new Error('You do not have permission to update your profile');
+      } else if (error.code === 'unavailable') {
+        throw new Error('Service temporarily unavailable. Please try again later.');
+      } else {
+        throw new Error('Failed to update profile. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -313,15 +363,55 @@ export function UserProvider({ children }: UserProviderProps) {
   };
 
   const changePassword = async (currentPassword: string, newPassword: string) => {
-    // This would require re-authentication and password update
-    // For now, we'll throw an error as it's complex to implement
-    throw new Error('Password change not implemented yet');
+    if (!user) throw new Error('No user logged in');
+    
+    setIsLoading(true);
+    try {
+      const { auth } = await import('@/lib/firebase');
+      const { EmailAuthProvider, reauthenticateWithCredential, updatePassword } = await import('firebase/auth');
+      
+      // Re-authenticate user
+      const credential = EmailAuthProvider.credential(user.email, currentPassword);
+      await reauthenticateWithCredential(auth.currentUser!, credential);
+      
+      // Update password
+      await updatePassword(auth.currentUser!, newPassword);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('wrong-password')) {
+          throw new Error('Current password is incorrect');
+        } else if (error.message.includes('weak-password')) {
+          throw new Error('New password is too weak');
+        }
+      }
+      throw new Error('Failed to change password. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const deleteAccount = async () => {
-    // This would require re-authentication and account deletion
-    // For now, we'll throw an error as it's complex to implement
-    throw new Error('Account deletion not implemented yet');
+    if (!user) throw new Error('No user logged in');
+    
+    setIsLoading(true);
+    try {
+      const { auth, db } = await import('@/lib/firebase');
+      const { deleteUser } = await import('firebase/auth');
+      const { deleteDoc, doc } = await import('firebase/firestore');
+      
+      // Delete user data from Firestore
+      await deleteDoc(doc(db, 'users', user.id));
+      
+      // Delete Firebase user account
+      if (auth.currentUser) {
+        await deleteUser(auth.currentUser);
+      }
+    } catch (error) {
+      console.error('Account deletion error:', error);
+      throw new Error('Failed to delete account. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const value: UserContextType = {

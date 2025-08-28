@@ -32,11 +32,16 @@ export const phoneProvider = new PhoneAuthProvider(auth);
 googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
+googleProvider.addScope('email');
+googleProvider.addScope('profile');
 
 // Configure Microsoft provider
 microsoftProvider.setCustomParameters({
   prompt: 'select_account'
 });
+microsoftProvider.addScope('email');
+microsoftProvider.addScope('profile');
+microsoftProvider.addScope('openid');
 
 // Development mode - connect to emulator if needed
 if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATOR === 'true') {

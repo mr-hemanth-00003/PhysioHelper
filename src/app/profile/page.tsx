@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -36,10 +36,15 @@ import { ClientOnly } from '@/components/client-only';
 
 export default function ProfilePage() {
   const { user, updateProfile, updatePreferences, changePassword, deleteAccount } = useUser();
-  // const router = useRouter();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('profile');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const [profileData, setProfileData] = useState({
     firstName: user?.firstName || '',
@@ -57,8 +62,12 @@ export default function ProfilePage() {
     confirmPassword: ''
   });
 
+  if (!user && isMounted) {
+    router.push('/login');
+    return null;
+  }
+
   if (!user) {
-    // router.push('/login');
     return null;
   }
 
@@ -114,7 +123,7 @@ export default function ProfilePage() {
     if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try {
         await deleteAccount();
-        // router.push('/');
+        router.push('/');
       } catch (error) {
         setMessage({ type: 'error', text: 'Failed to delete account' });
       }

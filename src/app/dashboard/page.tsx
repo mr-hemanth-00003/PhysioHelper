@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -48,12 +48,22 @@ import { ClientOnly } from '@/components/client-only';
 
 export default function DashboardPage() {
   const { user } = useUser();
-  // const router = useRouter();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Redirect if not logged in
+  if (!user && isMounted) {
+    router.push('/login');
+    return null;
+  }
+
+  // Don't render anything if user is not loaded yet
   if (!user) {
-    // router.push('/login');
     return null;
   }
 
@@ -112,10 +122,10 @@ export default function DashboardPage() {
   ];
 
   const quickActions = [
-    { title: 'Continue Learning', icon: Play, action: () => {}, color: 'from-blue-500 to-blue-600' },
-    { title: 'Take Assessment', icon: Target, action: () => {}, color: 'from-green-500 to-green-600' },
-    { title: 'Upload Materials', icon: Plus, action: () => {}, color: 'from-purple-500 to-purple-600' },
-    { title: 'View Resources', icon: BookOpen, action: () => {}, color: 'from-orange-500 to-orange-600' }
+    { title: 'Continue Learning', icon: Play, action: () => router.push('/courses'), color: 'from-blue-500 to-blue-600' },
+    { title: 'Take Assessment', icon: Target, action: () => router.push('/exams'), color: 'from-green-500 to-green-600' },
+    { title: 'Upload Materials', icon: Plus, action: () => router.push('/course-materials'), color: 'from-orange-500 to-orange-600' },
+    { title: 'View Resources', icon: BookOpen, action: () => router.push('/resources'), color: 'from-purple-500 to-purple-600' }
   ];
 
   const formatTime = (hours: number) => {
