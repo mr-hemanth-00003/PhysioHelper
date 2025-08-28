@@ -32,10 +32,11 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { useUser } from '@/contexts/user-context';
+import { ClientOnly } from '@/components/client-only';
 
 export default function ProfilePage() {
   const { user, updateProfile, updatePreferences, changePassword, deleteAccount } = useUser();
-  const router = useRouter();
+  // const router = useRouter();
   const [activeTab, setActiveTab] = useState('profile');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -57,7 +58,7 @@ export default function ProfilePage() {
   });
 
   if (!user) {
-    router.push('/login');
+    // router.push('/login');
     return null;
   }
 
@@ -113,7 +114,7 @@ export default function ProfilePage() {
     if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       try {
         await deleteAccount();
-        router.push('/');
+        // router.push('/');
       } catch (error) {
         setMessage({ type: 'error', text: 'Failed to delete account' });
       }
@@ -128,10 +129,11 @@ export default function ProfilePage() {
   ];
 
   return (
-    <>
-      <Header />
-      
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20">
+    <ClientOnly>
+      <>
+        <Header />
+        
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
           <div className="responsive-container py-8 sm:py-12">
@@ -543,6 +545,7 @@ export default function ProfilePage() {
       </main>
       
       <Footer />
-    </>
-  );
-}
+        </>
+      </ClientOnly>
+    );
+  }

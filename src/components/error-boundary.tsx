@@ -77,7 +77,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
-                onClick={() => window.location.reload()}
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.location.reload();
+                  }
+                }}
                 className="flex items-center gap-2"
               >
                 <RefreshCw className="h-4 w-4" />

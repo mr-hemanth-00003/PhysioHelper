@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Logo } from '@/components/logo';
 import { useUser } from '@/contexts/user-context';
+import { useBrowser } from '@/hooks/use-browser';
 import { 
   Menu, 
   X, 
@@ -40,6 +41,7 @@ import {
 
 export function Header() {
   const { user, logout } = useUser();
+  const isBrowser = useBrowser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -47,16 +49,20 @@ export function Header() {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   useEffect(() => {
+    if (!isBrowser) return;
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isBrowser]);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
+    if (!isBrowser) return;
+    
     const handleClickOutside = (event: MouseEvent) => {
       if (isMobileMenuOpen && !(event.target as Element).closest('.mobile-menu')) {
         setIsMobileMenuOpen(false);
@@ -65,7 +71,7 @@ export function Header() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, isBrowser]);
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -93,7 +99,7 @@ export function Header() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
+      isBrowser && isScrolled 
         ? 'bg-white/95 backdrop-blur-xl border-b border-border/50 shadow-lg' 
         : 'bg-transparent'
     }`}>

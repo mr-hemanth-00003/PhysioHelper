@@ -44,15 +44,16 @@ import {
   ArrowDownRight
 } from 'lucide-react';
 import { useUser } from '@/contexts/user-context';
+import { ClientOnly } from '@/components/client-only';
 
 export default function DashboardPage() {
   const { user } = useUser();
-  const router = useRouter();
+  // const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
 
   // Redirect if not logged in
   if (!user) {
-    router.push('/login');
+    // router.push('/login');
     return null;
   }
 
@@ -111,10 +112,10 @@ export default function DashboardPage() {
   ];
 
   const quickActions = [
-    { title: 'Continue Learning', icon: Play, action: () => router.push('/courses'), color: 'from-blue-500 to-blue-600' },
-    { title: 'Take Assessment', icon: Target, action: () => router.push('/exams'), color: 'from-green-500 to-green-600' },
-    { title: 'Upload Materials', icon: Plus, action: () => router.push('/course-materials'), color: 'from-purple-500 to-purple-600' },
-    { title: 'View Resources', icon: BookOpen, action: () => router.push('/resources'), color: 'from-orange-500 to-orange-600' }
+    { title: 'Continue Learning', icon: Play, action: () => {}, color: 'from-blue-500 to-blue-600' },
+    { title: 'Take Assessment', icon: Target, action: () => {}, color: 'from-green-500 to-green-600' },
+    { title: 'Upload Materials', icon: Plus, action: () => {}, color: 'from-purple-500 to-purple-600' },
+    { title: 'View Resources', icon: BookOpen, action: () => {}, color: 'from-orange-500 to-orange-600' }
   ];
 
   const formatTime = (hours: number) => {
@@ -125,10 +126,11 @@ export default function DashboardPage() {
   };
 
   return (
-    <>
-      <Header />
-      
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-20">
+    <ClientOnly>
+      <>
+        <Header />
+        
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 pt-20">
         {/* Dashboard Header */}
         <section className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white">
           <div className="responsive-container py-8 sm:py-12">
@@ -536,6 +538,7 @@ export default function DashboardPage() {
       </main>
       
       <Footer />
-    </>
-  );
-}
+        </>
+      </ClientOnly>
+    );
+  }
