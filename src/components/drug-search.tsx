@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { comprehensiveDrugs } from '@/lib/combined-drugs';
+import { ResponsiveContainer, ResponsiveGrid, ResponsiveText, ResponsiveHeading, ResponsiveSpacer, ResponsiveCard, ResponsiveSection } from '@/components/ui/responsive-container';
 
 interface Drug {
   name: string;
@@ -283,7 +284,7 @@ export function DrugSearch() {
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-primary/5 animate-fade-in"></div>
         <div className="absolute top-0 left-1/2 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 bg-gradient-to-b from-primary/10 to-transparent blur-2xl sm:blur-3xl transform -translate-x-1/2 animate-fade-in" style={{animationDelay: '0.3s'}}></div>
         
-        <div className="relative responsive-container py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20">
+        <ResponsiveContainer className="relative py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20">
           <div className="text-center space-y-4 sm:space-y-6 animate-fade-in" style={{animationDelay: '0.4s'}}>
             <Badge className="bg-primary/10 text-primary border-primary/20 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium animate-fade-in animate-pulse-glow" style={{animationDelay: '0.6s'}}>
               💊 Comprehensive Drug Database
@@ -314,11 +315,11 @@ export function DrugSearch() {
               </div>
             </div>
           </div>
-        </div>
+        </ResponsiveContainer>
       </section>
 
       {/* Main Content */}
-      <div className="responsive-container py-8 space-y-8">
+      <ResponsiveContainer className="py-8 space-y-8">
         {/* Search and Filters - Enhanced Responsive */}
         <Card className="healthcare-card healthcare-card-hover animate-fade-in-up" style={{animationDelay: '1.6s'}}>
           <CardHeader className="pb-4 sm:pb-6">
@@ -702,7 +703,7 @@ export function DrugSearch() {
             </CardContent>
           </Card>
         )}
-      </div>
+      </ResponsiveContainer>
 
       {/* Drug Details Modal */}
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
