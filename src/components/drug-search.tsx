@@ -300,6 +300,15 @@ export function DrugSearch() {
               Get detailed information on dosage, indications, contraindications, and more.
             </p>
             
+            {/* Medical Disclaimer */}
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 sm:p-4 mt-4 mx-4 animate-fade-in" style={{animationDelay: '1.3s'}}>
+              <p className="text-amber-800 text-xs sm:text-sm text-center">
+                <strong>Medical Disclaimer:</strong> This drug database is for educational purposes only. 
+                It is not a substitute for professional medical advice, diagnosis, or treatment. 
+                Always consult with qualified healthcare professionals before taking any medication.
+              </p>
+            </div>
+            
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 md:gap-4 animate-fade-in px-4" style={{animationDelay: '1.4s'}}>
               <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-primary/10 border border-primary/20 rounded-full">
                 <Pill className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />

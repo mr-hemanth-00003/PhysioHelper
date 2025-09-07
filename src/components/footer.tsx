@@ -237,9 +237,10 @@ export function Footer() {
                 <Link href="/terms" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
                   Terms of Service
                 </Link>
-                <Link href="/cookies" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
-                  Cookie Policy
-                </Link>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-400 text-xs">
+                  Medical Disclaimer: Educational content only. Not a substitute for professional medical advice.
+                </span>
               </div>
             </div>
             

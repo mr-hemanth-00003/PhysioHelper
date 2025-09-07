@@ -96,6 +96,15 @@ export default function HomePage() {
                 practical skills training, and exam preparation resources.
               </p>
               
+              {/* Medical Disclaimer */}
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4 animate-fade-in" style={{animationDelay: '1s'}}>
+                <p className="text-amber-800 text-sm text-center">
+                  <strong>Medical Disclaimer:</strong> This platform provides educational content only. 
+                  It is not a substitute for professional medical advice, diagnosis, or treatment. 
+                  Always consult with qualified healthcare professionals for medical concerns.
+                </p>
+              </div>
+              
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in" style={{animationDelay: '1s'}}>
                 <Button size="lg" className="btn-healthcare text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-pulse-glow animate-fade-in-up w-full sm:w-auto" style={{animationDelay: '1.2s'}} asChild>
                   <Link href="/courses">
