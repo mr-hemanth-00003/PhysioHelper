@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
+import { MobileOptimizer } from './mobile-optimizer';
+import { performanceUtils } from './performance-monitor';
 
 interface PerformanceOptimizerProps {
   children: React.ReactNode;
@@ -18,6 +20,9 @@ export function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
         if (!img.decoding) {
           img.decoding = 'async';
         }
+        
+        // Apply performance optimizations
+        performanceUtils.optimizeImage(img as HTMLImageElement);
       });
     };
 
@@ -32,6 +37,41 @@ export function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
         if (!scriptElement.defer) {
           scriptElement.defer = true;
         }
+      });
+    };
+
+    // Optimize fonts
+    const optimizeFonts = () => {
+      const fontLinks = document.querySelectorAll('link[href*="fonts"]');
+      fontLinks.forEach((link) => {
+        const fontLink = link as HTMLLinkElement;
+        fontLink.rel = 'preload';
+        fontLink.as = 'font';
+        fontLink.crossOrigin = 'anonymous';
+      });
+    };
+
+    // Optimize CSS
+    const optimizeCSS = () => {
+      const styleSheets = document.querySelectorAll('link[rel="stylesheet"]');
+      styleSheets.forEach((link) => {
+        const styleLink = link as HTMLLinkElement;
+        if (!styleLink.media) {
+          styleLink.media = 'all';
+        }
+      });
+    };
+
+    // Preload critical resources
+    const preloadCriticalResources = () => {
+      const criticalResources = [
+        { href: '/fonts/inter-var.woff2', as: 'font', type: 'font/woff2' },
+        { href: '/favicon.ico', as: 'image' },
+        { href: '/og-image.jpg', as: 'image' },
+      ];
+
+      criticalResources.forEach(({ href, as, type }) => {
+        performanceUtils.preloadResource(href, as, type);
       });
     };
 
@@ -71,6 +111,9 @@ export function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
     // Apply optimizations
     optimizeImages();
     optimizeScripts();
+    optimizeFonts();
+    optimizeCSS();
+    preloadCriticalResources();
     suppressConsoleWarnings();
 
     // Cleanup function
@@ -81,7 +124,11 @@ export function PerformanceOptimizer({ children }: PerformanceOptimizerProps) {
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <MobileOptimizer>
+      {children}
+    </MobileOptimizer>
+  );
 }
 
 export default PerformanceOptimizer;

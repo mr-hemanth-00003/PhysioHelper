@@ -10,6 +10,8 @@ import PerformanceOptimizer from "@/components/performance-optimizer";
 import { ClientProviders } from "@/components/client-providers";
 import { ClientScripts } from "@/components/client-scripts";
 import { StructuredData } from "@/components/structured-data";
+import { PerformanceMonitor } from "@/components/performance-monitor";
+import { PreloadResources } from "@/components/lazy-loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -111,6 +113,9 @@ export default function RootLayout({
         {/* Client-side scripts to prevent hydration mismatches */}
         <ClientScripts />
         
+        {/* Preload critical resources */}
+        <PreloadResources />
+        
         {/* Main Content */}
         <div className="relative z-10 pt-20">
           <ClientProviders>
@@ -124,6 +129,9 @@ export default function RootLayout({
         
         {/* Structured Data - Client-side only */}
         <StructuredData />
+        
+        {/* Performance monitoring */}
+        <PerformanceMonitor />
         
         <Toaster />
         <Analytics />

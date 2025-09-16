@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { ServiceWorkerRegister } from './service-worker-register';
 
 export function ClientScripts() {
   useEffect(() => {
@@ -22,12 +23,45 @@ export function ClientScripts() {
         recaptchaScript.src = 'https://www.google.com/recaptcha/enterprise.js?render=6LfmxrQrAAAAAN2F0ug_O9MyVSR3mgURWBNRlewI';
         document.head.appendChild(recaptchaScript);
       }
+
+      // Preload critical resources
+      const criticalResources = [
+        { href: '/fonts/inter-var.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
+        { href: '/favicon.ico', as: 'image' },
+        { href: '/og-image.jpg', as: 'image' },
+      ];
+
+      criticalResources.forEach(({ href, as, type, crossOrigin }) => {
+        if (!document.querySelector(`link[href="${href}"]`)) {
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.href = href;
+          link.as = as;
+          if (type) link.type = type;
+          if (crossOrigin) link.crossOrigin = crossOrigin;
+          document.head.appendChild(link);
+        }
+      });
+
+      // Prefetch likely next pages
+      const prefetchPages = ['/about', '/resources', '/case-studies'];
+      prefetchPages.forEach(page => {
+        if (!document.querySelector(`link[href="${page}"]`)) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = page;
+          document.head.appendChild(link);
+        }
+      });
     };
 
     loadScripts();
   }, []);
 
-  // This component doesn't render anything
-  return null;
+  return (
+    <>
+      <ServiceWorkerRegister />
+    </>
+  );
 }
 
