@@ -15,10 +15,11 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', 'react-icons'],
     optimizeCss: true,
     optimizeServerReact: true,
-    serverComponentsExternalPackages: ['sharp'],
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
-    clientInstrumentationHook: true,
   },
+
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ['sharp'],
 
   // Turbopack configuration (stable)
   turbopack: {
