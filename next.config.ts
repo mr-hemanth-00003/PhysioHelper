@@ -65,8 +65,11 @@ const nextConfig: NextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
-        minSize: 20000,
-        maxSize: 244000,
+        minSize: 5000,
+        maxSize: 150000,
+        minChunks: 1,
+        maxAsyncRequests: 50,
+        maxInitialRequests: 50,
         cacheGroups: {
           default: {
             minChunks: 2,
@@ -79,13 +82,15 @@ const nextConfig: NextConfig = {
             priority: -10,
             chunks: 'all',
             enforce: true,
+            maxSize: 100000,
           },
           react: {
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/,
             name: 'react',
             priority: 20,
             chunks: 'all',
             enforce: true,
+            maxSize: 80000,
           },
           ui: {
             test: /[\\/]src[\\/]components[\\/]ui[\\/]/,
@@ -93,6 +98,31 @@ const nextConfig: NextConfig = {
             priority: 10,
             chunks: 'all',
             enforce: true,
+            maxSize: 80000,
+          },
+          icons: {
+            test: /[\\/]node_modules[\\/](lucide-react|react-icons)[\\/]/,
+            name: 'icons',
+            priority: 15,
+            chunks: 'all',
+            enforce: true,
+            maxSize: 30000,
+          },
+          utils: {
+            test: /[\\/]src[\\/](lib|utils|hooks)[\\/]/,
+            name: 'utils',
+            priority: 5,
+            chunks: 'all',
+            enforce: true,
+            maxSize: 80000,
+          },
+          pages: {
+            test: /[\\/]src[\\/]app[\\/]/,
+            name: 'pages',
+            priority: 1,
+            chunks: 'all',
+            enforce: true,
+            maxSize: 120000,
           },
         },
       };
@@ -101,9 +131,22 @@ const nextConfig: NextConfig = {
     // Tree shaking optimization
     config.optimization.usedExports = true;
     config.optimization.sideEffects = false;
+    config.optimization.providedExports = true;
 
     // Module concatenation
     config.optimization.concatenateModules = !dev;
+
+    // Dead code elimination
+    config.optimization.flagIncludedChunks = true;
+
+    // Module resolution optimization
+    config.resolve = config.resolve || {};
+    config.resolve.modules = ['node_modules'];
+    config.resolve.extensions = ['.js', '.jsx', '.ts', '.tsx', '.json'];
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
 
     // Handle AdSense scripts
     config.externals = config.externals || [];
@@ -111,11 +154,11 @@ const nextConfig: NextConfig = {
       'googlesyndication': 'googlesyndication',
     });
 
-    // Add performance hints
+    // Add performance hints with stricter limits
     config.performance = {
       hints: dev ? false : 'warning',
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000,
+      maxEntrypointSize: 300000, // 300KB
+      maxAssetSize: 300000, // 300KB
     };
 
     // Add bundle analyzer in development
@@ -127,6 +170,43 @@ const nextConfig: NextConfig = {
           openAnalyzer: true,
         })
       );
+    }
+
+    // Add aggressive optimizations for production
+    if (!dev) {
+      // Enable module concatenation
+      config.optimization.concatenateModules = true;
+      
+      // Enable scope hoisting
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
+      
+      // Add compression
+      const CompressionPlugin = require('compression-webpack-plugin');
+      config.plugins.push(
+        new CompressionPlugin({
+          algorithm: 'gzip',
+          test: /\.(js|css|html|svg)$/,
+          threshold: 8192,
+          minRatio: 0.8,
+        })
+      );
+      
+      // Add Terser plugin for better minification
+      const TerserPlugin = require('terser-webpack-plugin');
+      config.optimization.minimizer = [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              drop_console: true,
+              drop_debugger: true,
+              pure_funcs: ['console.log', 'console.info', 'console.debug'],
+            },
+            mangle: true,
+          },
+          extractComments: false,
+        }),
+      ];
     }
 
     return config;

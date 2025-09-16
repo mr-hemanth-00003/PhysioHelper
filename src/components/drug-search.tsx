@@ -10,8 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { comprehensiveDrugs } from '@/lib/combined-drugs';
-
 interface Drug {
   name: string;
   category: string;
@@ -25,8 +23,13 @@ interface Drug {
   conditions: string[];
 }
 
-export function DrugSearch() {
-  const drugs = comprehensiveDrugs;
+interface DrugSearchProps {
+  drugs: Drug[];
+  categories: string[];
+  conditions: string[];
+}
+
+export function DrugSearch({ drugs, categories, conditions }: DrugSearchProps) {
   
   // Debug: Check for duplicates in imported data
   const drugNames = drugs.map(drug => drug.name);
