@@ -230,12 +230,18 @@ export function Footer() {
               <p className="text-slate-400 text-xs sm:text-sm">
                 © {currentYear} PhysioHelper. All rights reserved.
               </p>
-              <div className="flex items-center justify-center sm:justify-start gap-4 mt-1 sm:mt-2">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4 mt-1 sm:mt-2">
                 <Link href="/privacy" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
                   Privacy Policy
                 </Link>
                 <Link href="/terms" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
                   Terms of Service
+                </Link>
+                <Link href="/medical-disclaimers" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
+                  Medical Disclaimers
+                </Link>
+                <Link href="/children-privacy" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
+                  Children's Privacy
                 </Link>
                 <Link href="/cookies" className="text-slate-400 hover:text-white text-xs transition-colors duration-200 touch-target">
                   Cookie Policy

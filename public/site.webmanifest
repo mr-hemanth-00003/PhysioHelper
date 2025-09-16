@@ -1,0 +1,109 @@
+{
+  "name": "PhysioHelper - Physiotherapy Learning Platform",
+  "short_name": "PhysioHelper",
+  "description": "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, and educational resources.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "medical", "healthcare"],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "PhysioHelper Desktop View"
+    },
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "PhysioHelper Mobile View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Access your learning dashboard",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/shortcut-dashboard.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Case Studies",
+      "short_name": "Cases",
+      "description": "Browse clinical case studies",
+      "url": "/case-studies",
+      "icons": [
+        {
+          "src": "/shortcut-cases.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Study Guides",
+      "short_name": "Guides",
+      "description": "Access study guides and resources",
+      "url": "/study-guides",
+      "icons": [
+        {
+          "src": "/shortcut-guides.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "AI Assistant",
+      "short_name": "AI Help",
+      "description": "Get help from AI assistant",
+      "url": "/ai-assistant",
+      "icons": [
+        {
+          "src": "/shortcut-ai.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

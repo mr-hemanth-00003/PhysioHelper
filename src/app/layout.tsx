@@ -20,20 +20,36 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://physiohelper.com'),
-  title: "PhysioHelper - AI-Powered Healthcare Platform",
-  description: "Professional healthcare guidance powered by artificial intelligence. Get personalized assessments, expert advice, and comprehensive wellness plans.",
-  keywords: "healthcare, physiotherapy, AI, wellness, rehabilitation, physical therapy, mental health, preventive care",
+  title: {
+    default: "PhysioHelper - Physiotherapy Learning Platform",
+    template: "%s | PhysioHelper"
+  },
+  description: "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, study guides, and educational resources for healthcare students and professionals.",
+  keywords: "physiotherapy, physical therapy, rehabilitation, clinical skills, case studies, study guides, healthcare education, medical training, physio students, clinical practice, anatomy, physiology, therapeutic exercise, manual therapy",
   authors: [{ name: "PhysioHelper Team" }],
   creator: "PhysioHelper",
   publisher: "PhysioHelper",
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://physiohelper.com',
+  },
   other: {
     "google-adsense-account": "ca-pub-3347120637586448",
     "google-adsense-account-id": "ca-pub-3347120637586448",
   },
   openGraph: {
-    title: "PhysioHelper - AI-Powered Healthcare Platform",
-    description: "Professional healthcare guidance powered by artificial intelligence. Get personalized assessments, expert advice, and comprehensive wellness plans.",
+    title: "PhysioHelper - Physiotherapy Learning Platform",
+    description: "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, study guides, and educational resources for healthcare students and professionals.",
     url: "https://physiohelper.com",
     siteName: "PhysioHelper",
     images: [
@@ -41,7 +57,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "PhysioHelper - AI-Powered Healthcare Platform",
+        alt: "PhysioHelper - Physiotherapy Learning Platform",
       },
     ],
     locale: "en_US",
@@ -49,10 +65,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PhysioHelper - AI-Powered Healthcare Platform",
-    description: "Professional healthcare guidance powered by artificial intelligence. Get personalized assessments, expert advice, and comprehensive wellness plans.",
+    title: "PhysioHelper - Physiotherapy Learning Platform",
+    description: "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, study guides, and educational resources for healthcare students and professionals.",
     images: ["/og-image.jpg"],
+    creator: "@physiohelper",
+    site: "@physiohelper",
   },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
+    yahoo: "your-yahoo-verification-code",
+  },
+  category: "education",
 };
 
 export default function RootLayout({
@@ -63,7 +87,67 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Google AdSense */}
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3347120637586448"
+          crossOrigin="anonymous"
+        ></script>
+        
         {/* Scripts are loaded via ClientScripts component to prevent hydration mismatches */}
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "EducationalOrganization",
+              "name": "PhysioHelper",
+              "url": "https://physiohelper.com",
+              "description": "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, and educational resources.",
+              "logo": "https://physiohelper.com/logo.png",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-9398157255",
+                "contactType": "customer service",
+                "email": "students@physiohelper.com",
+                "availableLanguage": "English"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Mumbai",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "India"
+              },
+              "sameAs": [
+                "https://www.facebook.com/physiohelper",
+                "https://www.twitter.com/physiohelper",
+                "https://www.linkedin.com/company/physiohelper",
+                "https://www.youtube.com/physiohelper"
+              ]
+            })
+          }}
+        />
+        
+        {/* Website Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "PhysioHelper",
+              "url": "https://physiohelper.com",
+              "description": "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, and educational resources.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://physiohelper.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Animated Background */}

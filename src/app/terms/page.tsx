@@ -216,6 +216,47 @@ export default function TermsPage() {
                 </div>
               </div>
 
+              {/* Medical Disclaimers */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Scale className="h-6 w-6 text-red-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
+                      6. Medical Disclaimers
+                    </h3>
+                    <div className="space-y-4">
+                      <p className="text-slate-600 text-base leading-relaxed">
+                        <strong>IMPORTANT MEDICAL DISCLAIMER:</strong> All content on PhysioHelper is for educational 
+                        purposes only and is NOT intended to replace professional medical advice, diagnosis, or treatment.
+                      </p>
+                      <p className="text-slate-600 text-base leading-relaxed">
+                        Users must understand that:
+                      </p>
+                      <ul className="list-disc list-inside text-slate-600 text-base space-y-2 ml-4">
+                        <li>This platform does not provide medical advice or clinical guidance</li>
+                        <li>All clinical decisions must be made by qualified healthcare professionals</li>
+                        <li>Users are responsible for their professional practice and patient safety</li>
+                        <li>Emergency situations require immediate professional medical attention</li>
+                      </ul>
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <p className="text-red-800 text-sm font-semibold">
+                          🚨 NEVER use this platform as a substitute for professional medical consultation, 
+                          diagnosis, or treatment. Always consult with licensed healthcare professionals.
+                        </p>
+                      </div>
+                      <p className="text-slate-600 text-base leading-relaxed">
+                        For complete medical disclaimers, please review our 
+                        <a href="/medical-disclaimers" className="text-blue-600 hover:text-blue-800 underline font-semibold">
+                          Medical Disclaimers page
+                        </a>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Limitation of Liability */}
               <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
                 <div className="flex items-start gap-4">
@@ -224,7 +265,7 @@ export default function TermsPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
-                      6. Limitation of Liability
+                      7. Limitation of Liability
                     </h3>
                     <div className="space-y-4">
                       <p className="text-slate-600 text-base leading-relaxed">
@@ -254,7 +295,7 @@ export default function TermsPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3">
-                      7. Governing Law
+                      8. Governing Law
                     </h3>
                     <p className="text-slate-600 text-base leading-relaxed">
                       These Terms shall be governed by and construed in accordance with the laws of India. 
@@ -272,7 +313,7 @@ export default function TermsPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-                      8. Contact Information
+                      9. Contact Information
                     </h3>
                     <p className="text-blue-100 text-base leading-relaxed mb-6">
                       For any questions, concerns, or complaints regarding these Terms & Conditions, 
