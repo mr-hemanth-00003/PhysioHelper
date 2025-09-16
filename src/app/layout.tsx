@@ -9,6 +9,7 @@ import PerformanceOptimizer from "@/components/performance-optimizer";
 
 import { ClientProviders } from "@/components/client-providers";
 import { ClientScripts } from "@/components/client-scripts";
+import { StructuredData } from "@/components/structured-data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -95,59 +96,6 @@ export default function RootLayout({
         ></script>
         
         {/* Scripts are loaded via ClientScripts component to prevent hydration mismatches */}
-        
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "EducationalOrganization",
-              "name": "PhysioHelper",
-              "url": "https://physiohelper.com",
-              "description": "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, and educational resources.",
-              "logo": "https://physiohelper.com/logo.png",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+91-9398157255",
-                "contactType": "customer service",
-                "email": "students@physiohelper.com",
-                "availableLanguage": "English"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Mumbai",
-                "addressRegion": "Maharashtra",
-                "addressCountry": "India"
-              },
-              "sameAs": [
-                "https://www.facebook.com/physiohelper",
-                "https://www.twitter.com/physiohelper",
-                "https://www.linkedin.com/company/physiohelper",
-                "https://www.youtube.com/physiohelper"
-              ]
-            })
-          }}
-        />
-        
-        {/* Website Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "PhysioHelper",
-              "url": "https://physiohelper.com",
-              "description": "Comprehensive physiotherapy learning platform with clinical case studies, rehabilitation protocols, and educational resources.",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://physiohelper.com/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            })
-          }}
-        />
       </head>
       <body className={`${inter.className} antialiased`}>
         {/* Animated Background */}
@@ -173,6 +121,9 @@ export default function RootLayout({
             </PerformanceOptimizer>
           </ClientProviders>
         </div>
+        
+        {/* Structured Data - Client-side only */}
+        <StructuredData />
         
         <Toaster />
         <Analytics />

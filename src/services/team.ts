@@ -24,7 +24,7 @@ async function isAuthorized() {
   // In a real application, you would check the user's session.
   // For example:
   // const user = await getAuthenticatedUser();
-  // return user?.role === 'instructor' || user?.role === 'admin';
+  // return user?.role === 'instructor';
   return true;
 }
 

@@ -12,7 +12,7 @@ export interface User {
   firstName: string;
   lastName: string;
   avatar?: string;
-  role: 'student' | 'professional' | 'instructor' | 'admin';
+  role: 'student' | 'professional' | 'instructor';
   specialization?: string;
   institution?: string;
   experience?: number;

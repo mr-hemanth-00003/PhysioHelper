@@ -3,14 +3,14 @@ import HybridDatabaseService, { DatabaseUser, DatabaseDrug, DatabaseBook, Databa
 // Sample data for seeding
 export const sampleUsers: Omit<DatabaseUser, 'createdAt' | 'lastActive'>[] = [
   {
-    id: 'admin-user-1',
-    email: 'admin@physiohelper.com',
-    name: 'Admin User',
-    role: 'admin',
+    id: 'teacher-user-1',
+    email: 'teacher@physiohelper.com',
+    name: 'Lead Teacher',
+    role: 'teacher',
     status: 'active',
     profile: {
       institution: 'PhysioHelper University',
-      specialization: 'Platform Administration'
+      specialization: 'Physiotherapy Education'
     }
   },
   {
@@ -50,7 +50,7 @@ export const sampleDrugs: Omit<DatabaseDrug, 'id' | 'createdAt' | 'updatedAt'>[]
     dosage: '500-1000mg every 4-6 hours',
     interactions: ['Warfarin', 'Alcohol'],
     status: 'active',
-    createdBy: 'admin-user-1'
+    createdBy: 'teacher-user-1'
   },
   {
     name: 'Ibuprofen',
@@ -64,7 +64,7 @@ export const sampleDrugs: Omit<DatabaseDrug, 'id' | 'createdAt' | 'updatedAt'>[]
     dosage: '200-400mg every 4-6 hours',
     interactions: ['Blood thinners', 'ACE inhibitors'],
     status: 'active',
-    createdBy: 'admin-user-1'
+    createdBy: 'teacher-user-1'
   },
   {
     name: 'Diclofenac',
@@ -78,7 +78,7 @@ export const sampleDrugs: Omit<DatabaseDrug, 'id' | 'createdAt' | 'updatedAt'>[]
     dosage: '50mg twice daily',
     interactions: ['Blood pressure medications', 'Diuretics'],
     status: 'active',
-    createdBy: 'admin-user-1'
+    createdBy: 'teacher-user-1'
   }
 ];
 
@@ -94,7 +94,7 @@ export const sampleBooks: Omit<DatabaseBook, 'id' | 'createdAt' | 'updatedAt'>[]
     fileSize: 2048576,
     status: 'published',
     tags: ['anatomy', 'physiology', 'first-year'],
-    createdBy: 'admin-user-1',
+    createdBy: 'teacher-user-1',
     downloads: 150,
     views: 300
   },
@@ -109,7 +109,7 @@ export const sampleBooks: Omit<DatabaseBook, 'id' | 'createdAt' | 'updatedAt'>[]
     fileSize: 1536000,
     status: 'published',
     tags: ['pathology', 'second-year', 'fundamentals'],
-    createdBy: 'admin-user-1',
+    createdBy: 'teacher-user-1',
     downloads: 120,
     views: 250
   },
@@ -124,7 +124,7 @@ export const sampleBooks: Omit<DatabaseBook, 'id' | 'createdAt' | 'updatedAt'>[]
     fileSize: 1792000,
     status: 'published',
     tags: ['exercise therapy', 'second-year', 'principles'],
-    createdBy: 'admin-user-1',
+    createdBy: 'teacher-user-1',
     downloads: 180,
     views: 400
   }

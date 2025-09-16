@@ -39,7 +39,7 @@ export interface FirestoreUser {
   id: string;
   email: string;
   name: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: 'student' | 'teacher';
   status: 'active' | 'inactive' | 'suspended';
   createdAt: Timestamp;
   lastActive: Timestamp;

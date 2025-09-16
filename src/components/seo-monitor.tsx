@@ -19,7 +19,7 @@ export function SEOMonitor({
 }: SEOMonitorProps) {
   useEffect(() => {
     // Track page views for SEO monitoring
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'page_view', {
         page_title: pageTitle,
         page_location: pageUrl,
@@ -29,7 +29,7 @@ export function SEOMonitor({
     }
 
     // Track SEO metrics
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'seo_metrics', {
         page_title: pageTitle,
         page_description_length: pageDescription.length,
@@ -53,7 +53,7 @@ export function SEOPerformanceMetrics() {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-contentful-paint') {
             console.log('FCP:', entry.startTime);
-            if (window.gtag) {
+            if (typeof window.gtag === 'function') {
               window.gtag('event', 'web_vitals', {
                 metric_name: 'FCP',
                 metric_value: Math.round(entry.startTime),
@@ -68,7 +68,7 @@ export function SEOPerformanceMetrics() {
       new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
           console.log('LCP:', entry.startTime);
-          if (window.gtag) {
+          if (typeof window.gtag === 'function') {
             window.gtag('event', 'web_vitals', {
               metric_name: 'LCP',
               metric_value: Math.round(entry.startTime),
@@ -81,13 +81,17 @@ export function SEOPerformanceMetrics() {
       // First Input Delay (FID)
       new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          console.log('FID:', entry.processingStart - entry.startTime);
-          if (window.gtag) {
-            window.gtag('event', 'web_vitals', {
-              metric_name: 'FID',
-              metric_value: Math.round(entry.processingStart - entry.startTime),
-              metric_rating: (entry.processingStart - entry.startTime) < 100 ? 'good' : (entry.processingStart - entry.startTime) < 300 ? 'needs_improvement' : 'poor',
-            });
+          const fidEntry = entry as PerformanceEventTiming;
+          if ('processingStart' in fidEntry) {
+            const fid = fidEntry.processingStart - fidEntry.startTime;
+            console.log('FID:', fid);
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'web_vitals', {
+                metric_name: 'FID',
+                metric_value: Math.round(fid),
+                metric_rating: fid < 100 ? 'good' : fid < 300 ? 'needs_improvement' : 'poor',
+              });
+            }
           }
         }
       }).observe({ entryTypes: ['first-input'] });
@@ -96,12 +100,13 @@ export function SEOPerformanceMetrics() {
       let clsValue = 0;
       new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
+          const clsEntry = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+          if (!clsEntry.hadRecentInput && 'value' in clsEntry) {
+            clsValue += clsEntry.value || 0;
           }
         }
         console.log('CLS:', clsValue);
-        if (window.gtag) {
+        if (typeof window.gtag === 'function') {
           window.gtag('event', 'web_vitals', {
             metric_name: 'CLS',
             metric_value: Math.round(clsValue * 1000),
@@ -120,9 +125,13 @@ export function SEOHealthCheck() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Check for essential SEO elements
+      const descriptionElement = document.querySelector('meta[name="description"]');
+      const descriptionContent = descriptionElement?.getAttribute('content');
+      const descriptionLength = descriptionContent?.length || 0;
+      
       const checks = {
         title: document.title && document.title.length > 10 && document.title.length < 60,
-        description: document.querySelector('meta[name="description"]')?.getAttribute('content')?.length > 120 && document.querySelector('meta[name="description"]')?.getAttribute('content')?.length < 160,
+        description: descriptionLength > 120 && descriptionLength < 160,
         h1: document.querySelector('h1') !== null,
         canonical: document.querySelector('link[rel="canonical"]') !== null,
         ogTitle: document.querySelector('meta[property="og:title"]') !== null,
@@ -142,7 +151,7 @@ export function SEOHealthCheck() {
         checks,
       });
 
-      if (window.gtag) {
+      if (typeof window.gtag === 'function') {
         window.gtag('event', 'seo_health_check', {
           seo_score: percentage,
           seo_checks_passed: score,
@@ -165,7 +174,7 @@ export function SEOErrorTracker() {
         try {
           const response = await originalFetch(...args);
           if (response.status === 404) {
-            if (window.gtag) {
+            if (typeof window.gtag === 'function') {
               window.gtag('event', 'seo_error', {
                 error_type: '404',
                 error_url: args[0],
@@ -175,10 +184,10 @@ export function SEOErrorTracker() {
           }
           return response;
         } catch (error) {
-          if (window.gtag) {
+          if (typeof window.gtag === 'function') {
             window.gtag('event', 'seo_error', {
               error_type: 'fetch_error',
-              error_message: error.message,
+              error_message: error instanceof Error ? error.message : 'Unknown error',
               error_timestamp: new Date().toISOString(),
             });
           }
@@ -188,7 +197,7 @@ export function SEOErrorTracker() {
 
       // Track JavaScript errors
       window.addEventListener('error', (event) => {
-        if (window.gtag) {
+        if (typeof window.gtag === 'function') {
           window.gtag('event', 'seo_error', {
             error_type: 'javascript_error',
             error_message: event.message,
@@ -201,7 +210,7 @@ export function SEOErrorTracker() {
 
       // Track unhandled promise rejections
       window.addEventListener('unhandledrejection', (event) => {
-        if (window.gtag) {
+        if (typeof window.gtag === 'function') {
           window.gtag('event', 'seo_error', {
             error_type: 'unhandled_promise_rejection',
             error_message: event.reason?.message || 'Unknown error',

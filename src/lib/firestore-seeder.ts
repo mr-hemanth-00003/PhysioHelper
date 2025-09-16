@@ -35,15 +35,15 @@ export const sampleUsers: Omit<FirestoreUser, 'id' | 'createdAt' | 'lastActive'>
     }
   },
   {
-    email: 'admin@physiohelper.com',
-    name: 'Admin User',
-    role: 'admin',
+    email: 'teacher@physiohelper.com',
+    name: 'Lead Teacher',
+    role: 'teacher',
     status: 'active',
     profile: {
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
       phone: '+1-555-0125',
       institution: 'PhysioHelper',
-      specialization: 'System Administration'
+      specialization: 'Physiotherapy Education'
     }
   },
   {
@@ -85,7 +85,7 @@ export const sampleDrugs: Omit<FirestoreDrug, 'id' | 'createdAt' | 'updatedAt'>[
     dosage: '500-1000mg every 4-6 hours as needed',
     interactions: ['Warfarin', 'Alcohol'],
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     name: 'Ibuprofen',
@@ -99,7 +99,7 @@ export const sampleDrugs: Omit<FirestoreDrug, 'id' | 'createdAt' | 'updatedAt'>[
     dosage: '200-400mg every 4-6 hours as needed',
     interactions: ['Aspirin', 'Blood thinners'],
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     name: 'Amoxicillin',
@@ -113,7 +113,7 @@ export const sampleDrugs: Omit<FirestoreDrug, 'id' | 'createdAt' | 'updatedAt'>[
     dosage: '250-500mg three times daily',
     interactions: ['Birth control pills', 'Methotrexate'],
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   }
 ];
 
@@ -129,7 +129,7 @@ export const sampleBooks: Omit<FirestoreBook, 'id' | 'createdAt' | 'updatedAt' |
     fileSize: 25.6, // MB
     status: 'published',
     tags: ['anatomy', 'physiology', 'first-year', 'foundation'],
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     title: 'Biomechanics and Kinesiology',
@@ -142,7 +142,7 @@ export const sampleBooks: Omit<FirestoreBook, 'id' | 'createdAt' | 'updatedAt' |
     fileSize: 18.9, // MB
     status: 'published',
     tags: ['biomechanics', 'kinesiology', 'second-year', 'movement'],
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     title: 'Clinical Practice in Physiotherapy',
@@ -155,7 +155,7 @@ export const sampleBooks: Omit<FirestoreBook, 'id' | 'createdAt' | 'updatedAt' |
     fileSize: 32.1, // MB
     status: 'published',
     tags: ['clinical', 'practice', 'third-year', 'assessment'],
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   }
 ];
 
@@ -167,7 +167,7 @@ export const sampleCourses: Omit<FirestoreCourse, 'id' | 'createdAt' | 'updatedA
     duration: 120, // hours
     difficulty: 'beginner',
     status: 'active',
-    createdBy: 'admin@physiohelper.com',
+    createdBy: 'teacher@physiohelper.com',
     tags: ['anatomy', 'physiology', 'foundation'],
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
   },
@@ -178,7 +178,7 @@ export const sampleCourses: Omit<FirestoreCourse, 'id' | 'createdAt' | 'updatedA
     duration: 90, // hours
     difficulty: 'intermediate',
     status: 'active',
-    createdBy: 'admin@physiohelper.com',
+    createdBy: 'teacher@physiohelper.com',
     tags: ['biomechanics', 'kinesiology', 'movement'],
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
   },
@@ -189,7 +189,7 @@ export const sampleCourses: Omit<FirestoreCourse, 'id' | 'createdAt' | 'updatedA
     duration: 75, // hours
     difficulty: 'advanced',
     status: 'active',
-    createdBy: 'admin@physiohelper.com',
+    createdBy: 'teacher@physiohelper.com',
     tags: ['manual-therapy', 'techniques', 'hands-on'],
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
   },
@@ -200,7 +200,7 @@ export const sampleCourses: Omit<FirestoreCourse, 'id' | 'createdAt' | 'updatedA
     duration: 105, // hours
     difficulty: 'intermediate',
     status: 'active',
-    createdBy: 'admin@physiohelper.com',
+    createdBy: 'teacher@physiohelper.com',
     tags: ['assessment', 'clinical-reasoning', 'diagnosis'],
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
   },
@@ -211,7 +211,7 @@ export const sampleCourses: Omit<FirestoreCourse, 'id' | 'createdAt' | 'updatedA
     duration: 90, // hours
     difficulty: 'intermediate',
     status: 'active',
-    createdBy: 'admin@physiohelper.com',
+    createdBy: 'teacher@physiohelper.com',
     tags: ['exercise', 'therapy', 'rehabilitation'],
     thumbnail: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
   }
@@ -228,7 +228,7 @@ export const sampleAssessments: Omit<FirestoreAssessment, 'id' | 'createdAt' | '
     passingScore: 70,
     attempts: 3,
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     title: 'Biomechanics Test',
@@ -240,7 +240,7 @@ export const sampleAssessments: Omit<FirestoreAssessment, 'id' | 'createdAt' | '
     passingScore: 75,
     attempts: 2,
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   },
   {
     title: 'Clinical Skills Assessment',
@@ -252,7 +252,7 @@ export const sampleAssessments: Omit<FirestoreAssessment, 'id' | 'createdAt' | '
     passingScore: 80,
     attempts: 1,
     status: 'active',
-    createdBy: 'admin@physiohelper.com'
+    createdBy: 'teacher@physiohelper.com'
   }
 ];
 

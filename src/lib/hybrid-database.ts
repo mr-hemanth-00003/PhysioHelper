@@ -43,7 +43,7 @@ const CREATE_TABLES_SQL = `
     id VARCHAR(255) PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    role VARCHAR(50) DEFAULT 'student' CHECK (role IN ('student', 'teacher', 'admin')),
+    role VARCHAR(50) DEFAULT 'student' CHECK (role IN ('student', 'teacher')),
     status VARCHAR(50) DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'suspended')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -148,7 +148,7 @@ export interface DatabaseUser {
   id: string;
   email: string;
   name: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: 'student' | 'teacher';
   status: 'active' | 'inactive' | 'suspended';
   createdAt: Date;
   lastActive: Date;
